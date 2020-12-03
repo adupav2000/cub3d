@@ -1,6 +1,6 @@
 NAME		= Cub3D_EXE
 
-SRCS		= main.c \
+SRCS		= main.c parsing.c \
 
 
 OBJS		= ${SRCS:.c=.o}
@@ -15,7 +15,8 @@ CC			= gcc
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
-	$(CC) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	gcc -I /opt/X11/include -g -L /opt/X11/lib -l mlx \
+			-framework OpenGL -framework AppKit $(SRCS) -lm libft/libft.a  
 
 all:		${NAME}
 
