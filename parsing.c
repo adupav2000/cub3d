@@ -3,29 +3,31 @@
 int parsing(t_map *map_info, data_t *data)
 {
     int file_desc;
-    char **line; 
+    char *line; 
     int error_check;
     
     error_check = 0;
     line = NULL;
     file_desc = open("config_cub3d", O_RDONLY);    
-    char *ptr = *line;
-    while (get_next_line(file_desc, line) && !error_check)
+    while (get_next_line(file_desc, &line) && !error_check)
     {
-        write(1, ptr, 2);
-        write(1, &"\n", 1);
-        if (ft_strncmp(*line, "R ", 2) && ft_strncmp(*line, "NO ", 3) &&
-                ft_strncmp(*line, "SO ", 3) && ft_strncmp(*line, "WE ", 3) &&
-                ft_strncmp(*line, "EA ", 3) && ft_strncmp(*line, "S ", 2) &&
-                ft_strncmp(*line, "F ", 2) && ft_strncmp(*line, "C ", 2) &&
-                ft_strncmp(*line, "  ", 2) && ft_strncmp(*line, "1", 1)) 
+        if (ft_strncmp(line, "R ", 2) && ft_strncmp(line, "NO ", 3) &&
+                ft_strncmp(line, "SO ", 3) && ft_strncmp(line, "WE ", 3) &&
+                ft_strncmp(line, "EA ", 3) && ft_strncmp(line, "S ", 2) &&
+                ft_strncmp(line, "F ", 2) && ft_strncmp(line, "C ", 2) &&
+                ft_strncmp(line, "  ", 2) && ft_strncmp(line, "1", 1)) 
             return (-1);
-        if (!ft_strncmp(*line, "R ", 2)) 
-            error_check = handle_resolution(line, map_info);
-        if (!ft_strncmp(*line, "NO ", 3) || !ft_strncmp(*line, "SO ", 3) 
-            || !ft_strncmp(*line, "WE ", 3) || !ft_strncmp(*line, "EA ", 3) 
-            || !ft_strncmp(*line, "S ", 2))
-            error_check = handle_textures(line, map_info, data);
+        if (!ft_strncmp(line, "R ", 2)) 
+        {
+            write(1, &"hello\n", 6 );
+            error_check = handle_resolution(&line, map_info);
+        }
+        if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3) 
+            || !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3) 
+            || !ft_strncmp(line, "S ", 2))
+        {
+            error_check = handle_textures(&line, map_info, data);
+        }
     }
     return (error_check);
 }
@@ -55,9 +57,12 @@ int    handle_resolution(char **line, t_map *map_info)
 int     handle_textures(char **line, t_map *map_info, data_t *data)
 {
     if (!ft_strncmp(line[0], "NO ", 3))
+    {
+        write(1, &"hello\n", 6);
          if ((map_info->te_no = mlx_xpm_file_to_image(data->mlx_ptr, &line[0][2], 
             &map_info->te_no_width, &map_info->te_no_height)) == NULL)
              return (-1);
+    }
     if (!ft_strncmp(line[0], "SO ", 3))
          if ((map_info->te_so = mlx_xpm_file_to_image(data->mlx_ptr, &line[0][2], 
             &map_info->te_so_width, &map_info->te_so_height)) == NULL)
@@ -108,9 +113,9 @@ int read_table(int file_desc, char **line, t_map *map_info)
     int i;
 
     i = 0;
-    ft_strncpy(map_info->plan[i++], line[0], ft_strlen(line[0]));
+    ft_strlcpy(map_info->plan[i++], line[0], ft_strlen(line[0]));
     while (get_next_line(file_desc, line))
-        ft_strncpy(map_info->plan[i++], line[0], ft_strlen(line[0]));
+        ft_strlcpy(map_info->plan[i++], line[0], ft_strlen(line[0]));
     return (0);
 }
 

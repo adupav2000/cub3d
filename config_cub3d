@@ -1,9 +1,9 @@
-R 1234 1100
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-S ./path_to_the_sprite_texture
+R 100 100
+NO ./img/brick.xpm
+SO ./img/rock.xpm
+WE ./img/south_texture.xpm
+EA ./img/rock.xpm
+S ./img/rock.xpm
 F 220,100,0
 C 225,30,0
 1111111111111111111
