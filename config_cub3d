@@ -1,9 +1,9 @@
-R 100 100
-NO ./img/brick.xpm
-SO ./img/rock.xpm
-WE ./img/south_texture.xpm
-EA ./img/rock.xpm
-S ./img/rock.xpm
+R 1000 1000
+NO img/brick.xpm
+SO img/rock.xpm
+WE img/south_texture.xpm
+EA img/rock.xpm
+S img/rock.xpm
 F 220,100,0
 C 225,30,0
 1111111111111111111

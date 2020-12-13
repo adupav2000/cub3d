@@ -12,7 +12,7 @@ CFLAGS		=  -Wall -Werror -Wextra
 CC			= gcc
 
 .c.o:
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+	${CC} -c $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
 	gcc -I /opt/X11/include -g -L /opt/X11/lib -l mlx \

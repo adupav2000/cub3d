@@ -8,7 +8,7 @@ int parsing(t_map *map_info, data_t *data)
     
     error_check = 0;
     line = NULL;
-    file_desc = open("config_cub3d", O_RDONLY);    
+    file_desc = open("config_cub3d", O_RDONLY);
     while (get_next_line(file_desc, &line) && !error_check)
     {
         if (ft_strncmp(line, "R ", 2) && ft_strncmp(line, "NO ", 3) &&
@@ -18,10 +18,7 @@ int parsing(t_map *map_info, data_t *data)
                 ft_strncmp(line, "  ", 2) && ft_strncmp(line, "1", 1)) 
             return (-1);
         if (!ft_strncmp(line, "R ", 2)) 
-        {
-            write(1, &"hello\n", 6 );
             error_check = handle_resolution(&line, map_info);
-        }
         if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3) 
             || !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3) 
             || !ft_strncmp(line, "S ", 2))
@@ -44,7 +41,7 @@ int    handle_resolution(char **line, t_map *map_info)
         9999 : map_info->window_width;
     // vérifier que l'image ne soit pas trop grande
     // il manque une fonction pour ça (trouver la taille max et l'assigner)
-    while (line[0][i] != ' ')
+    while (line[0][i] != ' ' && line[0][i])
     {
         i++;
     }
@@ -56,28 +53,30 @@ int    handle_resolution(char **line, t_map *map_info)
 
 int     handle_textures(char **line, t_map *map_info, data_t *data)
 {
+    int i = 0;
+
+    i = 2;
+    while (line[0][i] && !ft_isalpha(line[0][i]))
+        i++;
     if (!ft_strncmp(line[0], "NO ", 3))
-    {
-        write(1, &"hello\n", 6);
-         if ((map_info->te_no = mlx_xpm_file_to_image(data->mlx_ptr, &line[0][2], 
-            &map_info->te_no_width, &map_info->te_no_height)) == NULL)
-             return (-1);
-    }
+        if ((map_info->te_no.img = mlx_xpm_file_to_image(data->mlx_ptr, &line[0][i], 
+            &(map_info->te_no.width), &(map_info->te_no.height))) == NULL)
+            return (-1);
     if (!ft_strncmp(line[0], "SO ", 3))
-         if ((map_info->te_so = mlx_xpm_file_to_image(data->mlx_ptr, &line[0][2], 
-            &map_info->te_so_width, &map_info->te_so_height)) == NULL)
+         if ((map_info->te_so.img = mlx_xpm_file_to_image(data->mlx_ptr, &line[0][2], 
+            &map_info->te_so.width, &map_info->te_so.height)) == NULL)
              return (-1);
     if (!ft_strncmp(line[0], "WE ", 3))
-         if ((map_info->te_we = mlx_xpm_file_to_image(data->mlx_ptr, &line[0][2], 
-            &map_info->te_we_width, &map_info->te_we_height)) == NULL)
+         if ((map_info->te_we.img = mlx_xpm_file_to_image(data->mlx_ptr, &line[0][2], 
+            &map_info->te_we.width, &map_info->te_we.height)) == NULL)
              return (-1);
     if (!ft_strncmp(line[0], "EA ", 3))
-         if ((map_info->te_ea = mlx_xpm_file_to_image(data->mlx_ptr, &line[0][2], 
-            &map_info->te_ea_width, &map_info->te_ea_height)) == NULL)
+         if ((map_info->te_ea.img = mlx_xpm_file_to_image(data->mlx_ptr, &line[0][2], 
+            &map_info->te_ea.width, &map_info->te_ea.height)) == NULL)
              return (-1);
     if (!ft_strncmp(line[0], "S ", 2))
-         if ((map_info->te_s = mlx_xpm_file_to_image(data->mlx_ptr, &line[0][1], 
-            &map_info->te_ea_width, &map_info->te_ea_height)) == NULL)
+         if ((map_info->te_s.img = mlx_xpm_file_to_image(data->mlx_ptr, &line[0][2], 
+            &map_info->te_s.width, &map_info->te_s.height)) == NULL)
              return (-1);
     return (0);
 }

@@ -35,6 +35,17 @@ typedef struct s_player {
 
 } t_player;
 
+typedef struct  s_img {
+    void        *img;
+    char        *addr;
+    int         bits_per_pixel;
+    int         line_length;
+    int         width;
+    int         height;
+    int         endian;
+}               t_img;
+
+
 typedef struct s_map{
     int window_height;
     int window_width;
@@ -42,25 +53,15 @@ typedef struct s_map{
     int     color_floor;
     int     color_ceiling;
 
-    void    *te_no;
-    int     te_no_width;
-    int     te_no_height;
-
-    void    *te_so;
-    int     te_so_width;
-    int     te_so_height;
-
-    void    *te_we;
-    int     te_we_width;
-    int     te_we_height;
+    t_img   te_no;
     
-    void    *te_ea;
-    int     te_ea_width;
-    int     te_ea_height;
+    t_img   te_so;
 
-    void    *te_s;
-    int     te_s_width;
-    int     te_s_height;
+    t_img   te_we;
+    
+    t_img   te_ea;
+
+    t_img   te_s;
     
     char    **plan;
 } t_map;
