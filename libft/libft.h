@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 15:49:50 by adu-pavi          #+#    #+#             */
-/*   Updated: 2020/11/24 09:28:25 by AlainduPa        ###   ########.fr       */
+/*   Updated: 2020/12/18 10:43:01 by AlainduPa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void			*ft_memalloc(size_t size);
 void			ft_memdel(void **ap);
 char			*ft_strcat(char *s1, const char *s2);
 void			ft_strclr(char*s);
-char			*ft_stpcpy(char *dst, const char *src);
+char			*ft_strcpy(char *dst, const char *src);
 void			ft_strdel(char **as);
 char			*ft_strdup(const char *s1);
 char			*ft_strnew(size_t size);

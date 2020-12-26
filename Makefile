@@ -1,7 +1,10 @@
 NAME		= Cub3D_EXE
 
-SRCS		= main.c parsing.c \
+PARSING_DIR = config
+PARSING_SRCS = config/parsing.c config/textures.c config/colors.c\
+			   config/map.c engine/raycasting.c
 
+SRCS		= main.c $(PARSING_SRCS) \
 
 OBJS		= ${SRCS:.c=.o}
 
