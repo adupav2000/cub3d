@@ -6,7 +6,7 @@
 /*   By: AlainduPavillon <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 21:32:03 by AlainduPa         #+#    #+#             */
-/*   Updated: 2020/12/26 16:37:09 by AlainduPa        ###   ########.fr       */
+/*   Updated: 2020/12/27 11:42:40 by AlainduPa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void init_player(t_player *player)
 {
     printf("init_player\n");
-    player->posX = 22;
-    player->posY = 12;
+    player->posX = 3;
+    player->posY = 3;
     player->dirX = -1;
     player->dirY = 0;
     player->planeX = 0;
@@ -24,6 +24,8 @@ void init_player(t_player *player)
     player->time = 0;
     player->old_time = 0;
     player->hit = 0;
+    player->mapX = 0;
+    player->mapY = 0;
 }    
 
 void init_map(t_map *map_info)
@@ -39,6 +41,8 @@ void init_map(t_map *map_info)
     map_info->te_ea.img = NULL;
     map_info->te_s.img = NULL;
     map_info->plan_height = 0;
+    map_info->plan_width = 0;
+    map_info->plan = NULL;
 }
 
 
@@ -49,14 +53,11 @@ int    handle_resolution(char *line, t_map *map_info)
     i = 0;
     while (!ft_isdigit(line[i]))
         i++;
-    printf("hello %d\n", ft_atoi(&line[i]));
     map_info->window_width = ft_atoi(&(line[i]));
-    printf("hello\n");
     map_info->window_width = map_info->window_width > 9999 ? 
         9999 : map_info->window_width;
     // vérifier que l'image ne soit pas trop grande
     // il manque une fonction pour ça (trouver la taille max et l'assigner)
-    printf("hello\n");
     while (line[i] != ' ' && line[i])
     {
         i++;
@@ -92,22 +93,10 @@ int everything_was_set(t_map *map_info)
     return (0);
 }
 
-int read_table(int file_desc, char **line, t_map *map_info)
-{
-    int i;
-
-    i = 0;
-    ft_strlcpy(map_info->plan[i++], line[0], ft_strlen(line[0]));
-    while (get_next_line(file_desc, line))
-        ft_strlcpy(map_info->plan[i++], line[0], ft_strlen(line[0]));
-    return (0);
-}
-
 int parse_line(char *line, t_data *data, t_map *map_info)
 {
     if (!line[0])
         return (0);
-    // condition that normally handles the map
     if ((!ft_strncmp(line, "  ", 2) || !ft_strncmp(line, "1", 1))
             && !everything_was_set(map_info)) 
         return (parse_map_line(map_info, line));
@@ -125,17 +114,16 @@ int parse_line(char *line, t_data *data, t_map *map_info)
 int parsing(t_game *game)
 {
     int file_desc;
-    char **line; 
+    char *line; 
     int error_check;
 
-    printf("player->posX %d\n", game->player->dirX);
     init_map(&game->map_info);
     init_player(&game->player); 
     error_check = 0;
     line = NULL;
     file_desc = open("config_cub3d", O_RDONLY);
-    while (get_next_line(file_desc, line) && !error_check)
-        error_check = parse_line(line[0], game->mlx, game->map_info);
-    error_check = everything_was_set(game->map_info);
+    while (get_next_line(file_desc, &line) && !error_check)
+        error_check = parse_line(line, &game->mlx, &game->map_info);
+    error_check = everything_was_set(&game->map_info);
     return (error_check);
 }
