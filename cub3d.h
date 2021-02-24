@@ -6,7 +6,7 @@
 /*   By: AlainduPavillon <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2020/12/23 15:20:01 by AlainduPa        ###   ########.fr       */
+/*   Updated: 2021/02/24 21:26:25 by AlainduPa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ typedef struct    data_s
     void          *mlx_ptr;
     void          *mlx_win;
 }                 t_data;
+
+typedef struct s_str{
+   char          *line;
+   struct s_str  *next;
+}   t_str;
 
 typedef struct s_player {
     /*the users position*/
@@ -85,7 +90,7 @@ typedef struct s_player {
     /*color of the wall that is being drawn right after*/
     int wallColor;
     /*Image used as buffer to be written in the page*/
-    t_img *current_image;
+    t_img current_image;
 } t_player;
 
 typedef struct s_map{
@@ -98,14 +103,15 @@ typedef struct s_map{
     t_img   te_we;
     t_img   te_ea;
     t_img   te_s;
-    char    **plan;
+    t_str   *plan;
     int     plan_height;
+    int     plan_width;
 } t_map;
 
 typedef struct s_game{
-    t_map       *map_info;
-    t_player    *player;
-    t_data      *mlx;
+    t_map       map_info;
+    t_player    player;
+    t_data      mlx;
 } t_game;
 
 void            my_mlx_pixel_put(t_img *data, int x, int y, int color);
@@ -117,8 +123,12 @@ int     load_texture(char *tex_link, t_img *img, t_data *mlx);
 int     parse_line(char *line, t_data *data, t_map *map_info);
 int     handle_colors(char **line, t_map *map_info);
 int     parse_map_line(t_map *map, char *line);
+char    ft_map(t_str *map, int width, int height);
 
-int     drawVertLineFromColor(t_img *img_to_change, int x, int y_begin, int len, 
+int     drawVertLineFromColor(t_img img_to_change, int x, int y_begin, int len, 
             int color);
 int     raycasting(t_game *game);
+
+
+void perform_dda(t_game *game);
 #endif
