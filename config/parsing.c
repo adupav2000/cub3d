@@ -6,15 +6,15 @@
 /*   By: AlainduPavillon <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 21:32:03 by AlainduPa         #+#    #+#             */
-/*   Updated: 2020/12/27 11:42:40 by AlainduPa        ###   ########.fr       */
+/*   Updated: 2021/02/24 22:19:54 by AlainduPa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../cub3d.h" 
 
 void init_player(t_player *player)
 {
-    printf("init_player\n");
     player->posX = 3;
     player->posY = 3;
     player->dirX = -1;
@@ -30,7 +30,6 @@ void init_player(t_player *player)
 
 void init_map(t_map *map_info)
 {
-    printf("init_map\n");
     map_info->window_height = 0;
     map_info->window_width = 0;
     map_info->color_floor = 0;
@@ -44,7 +43,6 @@ void init_map(t_map *map_info)
     map_info->plan_width = 0;
     map_info->plan = NULL;
 }
-
 
 int    handle_resolution(char *line, t_map *map_info)
 {
@@ -90,6 +88,7 @@ int everything_was_set(t_map *map_info)
         return (-1);
     if (map_info->te_s.img == NULL)
         return (-1);
+    // MAP CHECK MISSING
     return (0);
 }
 
@@ -123,7 +122,12 @@ int parsing(t_game *game)
     line = NULL;
     file_desc = open("config_cub3d", O_RDONLY);
     while (get_next_line(file_desc, &line) && !error_check)
+    {
         error_check = parse_line(line, &game->mlx, &game->map_info);
+    }
     error_check = everything_was_set(&game->map_info);
+    free(line);
+    close(file_desc);
     return (error_check);
 }
+

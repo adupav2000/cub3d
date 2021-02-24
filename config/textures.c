@@ -6,7 +6,7 @@
 /*   By: AlainduPavillon <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 21:32:10 by AlainduPa         #+#    #+#             */
-/*   Updated: 2020/12/23 12:33:41 by AlainduPa        ###   ########.fr       */
+/*   Updated: 2021/02/08 08:17:52 by AlainduPa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int     handle_textures(char **line, t_map *map_info, t_data *data)
 
 int load_texture(char *tex_link, t_img *img, t_data *mlx)
 {
+    printf ("tex link : %s\n", tex_link);
     if ((img->img = mlx_xpm_file_to_image(mlx->mlx_ptr, tex_link, 
             &img->width, &img->height)) != NULL)
     {
