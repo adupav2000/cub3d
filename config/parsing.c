@@ -6,7 +6,7 @@
 /*   By: AlainduPavillon <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 21:32:03 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/02/24 22:19:54 by AlainduPa        ###   ########.fr       */
+/*   Updated: 2021/02/27 16:22:26 by AlainduPa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,7 @@ int parsing(t_game *game)
     line = NULL;
     file_desc = open("config_cub3d", O_RDONLY);
     while (get_next_line(file_desc, &line) && !error_check)
-    {
         error_check = parse_line(line, &game->mlx, &game->map_info);
-    }
     error_check = everything_was_set(&game->map_info);
     free(line);
     close(file_desc);
