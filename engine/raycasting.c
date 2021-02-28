@@ -6,7 +6,7 @@
 /*   By: AlainduPavillon <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/02/27 19:12:09 by AlainduPa        ###   ########.fr       */
+/*   Updated: 2021/02/28 23:47:07 by AlainduPa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int drawVertLineFromColor(t_img img_to_change, int x, int y_begin, int len, 
         int color)
 {
-//    printf("x : %d, img_to_change.width %d, y_begin : %d, len %d, img_to_change.height %d", x, img_to_change.width, y_begin, len, img_to_change.height);
+    printf("x : %d, img_to_change.width %d, y_begin : %d, len %d, img_to_change.height %d", x, img_to_change.width, y_begin, len, img_to_change.height);
     if ((x > img_to_change.width) || (x < 0) ||(y_begin < 0) 
             ||(len < 0) ||((len + y_begin) > img_to_change.height))
         return (-1);
@@ -32,11 +32,11 @@ int drawVertLineFromColor(t_img img_to_change, int x, int y_begin, int len,
  * */
 char   ft_map(t_str *map, int width, int height)
 {
-    while (map && --height)
+    while (map && (--height > 0))
        map = map->next; 
     if (map && width <= ft_strlen(map->line))
         return (map->line[width]);
-    printf("returned a -1 SHIT!\n");
+    printf("returned a -1 SHIT! : width ; %d, height : %d\n", width, height);
     return (-1);
 }
 
@@ -52,7 +52,6 @@ void perform_dda(t_game *game)
     play->hit = 0;
     while (play->hit == 0 && ft_map(game->map_info.plan, play->mapX, play->mapY) != -1)
     {
-        printf("play->sideDistX : %f, play->sideDistY : %f\n", play->sideDistX, play->sideDistY);
         if (play->sideDistX < play->sideDistY) 
         {
             play->sideDistX += play->deltaDistX;
@@ -77,8 +76,6 @@ void define_deltaDist(t_game *game)
     play = &(game->player);
     play->rayDirX = play->dirX + play->planeX * play->cameraX;
     play->rayDirY = play->dirY + play->planeY * play->cameraX;
-    printf("play->rayDirX, %f\n", play->rayDirX);
-    printf("play->rayDirY, %f\n", play->rayDirY);
     if (play->rayDirX == 0)
     {
         play->deltaDistY = 0;
@@ -93,10 +90,8 @@ void define_deltaDist(t_game *game)
     {
         play->deltaDistX = (play->rayDirY == 0) ? 
             0 : ((play->rayDirX == 0) ? 1 : fabs(1 / play->rayDirX));
-        printf("play->deltaDistX : %f\n", play->deltaDistX);
         play->deltaDistY = (play->rayDirX == 0) ? 
             0 : ((play->rayDirY == 0) ? 1 : fabs(1 / play->rayDirY));
-        printf("play->deltaDistY : %f\n", play->deltaDistY);
     }
 }
 void define_side_dist(t_game *game)
@@ -116,7 +111,7 @@ void define_side_dist(t_game *game)
     }
     if (play->rayDirY < 0)
     {
-        play->stepY = 1;
+        play->stepY = -1;
         play->sideDistY = (play->posY - play->mapY) * play->deltaDistY;
     }
     else
@@ -131,8 +126,12 @@ void get_line_length(t_game *game)
     t_player *play;
 
     play = &(game->player);
+    if (play->side == 0)
+        play->perpWallDist = (play->mapX - play->posX + (1 - play->stepX) / 2) / play->rayDirX;
+    else
+        play->perpWallDist = (play->mapY - play->posY + (1 - play->stepY) / 2) / play->rayDirY;
     play->lineHeight = (int)(game->map_info.window_height / play->perpWallDist);
-    play->drawStart = -play->lineHeight / 2 + game->map_info.window_height; 
+    play->drawStart = -play->lineHeight / 2 + game->map_info.window_height / 2; 
     if (play->drawStart < 0)
         play->drawStart = 0;
     play->drawEnd = play->lineHeight / 2 + game->map_info.window_height / 2;
@@ -145,11 +144,11 @@ void get_line_length(t_game *game)
 
 int raycasting(t_game *game)
 {
+    printf("\n\n");
     int x;
     t_player *play;
 
     play = &(game->player);
-    
     play->current_image.img = mlx_new_image(game->mlx.mlx_ptr,
             game->map_info.window_width, game->map_info.window_height);
     play->current_image.height = game->map_info.window_height;
@@ -163,22 +162,14 @@ int raycasting(t_game *game)
     play->mapY = (int)play->posY;
     while (x < game->map_info.window_width)
     {
-        // default position of the player
-        play->cameraX = (double)(2 * x) / (double)game->map_info.window_width - 1;         
-        printf("window_width %d and x : %d, camX %f\n", game->map_info.window_width, x, play->cameraX);
-//        printf("play->RayDirX: %f;play->RayDirY : %f\n", play->rayDirX, play->rayDirY);
+        printf("BEGINING x : %d\n", x);
+        // the begining of the screen is -1 and the end is 1 
+        play->cameraX = (2 * x / (double)game->map_info.window_width) - 1;         
+        //printf("play->RayDirX: %f;play->RayDirY : %f\n", play->rayDirX, play->rayDirY);
         define_deltaDist(game);
         define_side_dist(game);
         perform_dda(game);
-        if (play->side == 0)
-            play->perpWallDist = (play->mapX - play->posX +
-                    (1 - play->stepX) / 2) / play->rayDirX;
-        else
-            play->perpWallDist = (play->mapY - play->posY +
-                   (1 - play->stepY) / 2) / play->rayDirY;
- //       printf("perpWallDist : %f\n", play->perpWallDist);
         get_line_length(game);
-            //printf("play->drawStart : %d; play->drawEnd: %d;\n\n", play->drawStart, play->drawEnd);
         if (drawVertLineFromColor(play->current_image, x, play->drawStart, 
                 (play->drawEnd - play->drawStart), play->wallColor))
             return (-1);
@@ -186,5 +177,6 @@ int raycasting(t_game *game)
     }
     mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, 
             play->current_image.img, 0, 0);
+
     return (0);
 }
