@@ -2,7 +2,8 @@ NAME		= Cub3D_EXE
 
 PARSING_DIR = config
 PARSING_SRCS = config/parsing.c config/textures.c config/colors.c\
-			   config/map.c engine/raycasting.c
+			   config/map.c engine/raycasting.c engine/event_listener.c\
+			   engine/camera.c
 
 SRCS		= main.c $(PARSING_SRCS) \
 

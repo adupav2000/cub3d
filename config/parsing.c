@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AlainduPavillon <marvin@42.fr>             +#+  +:+       +#+        */
+/*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 21:32:03 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/02/27 16:22:26 by AlainduPa        ###   ########.fr       */
+/*   Updated: 2021/03/12 11:12:43 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 void init_player(t_player *player)
 {
-    player->posX = 3;
-    player->posY = 3;
-    player->dirX = -1;
-    player->dirY = 0;
+    player->posX = 5;
+    player->posY = 5;
+    player->dirX = 0;
+    player->dirY = -1;
     player->planeX = 0;
     player->planeY = 0.66;
     player->time = 0;
@@ -26,18 +26,30 @@ void init_player(t_player *player)
     player->hit = 0;
     player->mapX = 0;
     player->mapY = 0;
+    player->moveX = 0;
+    player->moveY = 0;
 }    
 
 void init_map(t_map *map_info)
 {
     map_info->window_height = 0;
     map_info->window_width = 0;
-    map_info->color_floor = 0;
-    map_info->color_ceiling = 0;
+    map_info->color_floor = 0x33C6E3;
+    map_info->color_ceiling = 0xA0764C;
+
+    map_info->te_no_color = 0xFFFFFF;
+    map_info->te_so_color = 0xCCCCCC;
+    map_info->te_we_color = 0xFF44FF;
+    map_info->te_ea_color = 0x44FF44;
+    /*write here if you know why this is for*/
+    map_info->te_s_color = 0;
+
     map_info->te_no.img = NULL;
     map_info->te_so.img = NULL;
     map_info->te_we.img = NULL;
     map_info->te_ea.img = NULL;
+    /*write here if you know why this is for*/
+    map_info->te_s_color = 0;
     map_info->te_s.img = NULL;
     map_info->plan_height = 0;
     map_info->plan_width = 0;
