@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AlainduPavillon <marvin@42.fr>             +#+  +:+       +#+        */
+/*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/02/24 21:26:25 by AlainduPa        ###   ########.fr       */
+/*   Updated: 2021/03/18 21:15:48 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 #include <string.h>
 #include "mlx/mlx.h"
 
+#include "libft/libft.h"
+#include "utils/keycode_macos.h"
+
 #define MLX_SYNC_IMAGE_WRITABLE    1 
 #define MLX_SYNC_WIN_FLUSH_CMD     2
 #define MLX_SYNC_WIN_CMD_COMPLETED 3
-
-# include "libft/libft.h"
-# include "config/parsing.h"
 
 typedef struct  s_img {
     void        *img;
@@ -45,6 +45,11 @@ typedef struct s_str{
    char          *line;
    struct s_str  *next;
 }   t_str;
+
+typedef struct s_pos{
+    double  x;
+    double  y;
+} t_pos;
 
 typedef struct s_player {
     /*the users position*/
@@ -91,18 +96,30 @@ typedef struct s_player {
     int wallColor;
     /*Image used as buffer to be written in the page*/
     t_img current_image;
+    /*all variable are meant to be set and changed*/
+    int moveX;
+    int moveY;
 } t_player;
 
 typedef struct s_map{
-    int window_height;
-    int window_width;
+    int     window_height;
+    int     window_width;
+
     int     color_floor;
     int     color_ceiling;
+
+    int     te_no_color;
+    int     te_so_color;
+    int     te_we_color;
+    int     te_ea_color;
+    int     te_s_color;
+
     t_img   te_no;
     t_img   te_so;
     t_img   te_we;
     t_img   te_ea;
     t_img   te_s;
+
     t_str   *plan;
     int     plan_height;
     int     plan_width;
@@ -117,18 +134,29 @@ typedef struct s_game{
 void            my_mlx_pixel_put(t_img *data, int x, int y, int color);
     
 int     parsing(t_game *game);
+
 int     handle_resolution(char *line, t_map *map_info);
+
 int     handle_textures(char **line, t_map *map_info, t_data *data);
+
 int     load_texture(char *tex_link, t_img *img, t_data *mlx);
+
 int     parse_line(char *line, t_data *data, t_map *map_info);
+
 int     handle_colors(char **line, t_map *map_info);
+
 int     parse_map_line(t_map *map, char *line);
+
 char    ft_map(t_str *map, int width, int height);
 
 int     drawVertLineFromColor(t_img img_to_change, int x, int y_begin, int len, 
             int color);
 int     raycasting(t_game *game);
 
+int     key_press(int key_code, t_game *game);
+int     key_release(int key_code, t_game *game);
 
-void perform_dda(t_game *game);
+void    perform_dda(t_game *game);
+void    update_pos_view(t_game *game);
+
 #endif
