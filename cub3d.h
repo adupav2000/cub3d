@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/03/18 21:15:48 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/03/19 11:55:00 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,15 @@ typedef struct s_player {
     int wallColor;
     /*Image used as buffer to be written in the page*/
     t_img current_image;
-    /*all variable are meant to be set and changed*/
+    /*MOVING AND ROTATING VARIABLES*/
+    /*these variables tell if the player is holding a key_down*/
+	/*move forward : moveX = 1*/
+    /*move forward : moveX = -1*/
     int moveX;
     int moveY;
+    /*rotation variables*/
+    int rot_left;
+    int rot_right;
 } t_player;
 
 typedef struct s_map{
@@ -158,5 +164,6 @@ int     key_release(int key_code, t_game *game);
 
 void    perform_dda(t_game *game);
 void    update_pos_view(t_game *game);
+void    update_rotation(t_game *game);
 
 #endif

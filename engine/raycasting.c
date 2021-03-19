@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/03/18 21:16:17 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/03/19 12:04:45 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,6 @@ void set_wall_color(t_game *game)
         play->wallColor = game->map_info.te_we_color;
 }
 
-
-
 int raycasting(t_game *game)
 {
     //printf("\n\n");
@@ -203,6 +201,7 @@ int raycasting(t_game *game)
         //printf(" play->perpWallDist : %f\n",play->perpWallDist);
         set_wall_color(game);
         update_pos_view(game);
+        update_rotation(game);
         if (drawVertLineFromColor(play->current_image, x, play->drawStart, 
                 (play->drawEnd - play->drawStart), play->wallColor))
             return (-1);
