@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/03/19 11:55:00 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:53:47 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 #define MLX_SYNC_IMAGE_WRITABLE    1 
 #define MLX_SYNC_WIN_FLUSH_CMD     2
 #define MLX_SYNC_WIN_CMD_COMPLETED 3
+
+#define X_EVENT_EXIT 17
 
 typedef struct  s_img {
     void        *img;
@@ -131,15 +133,22 @@ typedef struct s_map{
     int     plan_width;
 } t_map;
 
+typedef struct s_config{
+    int     screenshot;
+    char    *prog_name;
+    char    *conf_file;
+} t_config;
+
 typedef struct s_game{
     t_map       map_info;
     t_player    player;
     t_data      mlx;
+    t_config    config;
 } t_game;
 
 void            my_mlx_pixel_put(t_img *data, int x, int y, int color);
     
-int     parsing(t_game *game);
+int     parsing(t_game *game, int argc, char **argv);
 
 int     handle_resolution(char *line, t_map *map_info);
 
@@ -154,6 +163,7 @@ int     handle_colors(char **line, t_map *map_info);
 int     parse_map_line(t_map *map, char *line);
 
 char    ft_map(t_str *map, int width, int height);
+void    set_wall_color(t_game *game);
 
 int     drawVertLineFromColor(t_img img_to_change, int x, int y_begin, int len, 
             int color);
@@ -165,5 +175,22 @@ int     key_release(int key_code, t_game *game);
 void    perform_dda(t_game *game);
 void    update_pos_view(t_game *game);
 void    update_rotation(t_game *game);
+
+int     everything_was_set(t_map *map_info);
+
+void    init_player(t_player *player);
+void    init_map(t_map *map_info);
+
+/*all exit and clearing functions*/
+void    clear_player(t_player *player);
+void    clear_mlx(t_data *mlx);
+void    clear_map_info(t_map *map_info);
+void    clear_config(t_config *config);
+void    clear_all_variables(t_game *game);
+int     exit_error(t_game *game);
+int     exit_success(t_game *game);
+
+/*main function*/
+int     main(int argc, char **argv);
 
 #endif

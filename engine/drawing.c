@@ -6,11 +6,19 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:15:34 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/03/24 16:28:55 by AlainduPa        ###   ########.fr       */
+/*   Updated: 2021/03/25 18:19:27 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void            my_mlx_pixel_put(t_img *data, int x, int y, int color)
+{
+    char    *dst;
+
+    dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+    *(unsigned int*)dst = color;
+}
 
 int drawVertLineFromColor(t_img img_to_change, int x, int y_begin, int len, 
         int color)
@@ -18,7 +26,7 @@ int drawVertLineFromColor(t_img img_to_change, int x, int y_begin, int len,
     if ((x > img_to_change.width) || (x < 0) ||(y_begin < 0) 
             ||(len < 0) ||((len + y_begin) > img_to_change.height))
     {
-        printf("ERROR x : %d, img_to_change.width %d, y_begin : %d, len %d, img_to_change.height %d\n", x, img_to_change.width, y_begin, len, img_to_change.height);
+//        printf("ERROR x : %d, img_to_change.width %d, y_begin : %d, len %d, img_to_change.height %d\n", x, img_to_change.width, y_begin, len, img_to_change.height);
         return (-1);
     }
         //printf("Everything left right x : %d, img_to_change.width %d, y_begin : %d, len %d, img_to_change.height %d\n", x, img_to_change.width, y_begin, len, img_to_change.height);

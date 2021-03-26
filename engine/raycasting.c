@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/03/24 20:40:38 by AlainduPa        ###   ########.fr       */
+/*   Updated: 2021/03/25 17:58:37 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void get_line_length(t_game *game)
        play->wallColor = (play->wallColor / 2);
     if (play->drawStart > play->drawEnd)
     {
-        printf("play->drawStart : %d, play->drawEnd : %d, play->lineHeight : %dgame->map_info.windows_height %d\n", play->drawStart, play->drawEnd, play->lineHeight, game->map_info.window_height);
+//        printf("play->drawStart : %d, play->drawEnd : %d, play->lineHeight : %dgame->map_info.windows_height %d\n", play->drawStart, play->drawEnd, play->lineHeight, game->map_info.window_height);
     }
 }
 
@@ -169,7 +169,7 @@ int raycasting(t_game *game)
     }
     mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, 
             play->current_image.img, 0, 0);
-    printf("does it happen sometimes \n");
+//    printf("does it happen sometimes \n");
     play->rot_left = 1;
     return (0);
 }
