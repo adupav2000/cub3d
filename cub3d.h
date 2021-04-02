@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/03/26 15:53:47 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/02 14:57:57 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include "libft/libft.h"
 #include "utils/keycode_macos.h"
 
-#define MLX_SYNC_IMAGE_WRITABLE    1 
+#define MLX_SYNC_IMAGE_WRITABLE    1
 #define MLX_SYNC_WIN_FLUSH_CMD     2
 #define MLX_SYNC_WIN_CMD_COMPLETED 3
 
@@ -165,6 +165,8 @@ int     parse_map_line(t_map *map, char *line);
 char    ft_map(t_str *map, int width, int height);
 void    set_wall_color(t_game *game);
 
+int draw_floor_and_ceiling(t_img img_to_change, int x, int y_begin, int len,
+    t_map *map_info);
 int     drawVertLineFromColor(t_img img_to_change, int x, int y_begin, int len, 
             int color);
 int     raycasting(t_game *game);
