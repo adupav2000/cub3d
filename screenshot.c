@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 19:15:41 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/06 13:01:49 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/06 14:01:09 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ static int get_color(t_img *img, int x, int y)
 {
 	int	rgb;
 	int	color;
-
-    // color = *(int *)(img->addr + (y * img->line_length + x * (	img->bpp / 8)));
+	
+	/*takes the oposit pixel in the image (bmp is written in reverse)*/
 	color = *(int*)(img->addr
 			+ (4 * (int)img->width * ((int)img->height - 1 - y))
 			+ (4 * x));
-	printf("%x ", color);
 	rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
 	return (rgb);
 }
@@ -66,8 +65,6 @@ static int write_screen_data(int file, t_img *w, int pad)
 	int					color;
 
 	i = 0;
-	printf("w->height : %d, w->width : %d\n", w->height, w->width);
-	printf("pad ; %d\n", pad);
 	while (i < (int)w->height)
 	{
 		j = 0;
@@ -75,15 +72,9 @@ static int write_screen_data(int file, t_img *w, int pad)
 		{
 			color = get_color(w, j, i);
 			if (write(file, &color, 3) < 0)
-			{
-				printf("color = %d", color);
 				return (-1);
-			}
 			if (pad > 0 && write(file, &zero, pad) < 0)
-			{
-				printf("pad = %d", pad);
 				return (-1);
-			}
 			j++;
 		}
 		i++;
@@ -101,20 +92,11 @@ int write_and_save_screen(t_game *game)
 	filesize = 54  + (3 * ((int)game->map_info.window_width + pad)
 		* (int)game->map_info.window_height);
 	if ((fd = open("screenshot.bmp",  (O_WRONLY | O_CREAT), 0666)) < 0)
-		{
-			printf("error 1\n");
-			return (-1);
-		}
+		return (EXIT_FAILURE);
 	if (write_file_header(fd, filesize, &(game->map_info)))
-	{
-		printf("error 2\n");
-		return (-1);
-	}
+		return (EXIT_FAILURE);
 	if (write_screen_data(fd, &(game->player.current_image), pad))
-	{
-		printf("error 3\n");
-		return (-1);
-	}
+		return (EXIT_FAILURE);
 	close(fd);
 	return (EXIT_SUCCESS);
 }
