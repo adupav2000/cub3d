@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/02 14:57:57 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/04 21:09:58 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ char    ft_map(t_str *map, int width, int height);
 void    set_wall_color(t_game *game);
 
 int draw_floor_and_ceiling(t_img img_to_change, int x, int y_begin, int len,
-    t_map *map_info);
+        t_map *map_info);
 int     drawVertLineFromColor(t_img img_to_change, int x, int y_begin, int len, 
             int color);
 int     raycasting(t_game *game);
@@ -191,6 +191,8 @@ void    clear_config(t_config *config);
 void    clear_all_variables(t_game *game);
 int     exit_error(t_game *game);
 int     exit_success(t_game *game);
+
+int write_and_save_screen(t_game *game);
 
 /*main function*/
 int     main(int argc, char **argv);

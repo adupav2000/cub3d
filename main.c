@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:02:45 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/02 13:42:42 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/05 15:17:02 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ int main(int argc, char **argv)
     mlx_hook(game.mlx.mlx_win, KEYRELEASEMASK, 0, &key_release, &game);
     mlx_hook(game.mlx.mlx_win, X_EVENT_EXIT, 0, &exit_success, &game);
     mlx_loop_hook(game.mlx.mlx_ptr, raycasting, &game);
+    if (game.config.screenshot && !raycasting(&game))
+        if (write_and_save_screen(&game))
+            return (EXIT_FAILURE);
+    if (game.config.screenshot)
+        exit_success(&game);
     mlx_loop(game.mlx.mlx_ptr);
     return (EXIT_SUCCESS);
 }
