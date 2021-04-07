@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/02 14:57:33 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/07 23:44:35 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,28 @@ void define_deltaDist(t_game *game)
     play = &(game->player);
     play->rayDirX = play->dirX + play->planeX * play->cameraX;
     play->rayDirY = play->dirY + play->planeY * play->cameraX;
-    //printf(">>>>>>> play->cameraX %f\n", play->cameraX);
-    //printf("play->rayDirY, %f, play->dirY %d, play->planY %f, \n", play->rayDirY, play->dirY, play->planeY);
+    play->mapX = (int)play->posX;
+    play->mapY = (int)play->posY;
+    play->sideDistX = 0;
+    play->sideDistY = 0; 
     play->deltaDistX = (play->rayDirY == 0) ?
         0 : ((play->rayDirX == 0) ? 1 : fabs(1. / play->rayDirX));
     play->deltaDistY = (play->rayDirX == 0) ?
         0 : ((play->rayDirY == 0) ? 1 : fabs(1. / play->rayDirY));
-    if (play->deltaDistX < 0 || play->deltaDistX > 1000)
-    {
-        //  printf("deltadistX : %f\n", play->deltaDistX);
-        // printf("play->rayDirX, %f, play->dirX %d, play->planX %f, play->cameraX %f\n", play->rayDirX, play->dirX, play->planeX, play->cameraX);
-        //  printf("deltadistY : %f\n", play->deltaDistY);
-
-    }
 }
 void define_side_dist(t_game *game)
 {
     t_player *play;
 
+    /*Making shure a wall was indeed hit*/
+    play->hit = 0;
+    /* making sure the side is not the one previously set*/
+    play->side = -1;
     play = (&game->player);
     if (play->rayDirX < 0)
     {
         play->stepX = -1;
         play->sideDistX = (play->posX - play->mapX) * play->deltaDistX;
-        // if (play->sideDistX < 0 )
-        // {
-        //     printf("play->posX : %f, play->mapX : %d", play->posX, play->mapX);
-        //     printf("play->sideDistX : %f, play->posX %f, play->mapX : %d, play->deltaDistX : %f, play->rayDirX : %f, play->rayDirY : %f\n",play->sideDistX, play->posX, play->mapX, play->deltaDistX, play->rayDirX, play->rayDirY);
-        // }
     }
     else
     {
@@ -65,7 +59,7 @@ void define_side_dist(t_game *game)
     }
     if (play->sideDistY < 0 || play->sideDistX < 0)
     {
-        // printf("play->sideDistY : %f\n", play->sideDistY);
+         printf("play->sideDistY : %f\n", play->sideDistY);
     }
 }
 
@@ -79,13 +73,9 @@ void search_wall(t_game *game)
     t_player *play;
 
     play = &(game->player);
-    /*Making shure a wall was indeed hit*/
-    play->hit = 0;
-    /* making sure the side is not the one previously set*/
-    play->side = -1;
     while (play->hit == 0 && 
-            ft_map(game->map_info.plan, play->mapX, play->mapY) != -1
-            && play->mapX > 0 && play->mapY > 0)
+        ft_map(game->map_info.plan, play->mapX, play->mapY) != -1
+        && play->mapX > 0 && play->mapY > 0)
     {
         if (play->sideDistX < play->sideDistY) 
         {
@@ -159,16 +149,14 @@ int raycasting(t_game *game)
     x = 0;
     while (x < game->map_info.window_width)
     {
-        play->mapX = (int)play->posX;
-        play->mapY = (int)play->posY;
         play->cameraX = (2 * x / (double)game->map_info.window_width) - 1;
         define_deltaDist(game);
-        printf("play->RayDirX: %f;play->RayDirY : %f", play->rayDirX, play->rayDirY);
+        // printf("play->RayDirX: %f;play->RayDirY : %f", play->rayDirX, play->rayDirY);
         define_side_dist(game);
         search_wall(game);
-        printf(" play->sideDistX : %f, play->sideDisY : %f",play->sideDistX, play->sideDistY);
+        // printf(" play->sideDistX : %f, play->sideDisY : %f",play->sideDistX, play->sideDistY);
         get_line_length(game);
-        printf(" play->perpWallDist : %f\n",play->perpWallDist);
+        // printf(" play->perpWallDist : %f\n",play->perpWallDist);
         set_wall_color(game);
         if (drawVertLineFromColor(play->current_image, x, play->drawStart, 
                 (play->drawEnd - play->drawStart), play->wallColor))
@@ -179,6 +167,5 @@ int raycasting(t_game *game)
         x++;
     }
     mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, play->current_image.img, 0, 0);
-    play->rot_left = 1;
     return (0);
 }
