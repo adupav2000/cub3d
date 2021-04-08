@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 21:09:50 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/03/25 17:57:54 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/08 09:18:29 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void update_pos_view(t_game *game)
     || map_ret_val != '2'))
   {
 //    printf("moved in X direction\n");
-    play->posX += play->dirX * play->moveX * 0.2;
+    play->posX += play->dirX * play->moveX * 0.02;
   }
   map_ret_val = ft_map(game->map_info.plan, (int)play->posX, 
     (int)(play->posY + play->dirY * play->moveX));
@@ -33,7 +33,7 @@ void update_pos_view(t_game *game)
     || map_ret_val != '2'))
   {
  //   printf("moved in X direction\n");
-    play->posX += play->dirX * play->moveX * 0.2;
+    play->posX += play->dirX * play->moveX * 0.02;
   }
 }
 
@@ -45,7 +45,7 @@ void update_rotation(t_game *game)
   double    oldPlaneX;
 
   play = &(game->player);
-  rotSpeed = 0.3;
+  rotSpeed = 0.03;
   if (play->rot_right == 1)
   {
     oldDirX = play->dirX;
@@ -57,13 +57,13 @@ void update_rotation(t_game *game)
     play->planeX = play->planeX * cos(-rotSpeed) - play->planeY * sin(-rotSpeed);
     play->planeY = oldPlaneX * sin(-rotSpeed) + play->planeY * cos(-rotSpeed);
   }
-  if (play->rot_left == 1)
+  else if (play->rot_left == 1)
   {
     oldDirX = play->dirX;
-    play->dirX = play->dirX * cos(-rotSpeed) - play->dirY * sin(-rotSpeed);
-    play->dirY = oldDirX * sin(-rotSpeed) + play->dirY * cos(-rotSpeed);
+    play->dirX = play->dirX * cos(rotSpeed) - play->dirY * sin(rotSpeed);
+    play->dirY = oldDirX * sin(rotSpeed) + play->dirY * cos(rotSpeed);
     oldPlaneX = play->planeX;
-    play->planeX = play->planeX * cos(-rotSpeed) - play->planeY * sin(-rotSpeed);
-    play->planeY = oldPlaneX * sin(-rotSpeed) + play->planeY * cos(-rotSpeed);
+    play->planeX = play->planeX * cos(rotSpeed) - play->planeY * sin(rotSpeed);
+    play->planeY = oldPlaneX * sin(rotSpeed) + play->planeY * cos(rotSpeed);
   }
 }

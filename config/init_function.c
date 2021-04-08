@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:07:33 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/03/23 14:08:54 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/08 08:53:07 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void init_player(t_player *player)
 {
-    player->posX = 5;
-    player->posY = 5;
-    player->dirX = 0;
-    player->dirY = -1;
+    player->posX = 22;
+    player->posY = 12;
+    player->dirX = -1;
+    player->dirY = 1;
     player->planeX = 0;
     player->planeY = 0.66;
     player->time = 0;
