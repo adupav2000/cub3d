@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/08 09:03:08 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/08 20:41:47 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,15 @@ typedef struct s_player {
     /*rotation variables*/
     int rot_left;
     int rot_right;
+    /*where exactly the wall was hit*/
+    double wallX;
+    /*texturing calculation*/
+    int texNum;
+    int texX;
+    int texY;
+    /*how much to incerease the texture coordinate per screen pixel*/
+    double step;
+    double texPos;
 } t_player;
 
 typedef struct s_map{
@@ -163,7 +172,7 @@ int     handle_colors(char **line, t_map *map_info);
 int     parse_map_line(t_map *map, char *line);
 
 char    ft_map(t_str *map, int width, int height);
-void    set_wall_color(t_game *game);
+void    set_wall_color(t_game *game, int x);
 
 int draw_floor_and_ceiling(t_img img_to_change, int x, int y_begin, int len,
         t_map *map_info);
@@ -193,6 +202,8 @@ int     exit_error(t_game *game);
 int     exit_success(t_game *game);
 
 int write_and_save_screen(t_game *game);
+
+int load_color_from_tex(t_img *tex, int x, int y);
 
 /*main function*/
 int     main(int argc, char **argv);

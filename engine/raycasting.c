@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/07 23:44:35 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/08 20:29:56 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,28 +144,29 @@ int raycasting(t_game *game)
             &play->current_image.bpp, &play->current_image.line_length,
             &play->current_image.endian);
     // w is the position that goes throught every vertical stripe 
-    update_pos_view(game);
-    update_rotation(game);
     x = 0;
     while (x < game->map_info.window_width)
     {
         play->cameraX = (2 * x / (double)game->map_info.window_width) - 1;
         define_deltaDist(game);
-        // printf("play->RayDirX: %f;play->RayDirY : %f", play->rayDirX, play->rayDirY);
         define_side_dist(game);
         search_wall(game);
         // printf(" play->sideDistX : %f, play->sideDisY : %f",play->sideDistX, play->sideDistY);
         get_line_length(game);
         // printf(" play->perpWallDist : %f\n",play->perpWallDist);
-        set_wall_color(game);
-        if (drawVertLineFromColor(play->current_image, x, play->drawStart, 
-                (play->drawEnd - play->drawStart), play->wallColor))
-            return (-1);
+        set_wall_color(game, x);
+        // if (drawVertLineFromColor(play->current_image, x, play->drawStart, 
+                // (play->drawEnd - play->drawStart), play->wallColor))
+            // return (-1);
         if (draw_floor_and_ceiling(play->current_image, x, play->drawStart, 
                 (play->drawEnd - play->drawStart), &(game->map_info)))
             return (0);
         x++;
     }
     mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, play->current_image.img, 0, 0);
+    mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, game->map_info.te_no.addr, 0, 0);
+    play->rot_left = 1;
+    update_pos_view(game);
+    update_rotation(game);
     return (0);
 }

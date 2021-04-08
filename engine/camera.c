@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 21:09:50 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/08 09:18:29 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/08 09:30:10 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void update_pos_view(t_game *game)
   if (play->moveX > 0 && (map_ret_val != -1 || map_ret_val != '1' 
     || map_ret_val != '2'))
   {
-//    printf("moved in X direction\n");
     play->posX += play->dirX * play->moveX * 0.02;
   }
   map_ret_val = ft_map(game->map_info.plan, (int)play->posX, 
@@ -32,7 +31,6 @@ void update_pos_view(t_game *game)
   if (play->moveX < 0 && (map_ret_val != -1 || map_ret_val != '1' 
     || map_ret_val != '2'))
   {
- //   printf("moved in X direction\n");
     play->posX += play->dirX * play->moveX * 0.02;
   }
 }
