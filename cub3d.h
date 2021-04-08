@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/04 21:09:58 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/08 09:03:08 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ typedef struct s_player {
     double posX;
     double posY;
     /*the direction the user is watching*/
-    int dirX;
-    int dirY;
+    double dirX;
+    double dirY;
     /*camera plane of the map*/
     double planeX;
     double planeY;
