@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/08 20:29:56 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/11 19:40:43 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void define_side_dist(t_game *game)
 {
     t_player *play;
 
+    play = &(game->player);
     /*Making shure a wall was indeed hit*/
     play->hit = 0;
     /* making sure the side is not the one previously set*/

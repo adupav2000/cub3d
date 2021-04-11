@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 21:32:03 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/11 12:09:32 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/11 19:39:41 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int args_check(int argc, char **argv, t_game *game)
     if (!(game->config.prog_name = (char *)malloc(ft_strlen(argv[0]) + 1))
         || !(game->config.conf_file = (char *)malloc(ft_strlen(argv[1]) + 1)))
     {
-        return (exit_error(game, "Malloc of the prog_name and conf_file name did not work."));
+        return (exit_error(game,
+            "Malloc of the prog_name and conf_file name did not work."));
     }
     ft_strlcpy(game->config.prog_name, argv[0], (ft_strlen(argv[0]) + 1));
     ft_strlcpy(game->config.conf_file, argv[1], (ft_strlen(argv[1]) + 1));
@@ -53,14 +54,15 @@ int parsing(t_game *game, int argc, char **argv)
     int error_check;
 
     game->config.screenshot = 0;
-    mlx_get_screen_size(game->mlx.mlx_ptr, &game->map_info.window_max_width,
-        &game->map_info.window_max_height);
+    // mlx_get_screen_size(game->mlx.mlx_ptr, &game->map_info.window_max_width,
+        // &game->map_info.window_max_height);
+	game->map_info.window_max_width = 2000;
+    game->map_info.window_max_height = 2000;
     init_map(&game->map_info);
     init_player(&game->player);
     error_check = args_check(argc, argv, game);
     line = NULL;
-    if (ft_strncmp(ft_split(
-        game->config.conf_file, '.')[1], "cub", 2))
+    if (ft_strncmp(ft_split(game->config.conf_file, '.')[1], "cub", 2))
         return (exit_error(game, "uncorrect file."));
     file_desc = open(game->config.conf_file, O_RDONLY);
     while (get_next_line(file_desc, &line) && !error_check)

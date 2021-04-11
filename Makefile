@@ -8,32 +8,32 @@ PARSING_SRCS = config/parsing.c config/textures.c config/colors.c\
 
 SRCS		= main.c $(PARSING_SRCS) \
 
-OBJS			= $(SRCS:.c=.o)
+OBJS		= ${SRCS:.c=.o}
 
-CC				= gcc
-RM				= rm -f
-CFLAGS			=  -Wall -Wextra -Werror -I.
-LIBS			= -framework OpenGL -framework AppKit -lm libft/libft.a -L. -lmlx
-MLX				= libmlx.dylib
+RM			= rm -f
 
-NAME			= cub3D
+CFLAGS		=  -Wall -Werror -Wextra
 
-all:			$(NAME)
+CC			= gcc
 
-$(NAME):		$(MLX) $(OBJS)
-				gcc ${CFLAGS} -o ${NAME} ${OBJS} ${LIBS}
+.c.o:
+	${CC} -c $< -o ${<:.c=.o}
 
-$(MLX):
-				$(MAKE) -C mlx
-				mv mlx/$(MLX) .
+${NAME}:	${OBJS}
+	gcc -I /opt/X11/include -g -L /opt/X11/lib -l mlx \
+			-framework OpenGL -framework AppKit $(SRCS) -lm libft/libft.a  
+
+all:		${NAME}
+
+bonus:		${OBJS}
+	${NAME} ${OBJS}
 
 clean:
-				$(MAKE) -C mlx clean
-				$(RM) $(OBJS) $(BONUS_OBJS)
+	${RM} ${OBJS}
 
-fclean:			clean
-				$(RM) $(NAME) $(MLX)
+fclean:		clean
+	${RM} ${NAME}
 
-re:				fclean $(NAME)
+re:			fclean all
 
-.PHONY:			all clean fclean re
+.PHONY:		all clean fclean re

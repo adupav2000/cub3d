@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:30:18 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/08 21:29:32 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/09 21:08:37 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char   ft_map(t_str *map, int width, int height)
 {
     while (map && (--height > 0))
 		map = map->next; 
-    if (map && width <= ft_strlen(map->line))
+    if (map && width <= (int)ft_strlen(map->line))
 		return (map->line[width]);
     //printf("returned a -1 SHIT! : width ; %d, height : %d\n", width, height);
     return (-1);
@@ -50,10 +50,8 @@ void set_wall_color(t_game *game, int x)
     play->texPos = (play->drawStart - game->map_info.window_height 
         / 2 + play->lineHeight / 2) * play->step;
     y = play->drawStart;
-    printf("height : %d, width : %d\n", game->map_info.window_height, game->map_info.window_width );
     while (y < play->drawEnd)
     {
-        printf("%d,%d\n", play->texX, play->texY);
         play->texY = (int)play->texPos & (game->map_info.te_so.height - 1);
         play->texPos += play->step;
         color = load_color_from_tex(&(game->map_info.te_so), play->texX, play->texY);

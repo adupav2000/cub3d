@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 21:32:10 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/08 20:51:12 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/11 20:26:31 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,29 @@
 int load_color_from_tex(t_img *tex, int x, int y)
 {
     if (x >= 0 && x <= tex->width && y >= 0 && y <= tex->height)
-        return (*(int*)tex->img + (y * tex->line_length + x * (tex->bpp / 8)));
+        return (*(unsigned int*)tex->addr + 
+            (y * tex->line_length + x * (tex->bpp / 8)));
     return (0x0);
 }
 
 int load_texture(char *tex_link, t_img *img, t_data *mlx)
 {
-    if ((img->img = mlx_xpm_file_to_image(mlx->mlx_ptr, tex_link, 
-            &img->width, &img->height)) != NULL)
+    if (ft_strncmp(&tex_link[ft_strlen(tex_link) - 3], "xpm", 3) == 0)
     {
-        if ((img->addr = mlx_get_data_addr(img->img, &(img->bpp), 
-                    &(img->line_length), &(img->endian))) != NULL)
-        {
-                return (0);
-        }
+        if ((img->img = mlx_xpm_file_to_image(mlx->mlx_ptr, tex_link, 
+            &img->width, &img->height)) == NULL)
+            return (-1);
+    }
+    /*else if (ft_strncmp(&tex_link[ft_strlen(tex_link) - 3], "pmg", 3) == 0)
+    {
+        if ((img->img = mlx_png_file_to_image(mlx->mlx_ptr, tex_link, 
+            &img->width, &img->height)) == NULL)
+            return (-1);
+    }*/
+    if ((img->addr = mlx_get_data_addr(img->img, &(img->bpp), 
+        &(img->line_length), &(img->endian))) != NULL)
+    {
+        return (0);
     }
     return (-1);
 }

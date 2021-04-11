@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:07:33 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/11 12:17:31 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:31:58 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,23 @@ int    handle_resolution(char *line, t_map *map_info, t_game *game)
     int i;
 
     i = 0;
-    while (!ft_isdigit(line[i]))
+    while (!ft_isdigit(line[i]) && line[i] != '-' && line[i])
         i++;
     map_info->window_width = ft_atoi(&(line[i]));
-    if (map_info->window_width < 0)
-        exit_error(game, "Negative windows width");
+    if (map_info->window_width <= 0)
+    {
+        return(exit_error(game, "Negative windows width"));
+    }
     if (map_info->window_width > game->map_info.window_max_width)
         map_info->window_width = game->map_info.window_max_width;
-    while (line[i] != ' ' && line[i])
+    while (line[i] != ' ')
         i++;
     map_info->window_height = ft_atoi(&line[i]);
-    if (map_info->window_height < 0)
-        exit_error(game, "Negative windows height");
+    if (map_info->window_height <= 0)
+    {
+        return(exit_error(game, "Negative windows height"));
+    }
     if (map_info->window_height > game->map_info.window_max_height)
         map_info->window_height = game->map_info.window_max_height;
-    map_info->window_height = map_info->window_height > 9999 ? 
-        9999 : map_info->window_height;
-    printf("Does this work ? \n");
     return (0);
 }
