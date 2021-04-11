@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 10:06:56 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/03/23 15:11:53 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/09 21:05:20 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int parse_map_line(t_map *map, char *line)
 {
-    int i;
     t_str *map_list;
  
     if (map->plan == NULL)

@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/08 20:41:47 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/11 12:16:40 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,9 @@ typedef struct s_map{
     int     window_height;
     int     window_width;
 
+	int     window_max_height;
+    int     window_max_width;
+
     int     color_floor;
     int     color_ceiling;
 
@@ -159,13 +162,13 @@ void            my_mlx_pixel_put(t_img *data, int x, int y, int color);
     
 int     parsing(t_game *game, int argc, char **argv);
 
-int     handle_resolution(char *line, t_map *map_info);
+int     handle_resolution(char *line, t_map *map_info, t_game *game);
 
 int     handle_textures(char **line, t_map *map_info, t_data *data);
 
 int     load_texture(char *tex_link, t_img *img, t_data *mlx);
 
-int     parse_line(char *line, t_data *data, t_map *map_info);
+int     parse_line(char *line, t_data *data, t_map *map_info, t_game *game);
 
 int     handle_colors(char **line, t_map *map_info);
 
@@ -198,7 +201,7 @@ void    clear_mlx(t_data *mlx);
 void    clear_map_info(t_map *map_info);
 void    clear_config(t_config *config);
 void    clear_all_variables(t_game *game);
-int     exit_error(t_game *game);
+int     exit_error(t_game *game, char *message);
 int     exit_success(t_game *game);
 
 int write_and_save_screen(t_game *game);

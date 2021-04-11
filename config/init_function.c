@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:07:33 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/08 08:53:07 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/11 12:17:31 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void init_player(t_player *player)
     player->moveY = 0;
     player->rot_left = 0;
     player->rot_right = 0;
+    player->texNum = 0;
+    player->texX = 0;
+    player->wallX = 0;
 }    
 
 void init_map(t_map *map_info)
@@ -56,7 +59,7 @@ void init_map(t_map *map_info)
     map_info->plan = NULL;
 }
 
-int    handle_resolution(char *line, t_map *map_info)
+int    handle_resolution(char *line, t_map *map_info, t_game *game)
 {
     int i;
 
@@ -64,16 +67,19 @@ int    handle_resolution(char *line, t_map *map_info)
     while (!ft_isdigit(line[i]))
         i++;
     map_info->window_width = ft_atoi(&(line[i]));
-    map_info->window_width = map_info->window_width > 9999 ? 
-        9999 : map_info->window_width;
-    // vérifier que l'image ne soit pas trop grande
-    // il manque une fonction pour ça (trouver la taille max et l'assigner)
+    if (map_info->window_width < 0)
+        exit_error(game, "Negative windows width");
+    if (map_info->window_width > game->map_info.window_max_width)
+        map_info->window_width = game->map_info.window_max_width;
     while (line[i] != ' ' && line[i])
-    {
         i++;
-    }
     map_info->window_height = ft_atoi(&line[i]);
+    if (map_info->window_height < 0)
+        exit_error(game, "Negative windows height");
+    if (map_info->window_height > game->map_info.window_max_height)
+        map_info->window_height = game->map_info.window_max_height;
     map_info->window_height = map_info->window_height > 9999 ? 
         9999 : map_info->window_height;
+    printf("Does this work ? \n");
     return (0);
 }

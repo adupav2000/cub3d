@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 19:15:41 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/06 14:01:09 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/09 21:13:47 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	put_int_in_char(unsigned char *dest, int value)
 int write_file_header(int fd, int file_size, t_map *map)
 {
 	int				i;
-	int				tmp;
 	unsigned char	bmpfileheader[54];
 
 	i = 0;
