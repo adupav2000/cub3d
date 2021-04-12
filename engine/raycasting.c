@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/11 19:40:43 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/12 15:51:15 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void define_deltaDist(t_game *game)
     play->deltaDistY = (play->rayDirX == 0) ?
         0 : ((play->rayDirY == 0) ? 1 : fabs(1. / play->rayDirY));
 }
+
 void define_side_dist(t_game *game)
 {
     t_player *play;
@@ -58,10 +59,6 @@ void define_side_dist(t_game *game)
         play->stepY = 1;
         play->sideDistY = (play->mapY + 1.0 - play->posY) * play->deltaDistY;
     }
-    if (play->sideDistY < 0 || play->sideDistX < 0)
-    {
-         printf("play->sideDistY : %f\n", play->sideDistY);
-    }
 }
 
 /*
@@ -82,15 +79,14 @@ void search_wall(t_game *game)
         {
             play->sideDistX += play->deltaDistX;
             play->mapX += play->stepX;
-            play->side = 0;
+            play->side = (play->stepX == -1) ? 0 : 1;
         }
         else
         {
             play->sideDistY += play->deltaDistY;
             play->mapY += play->stepY;
-            play->side = 1;
+            play->side = (play->stepY == -1) ? 2 : 3;
         }
-        //printf("ft_map : game->map_info.plan : %c\n", ft_map(game->map_info.plan, play->mapX, play->mapY));
         if (ft_map(game->map_info.plan, play->mapX, play->mapY) > '0'
                 && play->side != -1)
             play->hit = 1;
@@ -102,17 +98,15 @@ void get_line_length(t_game *game)
     t_player *play;
 
     play = &(game->player);
-    if (play->side == 0)
+    if (play->side == 0 || play->side == 1)
     {
         play->perpWallDist = (play->mapX - play->posX + (1 - play->stepX) / 2)
             / play->rayDirX;
-//       printf("X : play->mapX : %d, play->posX %f, play->stepX : %d,play->perWallDist %f, play->rayDirX %f\n", play->mapX, play->posX, play->stepX, play->perpWallDist, play->rayDirX); 
     }
     else
     {
         play->perpWallDist = (play->mapY - play->posY + (1 - play->stepY) / 2)
             / play->rayDirY;
- //       printf("Y : play->mapY : %d, play->posY %f, play->stepY : %d, play-perpWallDist %f, play->rayDirY %f\n", play->mapY, play->posY, play->stepY, play->perpWallDist, play->rayDirY);
     }
     play->lineHeight = (int)(game->map_info.window_height / play->perpWallDist);
     play->drawStart = -play->lineHeight / 2 + game->map_info.window_height / 2; 
@@ -122,17 +116,12 @@ void get_line_length(t_game *game)
     if (play->drawEnd >= game->map_info.window_height)
         play->drawEnd = game->map_info.window_height - 1;
     play->wallColor = game->map_info.color_floor;
-    if (play->side == 1)
+    if (play->side == 2 || play->side == 3)
        play->wallColor = (play->wallColor / 2);
-    if (play->drawStart > play->drawEnd)
-    {
-  //      printf("play->drawStart : %d, play->drawEnd : %d, play->lineHeight : %dgame->map_info.windows_height %d\n", play->drawStart, play->drawEnd, play->lineHeight, game->map_info.window_height);
-    }
 }
 
 int raycasting(t_game *game)
 {
-    //printf("\n\n");
     int x;
     t_player *play;
 
@@ -165,7 +154,7 @@ int raycasting(t_game *game)
         x++;
     }
     mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, play->current_image.img, 0, 0);
-    mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, game->map_info.te_no.addr, 0, 0);
+    // mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, game->map_info.te_no.img, 0, 0);
     play->rot_left = 1;
     update_pos_view(game);
     update_rotation(game);

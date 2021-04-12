@@ -20,8 +20,8 @@ CC			= gcc
 	${CC} -c $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
-	gcc -I /opt/X11/include -g -L /opt/X11/lib -l mlx \
-			-framework OpenGL -framework AppKit $(SRCS) -lm libft/libft.a  
+	gcc -I /opt/X11/include -g -L /opt/X11/lib -l mlx  \
+			-framework OpenGL -framework AppKit $(SRCS) -lm libft/libft.a 
 
 all:		${NAME}
 

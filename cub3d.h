@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/11 12:16:40 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/12 14:42:33 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ int     exit_success(t_game *game);
 int write_and_save_screen(t_game *game);
 
 int load_color_from_tex(t_img *tex, int x, int y);
+void texture_pixel_put(t_game *game, t_img *tex, int x, int y);
 
 /*main function*/
 int     main(int argc, char **argv);

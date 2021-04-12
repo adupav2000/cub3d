@@ -6,11 +6,27 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:15:34 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/08 19:43:32 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/12 15:11:38 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void texture_pixel_put(t_game *game, t_img *tex, int x, int y)
+{
+    t_img *curr_img;
+
+    curr_img = &(game->player.current_image);
+    curr_img->addr[y * curr_img->line_length + x * curr_img->bpp / 8] = 
+        tex->addr[game->player.texY * tex->line_length 
+        + game->player.texX * (tex->bpp / 8)];
+    curr_img->addr[y * curr_img->line_length + x * curr_img->bpp / 8 + 1] = 
+        tex->addr[game->player.texY * tex->line_length 
+        + game->player.texX * (tex->bpp / 8) + 1];
+    curr_img->addr[y * curr_img->line_length + x * curr_img->bpp / 8 + 2] = 
+        tex->addr[game->player.texY * tex->line_length 
+        + game->player.texX * (tex->bpp / 8) + 2];
+}
 
 void            my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {

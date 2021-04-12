@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:30:18 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/09 21:08:37 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/12 15:45:24 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,44 +26,52 @@ char   ft_map(t_str *map, int width, int height)
     return (-1);
 }
 
+static t_img *get_current_tex(t_game *game)
+{
+    t_player    *play;
+    t_img       *tex;
+
+    play = &(game->player);
+    tex = &(game->map_info.te_we); 
+    if (play->side == 1)
+        tex = &(game->map_info.te_no); 
+    else if (play->side == 2)
+        tex = &(game->map_info.te_so); 
+    else if (play->side == 3)
+        tex = &(game->map_info.te_ea); 
+    return (tex); 
+}
+
 /*THIS FUNCTION HAS TO BE CHANGED
  * FOR BETTER USE...*/
 void set_wall_color(t_game *game, int x)
 {
-    t_player *play;
-    int y;
-    int   color;
+    t_player        *play;
+    int             y;
+    unsigned int    color;
+    t_img           *tex;
 
+    tex = get_current_tex(game);
     play = &(game->player);
-    play->texNum = ft_map(game->map_info.plan, play->mapX, play->mapY) - 1;
-    if (play->side == 0)
-        play->wallX = play->posX + play->perpWallDist * play->rayDirX;
+    if (play->side == 0 || play->side == 1)
+        play->wallX = play->posY + play->perpWallDist * play->rayDirY;
     else
         play->wallX = play->posX + play->perpWallDist * play->rayDirX;
     play->wallX -= floor(play->wallX);
-    play->texX = (int)play->wallX * (double)game->map_info.te_so.width;
+    play->texX = (int)(play->wallX * (double)tex->width);
     if(play->side == 0 && play->rayDirX > 0)
-        play->texX = game->map_info.te_so.width - play->texX - 1;
+        play->texX = tex->width - play->texX - 1;
     if(play->side == 1 && play->rayDirY < 0)
-        play->texX = game->map_info.te_so.width - play->texX - 1;
-    play->step = 1.0 * game->map_info.te_so.height / play->lineHeight;
+        play->texX = tex->width - play->texX - 1;
+    play->step = 1.0 * tex->height / play->lineHeight;
     play->texPos = (play->drawStart - game->map_info.window_height 
         / 2 + play->lineHeight / 2) * play->step;
     y = play->drawStart;
     while (y < play->drawEnd)
     {
-        play->texY = (int)play->texPos & (game->map_info.te_so.height - 1);
+        play->texY = (int)play->texPos & (tex->height - 1);
         play->texPos += play->step;
-        color = load_color_from_tex(&(game->map_info.te_so), play->texX, play->texY);
-        my_mlx_pixel_put(&(play->current_image), x, y, color);
+        texture_pixel_put(game, tex, x, y);
         y++;
     }
-    if (ft_map(game->map_info.plan, play->mapX, play->mapY) == '1')
-        play->wallColor = game->map_info.te_no_color;
-    if (ft_map(game->map_info.plan, play->mapX, play->mapY) == '2')
-        play->wallColor = game->map_info.te_so_color;
-    if (ft_map(game->map_info.plan, play->mapX, play->mapY) == '3')
-        play->wallColor = game->map_info.te_ea_color;
-    else
-        play->wallColor = game->map_info.te_we_color;
-}
+ }
