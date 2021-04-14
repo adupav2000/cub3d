@@ -15,7 +15,7 @@
 int    load_color_from_tex(t_img *tex, int x, int y)
 {
     if (x >= 0 && x <= tex->width && y >= 0 && y <= tex->height)
-        return ((int)tex->addr +
+        return ((int)(tex->addr) +
             (y * tex->line_length + x * (tex->bpp / 8)));
     return (0x0);
 }

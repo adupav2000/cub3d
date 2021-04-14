@@ -24,9 +24,9 @@ int main(int argc, char **argv)
         game.map_info.window_width, game.map_info.window_height,
         argv[0])) == NULL)
         return (exit_error(&game, "Error loading new window"));
-    mlx_hook(game.mlx.mlx_win, KEYPRESSMASK, 0, &key_press, &game);
-    mlx_hook(game.mlx.mlx_win, KEYRELEASEMASK, 0, &key_release, &game);
-    mlx_hook(game.mlx.mlx_win, X_EVENT_EXIT, 0, &exit_success, &game);
+    mlx_hook(game.mlx.mlx_win, 2, 0, &key_press, &game);
+    mlx_hook(game.mlx.mlx_win, 3, 0, &key_release, &game);
+    mlx_hook(game.mlx.mlx_win, 17, 0, &exit_success, &game);
     mlx_loop_hook(game.mlx.mlx_ptr, raycasting, &game);
     if (game.config.screenshot && !raycasting(&game))
         if (write_and_save_screen(&game))

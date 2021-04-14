@@ -14,19 +14,15 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char			*ret_val;
 	unsigned int	i;
-	unsigned int	i2;
 	unsigned int	lim;
 
 	if (s1 == NULL)
 		return (NULL);
 	if (s1[0] == '\0')
 		return (ft_strnew(1));
-	ret_val = NULL;
 	i = 0;
 	lim = 0;
-	i2 = 0;
 	while (ft_occures_in_set(s1[i], set) != -1 && s1[i])
 		i++;
 	lim = ft_strlen(s1);

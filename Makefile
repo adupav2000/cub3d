@@ -1,8 +1,7 @@
-NAME		= Cub3D_EXE
+NAME		= Cub3d_EXE
 
-PARSING_DIR = config
-PARSING_SRCS = config/parsing.c config/textures.c config/colors.c\
-			   config/map.c engine/raycasting.c engine/event_listener.c\
+PARSING_SRCS	= config/parsing.c config/textures.c config/colors.c\
+			   config/map.c	engine/raycasting.c engine/event_listener.c\
 			   engine/camera.c config/check_function.c config/init_function.c\
 			   engine/map_info.c engine/drawing.c config/clear.c screenshot.c\
 			   engine/sprites.c
@@ -28,7 +27,7 @@ INCLIB 		= $(INC)/../lib
 all:		${NAME}
 
 ${NAME}:	${OBJS}
-	$(CC) -o $(NAME) $(OBJS) -L. -lmlx -L$(INCLIB) -lXext -lX11 -lm -lbsd
+	$(CC) -o $(NAME) $(OBJS) -lm libft/libft.a -L. -lm mlx/libmlx.a -L$(INCLIB) -lXext -lX11 -lbsd 
 
 bonus:		${OBJS}
 	${NAME} ${OBJS}

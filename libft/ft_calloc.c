@@ -15,9 +15,7 @@
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*ret_val;
-	size_t	i;
 
-	i = 0;
 	count = count <= 0 ? 1 : count;
 	size = size <= 0 ? 1 : size;
 	ret_val = 0;
