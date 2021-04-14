@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 21:32:03 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/14 12:06:17 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/14 19:40:54 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@ int args_check(int argc, char **argv, t_game *game)
 {
     if (argc < 2)
         return (exit_error(game, "too few arguments."));
-    if (argc > 2 && ft_strncmp(argv[2], "--save", 7) == 0)
+    if (argc > 2 && ft_strncmp(argv[1], "--save", 7) == 0)
         game->config.screenshot = 1;
     if (!(game->config.prog_name = (char *)malloc(ft_strlen(argv[0]) + 1))
-        || !(game->config.conf_file = (char *)malloc(ft_strlen(argv[1]) + 1)))
+        || !(game->config.conf_file = (char *)malloc(ft_strlen(argv[1 + 
+        game->config.screenshot]) + 1)))
     {
         return (exit_error(game,
             "Malloc of the prog_name and conf_file name did not work."));
     }
     ft_strlcpy(game->config.prog_name, argv[0], (ft_strlen(argv[0]) + 1));
-    ft_strlcpy(game->config.conf_file, argv[1], (ft_strlen(argv[1]) + 1));
+    ft_strlcpy(game->config.conf_file, 
+        argv[1 + game->config.screenshot], (ft_strlen(argv[1]) + 1));
     return (0);
 }
 
