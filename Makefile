@@ -17,14 +17,18 @@ CFLAGS		=  -Wall -Werror -Wextra
 
 CC			= gcc
 
+INC			= /usr/include
+HT			= Linux
+DOCP		= do_cp
 .c.o:
 	${CC} -c $< -o ${<:.c=.o}
 
-${NAME}:	${OBJS}
-	gcc -I /opt/X11/include -g -L /opt/X11/lib -l mlx  \
-			-framework OpenGL -framework AppKit $(SRCS) -lm libft/libft.a 
+INCLIB 		= $(INC)/../lib
 
 all:		${NAME}
+
+${NAME}:	${OBJS}
+	$(CC) -o $(NAME) $(OBJS) -L. -lmlx -L$(INCLIB) -lXext -lX11 -lm -lbsd
 
 bonus:		${OBJS}
 	${NAME} ${OBJS}
