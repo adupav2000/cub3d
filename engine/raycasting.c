@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/12 15:51:15 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:34:57 by AlainduPa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int raycasting(t_game *game)
     }
     mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, play->current_image.img, 0, 0);
     // mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, game->map_info.te_no.img, 0, 0);
-    play->rot_left = 1;
+    play->moveX = -1;
     update_pos_view(game);
     update_rotation(game);
     return (0);
