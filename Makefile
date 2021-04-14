@@ -34,6 +34,7 @@ bonus:		${OBJS}
 
 clean:
 	${RM} ${OBJS}
+	${RM} screenshot.bmp
 
 fclean:		clean
 	${RM} ${NAME}
