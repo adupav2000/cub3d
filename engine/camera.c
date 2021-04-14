@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 21:09:50 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/14 13:59:03 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/14 22:53:17 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,43 @@ void move_backward(t_game *game, t_player *play)
 
 void move_left(t_game *game, t_player *play)
 {
-
+  int map_ret_val;
+  
+  map_ret_val = ft_map(game->map_info.plan, (int)(play->posX +
+    play->planeX * play->moveX), (int)play->posY);
+  if (play->moveY > 0 && (map_ret_val != -1 || map_ret_val != '1' 
+    || map_ret_val != '3'))
+  {
+    play->posX += play->planeX * 0.06;
+  }
+  map_ret_val = ft_map(game->map_info.plan, (int)(play->posX,
+    (int)(play->posY + play->planeX * play->moveX));
+  if (play->moveY > 0 && (map_ret_val != -1 || map_ret_val != '1' 
+    || map_ret_val != '3'))
+  {
+    play->posY += play->planeY * 0.06;
+  }
 }
 
 void move_right(t_game *game, t_player *play)
 {
+  int map_ret_val;
   
+  map_ret_val = ft_map(game->map_info.plan, (int)(play->posX +
+    play->planeX * play->moveX), (int)play->posY);
+  if (play->moveY < 0 && (map_ret_val != -1 || map_ret_val != '1' 
+    || map_ret_val != '3'))
+  {
+    play->posX += play->planeX * 0.06;
+  }
+  map_ret_val = ft_map(game->map_info.plan, (int)play->posX,
+    (int)(play->posY + play->planeX * play->moveX));
+  if (play->moveY < 0 && (map_ret_val != -1 || map_ret_val != '1' 
+    || map_ret_val != '3'))
+  {
+    play->posY += play->planeY * 0.06;
+  }
+ 
 }
 
 void update_pos_view(t_game *game)

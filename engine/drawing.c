@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:15:34 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/14 22:28:29 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/14 22:32:04 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void sprite_pixel_put(t_game *game, t_img *tex, int x, int y)
         + game->player.texX * (tex->bpp / 8) + 1];
     b = tex->addr[game->player.texY * tex->line_length 
         + game->player.texX * (tex->bpp / 8) + 2];
-    if((r & 0x00FFFFFF) == 0 && (g & 0x00FFFFFF) == 0 && (b & 0x00FFFFFF) == 0)
+    if(!((r & 0x00FFFFFF) == 0 && (g & 0x00FFFFFF) == 0 && (b & 0x00FFFFFF) == 0))
     {
         curr_img->addr[y * curr_img->line_length 
             + x * curr_img->bpp / 8] = r;
