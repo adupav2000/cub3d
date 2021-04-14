@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 21:32:03 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/11 19:39:41 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:06:17 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int parse_line(char *line, t_data *data, t_map *map_info, t_game *game)
     if (!line[0])
         return (0);
     if ((!ft_strncmp(line, "  ", 2) || !ft_strncmp(line, "1", 1))
-            && !everything_was_set(map_info)) 
-        return (parse_map_line(map_info, line));
+            && !everything_was_set(map_info, game))
+        return (parse_map_line(game, map_info, line));
     else if (!ft_strncmp(line, "R ", 2)) 
         return (handle_resolution(line, map_info, game));
     else if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3) 
@@ -65,10 +65,11 @@ int parsing(t_game *game, int argc, char **argv)
     if (ft_strncmp(ft_split(game->config.conf_file, '.')[1], "cub", 2))
         return (exit_error(game, "uncorrect file."));
     file_desc = open(game->config.conf_file, O_RDONLY);
-    while (get_next_line(file_desc, &line) && !error_check)
+    while (!error_check && get_next_line(file_desc, &line))
         error_check = parse_line(line, &game->mlx, &game->map_info, game);
-    error_check = everything_was_set(&game->map_info);
+    error_check = everything_was_set(&game->map_info, game);
     free(line);
     close(file_desc);
+    // print_all_sprite(game);
     return (error_check);
 }

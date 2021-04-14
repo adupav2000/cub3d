@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:07:33 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/11 17:31:58 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/14 13:30:23 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void init_player(t_player *player)
 {
-    player->posX = 22;
-    player->posY = 12;
-    player->dirX = -1;
+    player->posX = 0;
+    player->posY = 0;
+    player->dirX = 1;
     player->dirY = 1;
+    player->position_initialised = 0;
     player->planeX = 0;
     player->planeY = 0.66;
     player->time = 0;
@@ -57,6 +58,7 @@ void init_map(t_map *map_info)
     map_info->plan_height = 0;
     map_info->plan_width = 0;
     map_info->plan = NULL;
+    map_info->sprites = NULL;
 }
 
 int    handle_resolution(char *line, t_map *map_info, t_game *game)

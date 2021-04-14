@@ -6,11 +6,36 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:15:34 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/12 15:11:38 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/14 13:44:14 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void sprite_pixel_put(t_game *game, t_img *tex, int x, int y)
+{
+    t_img *curr_img;
+    int r;
+    int g;
+    int b;
+
+    curr_img = &(game->player.current_image);
+    r = tex->addr[game->player.texY * tex->line_length 
+        + game->player.texX * (tex->bpp / 8)];
+    g =  tex->addr[game->player.texY * tex->line_length 
+        + game->player.texX * (tex->bpp / 8) + 1];
+    b = tex->addr[game->player.texY * tex->line_length 
+        + game->player.texX * (tex->bpp / 8) + 2];
+    // if((r & 0x00FFFFFF) == 0 && (g & 0x00FFFFFF) == 0 && (b & 0x00FFFFFF) == 0)
+    // {
+        curr_img->addr[y * curr_img->line_length 
+            + x * curr_img->bpp / 8] = r;
+        curr_img->addr[y * curr_img->line_length 
+            + x * curr_img->bpp / 8 + 1] = g;
+        curr_img->addr[y * curr_img->line_length 
+            + x * curr_img->bpp / 8 + 2] = b;
+    // } 
+}
 
 void texture_pixel_put(t_game *game, t_img *tex, int x, int y)
 {
@@ -42,7 +67,8 @@ int draw_floor_and_ceiling(t_img img_to_change, int x, int y_begin, int len,
     int i;
 
     i = 0;
-    if ((x > img_to_change.width) || (x < 0) ||(y_begin < 0) 
+    // printf("hello x : %d, img_to_change.width : %d, y_begin : %d, len : %d, img_to_change.height : %d\n", x, img_to_change.width, y_begin, len, img_to_change.height);
+    if ((x > img_to_change.width) || (x < 0) ||(y_begin < 0)
             ||(len < 0) ||((len + y_begin) > img_to_change.height))
         return (-1);
     while (i < y_begin)

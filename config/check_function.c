@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:09:06 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/03/23 15:01:55 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/14 11:08:11 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*this function checks if all the arguments that should be recieed before the 
  * map are saved and parsed*/
-int everything_was_set(t_map *map_info)
+int everything_was_set(t_map *map_info, t_game *game)
 {
     if (map_info->window_height == 0)
         return (-1);

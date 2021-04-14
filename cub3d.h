@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/12 14:42:33 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:09:25 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 
 #define X_EVENT_EXIT 17
 
+
 typedef struct  s_img {
     void        *img;
     char        *addr;
@@ -36,6 +37,37 @@ typedef struct  s_img {
     int         height;
     int         endian;
 }               t_img;
+
+typedef struct	s_sprite
+{
+	double			    posX;
+    double             posY;
+	double			distance;
+	t_img			*tex;
+	struct s_sprite	*next;
+	struct s_sprite	*sorted;
+}	t_sprite;
+
+typedef struct s_sprite_print  
+{
+   /*sprite vars*/
+    double spriteX;
+    double spriteY;
+    double invDet;
+    double transformX;
+    double transformY;
+    int     spriteScreenX;
+    int     spriteWidth;
+    int     spriteHeight;
+    int     drawStartY;
+    int     drawEndY;
+    int     drawStartX;
+    int     drawEndX;
+    int     texX;
+    int     texY;
+    int     texWidth;
+    int     texHeight;
+} t_sprite_print;
 
 typedef struct    data_s
 {
@@ -54,6 +86,7 @@ typedef struct s_pos{
 } t_pos;
 
 typedef struct s_player {
+    int position_initialised;
     /*the users position*/
     double posX;
     double posY;
@@ -69,7 +102,7 @@ typedef struct s_player {
     double old_time;
     /*the x-coordinate of */
     double cameraX;
-    /*rays X and Y*/
+    /*rays X anarwsind Y*/
     double rayDirX;
     double rayDirY;
     /*position in the map out of context*/
@@ -101,7 +134,7 @@ typedef struct s_player {
     /*MOVING AND ROTATING VARIABLES*/
     /*these variables tell if the player is holding a key_down*/
 	/*move forward : moveX = 1*/
-    /*move forward : moveX = -1*/
+    /*move backward : moveX = -1*/
     int moveX;
     int moveY;
     /*rotation variables*/
@@ -116,9 +149,9 @@ typedef struct s_player {
     /*how much to incerease the texture coordinate per screen pixel*/
     double step;
     double texPos;
-} t_player;
+ } t_player;
 
-typedef struct s_map{
+typedef struct s_map{   
     int     window_height;
     int     window_width;
 
@@ -143,6 +176,8 @@ typedef struct s_map{
     t_str   *plan;
     int     plan_height;
     int     plan_width;
+
+    t_sprite	*sprites;
 } t_map;
 
 typedef struct s_config{
@@ -152,10 +187,11 @@ typedef struct s_config{
 } t_config;
 
 typedef struct s_game{
-    t_map       map_info;
-    t_player    player;
-    t_data      mlx;
-    t_config    config;
+    t_map           map_info;
+    t_player        player;
+    t_data          mlx;
+    t_config        config;
+    t_sprite_print  sprites_p;
 } t_game;
 
 void            my_mlx_pixel_put(t_img *data, int x, int y, int color);
@@ -172,13 +208,13 @@ int     parse_line(char *line, t_data *data, t_map *map_info, t_game *game);
 
 int     handle_colors(char **line, t_map *map_info);
 
-int     parse_map_line(t_map *map, char *line);
+int     parse_map_line(t_game *game, t_map *map, char *line);
 
 char    ft_map(t_str *map, int width, int height);
 void    set_wall_color(t_game *game, int x);
 
-int draw_floor_and_ceiling(t_img img_to_change, int x, int y_begin, int len,
-        t_map *map_info);
+int    draw_floor_and_ceiling(t_img img_to_change, int x, int y_begin, int len,
+            t_map *map_info);
 int     drawVertLineFromColor(t_img img_to_change, int x, int y_begin, int len, 
             int color);
 int     raycasting(t_game *game);
@@ -190,7 +226,7 @@ void    perform_dda(t_game *game);
 void    update_pos_view(t_game *game);
 void    update_rotation(t_game *game);
 
-int     everything_was_set(t_map *map_info);
+int     everything_was_set(t_map *map_info, t_game *game);
 
 void    init_player(t_player *player);
 void    init_map(t_map *map_info);
@@ -204,12 +240,18 @@ void    clear_all_variables(t_game *game);
 int     exit_error(t_game *game, char *message);
 int     exit_success(t_game *game);
 
-int write_and_save_screen(t_game *game);
+int     write_and_save_screen(t_game *game);
 
 int load_color_from_tex(t_img *tex, int x, int y);
 void texture_pixel_put(t_game *game, t_img *tex, int x, int y);
+void sprite_pixel_put(t_game *game, t_img *tex, int x, int y);
+
+int sprite_bubble_sort(t_game *game);
+double get_ss_distance(double posX, double posY, int posSX, int posSY);
+int set_sprite_distance(t_game *game);
 
 /*main function*/
 int     main(int argc, char **argv);
 
+void print_all_sprite(t_game *game);
 #endif
