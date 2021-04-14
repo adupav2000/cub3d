@@ -22,14 +22,14 @@ void move_forward(t_game *game, t_player *play)
   if (play->moveX > 0 && (map_ret_val != -1 || map_ret_val != '1' 
     || map_ret_val != '3'))
   {
-    play->posX += play->dirX * play->moveX * 0.02;
+    play->posX += play->dirX * play->moveX * 0.06;
   }
   map_ret_val = ft_map(game->map_info.plan, (int)play->posX, 
     (int)(play->posY + play->dirY * play->moveX));
   if ((map_ret_val != -1 || map_ret_val != '1' 
     || map_ret_val != '3'))
   {
-    play->posY += play->dirY * play->moveX * 0.02;
+    play->posY += play->dirY * play->moveX * 0.06;
   }
 }
 
@@ -42,14 +42,14 @@ void move_backward(t_game *game, t_player *play)
   if (play->moveX < 0 && (map_ret_val != -1 || map_ret_val != '1' 
     || map_ret_val != '3'))
   {
-    play->posX -= play->dirX * play->moveX * 0.02;
+    play->posX += play->dirX * play->moveX * 0.06;
   }
   map_ret_val = ft_map(game->map_info.plan, (int)play->posX, 
     (int)(play->posY + play->dirY * play->moveX));
   if ((map_ret_val != -1 || map_ret_val != '1' 
     || map_ret_val != '3'))
   {
-    play->posY += play->dirY * play->moveX * 0.02;
+    play->posY += play->dirY * play->moveX * 0.06;
   }
 }
 

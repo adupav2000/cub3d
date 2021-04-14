@@ -41,7 +41,7 @@ int check_map_line(t_str *str)
     int     i;
     char    prev;
 
-    while (str != NULL && str->line[0] != NULL)
+    while (str != NULL && str->line[0] != '\0')
     {
         i = 1;
         while (str->line[i])
@@ -63,7 +63,7 @@ int check_map(t_map *map_info)
     t_str *line;
 
     line = map_info->plan;
-    return (check_map_column(str, map_info->plan_width) && check_map_line(str));
+    return (check_map_column(line, map_info->plan_width) && check_map_line(line));
 }
 /*this function checks if all the arguments that should be recieed before the 
  * map are saved and parsed*/
