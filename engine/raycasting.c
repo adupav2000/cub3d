@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/14 13:41:24 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/14 13:54:16 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,11 +133,9 @@ void write_verical_stripes(t_game *game, double ZBuffer[10000])
     // printf("write_verticalstripe stripe : %d, strip->drawEndX : %d\n", stripe, sprit->drawEndX);
     while (stripe < sprit->drawEndX)
     {
-        // printf("Juste la \n");
         sprit->texX = (int)(256 * (stripe - (-sprit->spriteWidth / 2 
             + sprit->spriteScreenX))
             * sprit->texWidth / sprit->spriteWidth) / 256;
-        // printf("Juste la \n");
         if(sprit->transformY > 0 && stripe > 0
             && stripe < game->map_info.window_width 
             && sprit->transformY < ZBuffer[0])
