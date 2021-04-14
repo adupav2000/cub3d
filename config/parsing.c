@@ -54,11 +54,9 @@ int parsing(t_game *game, int argc, char **argv)
     int error_check;
 
     game->config.screenshot = 0;
-    // mlx_get_screen_size(game->mlx.mlx_ptr, &game->map_info.window_max_width,
-        // &game->map_info.window_max_height);
-	game->map_info.window_max_width = 2000;
-    game->map_info.window_max_height = 2000;
-    init_map(&game->map_info);
+    mlx_get_screen_size(game->mlx.mlx_ptr, &game->map_info.window_max_width,
+        &game->map_info.window_max_height);
+	init_map(&game->map_info);
     init_player(&game->player);
     error_check = args_check(argc, argv, game);
     line = NULL;
@@ -70,6 +68,5 @@ int parsing(t_game *game, int argc, char **argv)
     error_check = everything_was_set(&game->map_info, game);
     free(line);
     close(file_desc);
-    // print_all_sprite(game);
     return (error_check);
 }

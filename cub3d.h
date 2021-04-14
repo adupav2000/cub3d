@@ -19,7 +19,7 @@
 #include "mlx/mlx.h"
 
 #include "libft/libft.h"
-#include "utils/keycode_macos.h"
+#include "utils/keycode_linux.h"
 
 #define MLX_SYNC_IMAGE_WRITABLE    1
 #define MLX_SYNC_WIN_FLUSH_CMD     2

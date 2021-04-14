@@ -230,7 +230,7 @@ int raycasting(t_game *game)
     set_sprite(game, (double *)(ZBUFFER));
     mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, play->current_image.img, 0, 0);
     // mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, game->map_info.te_no.img, 0, 0);
-     play->rot_left = 1;
+    // play->rot_left = 1;
     update_pos_view(game);
     update_rotation(game);
     return (0);

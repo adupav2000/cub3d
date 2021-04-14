@@ -101,10 +101,9 @@ int parse_map_line(t_game *game, t_map *map, char *line)
     {
         if (!(map->plan = (t_str *)malloc(sizeof(t_str))) || 
             !(map->plan->line = (char *)malloc(ft_strlen(line) + 1)))
-            {
-            printf("whats ?\n");
+        {
             return (-1);
-            }
+        }
         map->plan->next = NULL;
         ft_strlcpy(map->plan->line, line, ft_strlen(line) + 1);
         sprites_scanner(game, map->plan->line, i);
