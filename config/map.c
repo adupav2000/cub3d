@@ -14,9 +14,7 @@
 
 void    set_init_pos(t_game *game, int x, int y, char c)
 {
-    if (!game->player.position_initialised)
-    {
-		game->player.posX = x;
+	game->player.posX = x;
         game->player.posY = y;
         game->player.position_initialised = 1;
         if (c == 'N')
@@ -27,11 +25,6 @@ void    set_init_pos(t_game *game, int x, int y, char c)
             game->player.dirX = -1;
         if (c == 'E')
             game->player.dirX = 1;
-    }
-    else
-    {
-        exit_error(game, "multiple positions registered");
-    }
 }
 
 void    check_user_position(t_game *game, char *str, int y)
@@ -117,10 +110,7 @@ int parse_map_line(t_game *game, t_map *map, char *line)
     }
     if (!(map_list->next = (t_str *)malloc(sizeof(t_str))) || 
         !(map_list->next->line = (char *)malloc(ft_strlen(line) + 1)))
-        {
-            printf("whats ?\n");
             return (-1);
-        }
     map_list = map_list->next;
     map_list->next = NULL;
     ft_strlcpy(map_list->line, line, (ft_strlen(line) + 1));

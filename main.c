@@ -20,6 +20,7 @@ int main(int argc, char **argv)
         return (exit_error(&game, " mlx init didn't worked."));
     if (parsing(&game, argc, argv))
         return (exit_error(&game, " parsing failed"));
+printf("Helllo\n");
     if ((game.mlx.mlx_win = mlx_new_window(game.mlx.mlx_ptr, 
         game.map_info.window_width, game.map_info.window_height,
         argv[0])) == NULL)

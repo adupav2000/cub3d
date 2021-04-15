@@ -33,6 +33,7 @@ void	init_player(t_player *player)
 	player->texNum = 0;
 	player->texX = 0;
 	player->wallX = 0;
+	player->current_image.img = NULL;
 }
 
 void	init_map(t_map *map_info)

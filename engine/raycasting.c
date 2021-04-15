@@ -160,6 +160,8 @@ void set_sprite_p_and_ht(t_player *play,
 {
         sprit->spriteX = sprite->posX - play->posX;
         sprit->spriteY = sprite->posY - play->posY;
+	sprit->texWidth = game->map_info.te_s.width;
+	sprit->texHeight = game->map_info.te_s.height;
         sprit->invDet = 1.0 / (play->planeX * play->dirY - play->dirX * play->planeY);
         sprit->transformX = sprit->invDet * (play->dirY * sprit->spriteX
             - play->dirX * sprit->spriteY);
@@ -198,9 +200,9 @@ void set_sprite(t_game *game, double ZBuffer[10000])
     sprit = &(game->sprites_p);
     while (sprite != NULL)     
     {
-	set_sprite_p_and_ht(play, game, sprit, sprite);
-       write_verical_stripes(game, ZBuffer);
-        sprite = sprite->next;
+		set_sprite_p_and_ht(play, game, sprit, sprite);
+		write_verical_stripes(game, ZBuffer);
+		sprite = sprite->next;
     }
 }
 
@@ -219,6 +221,7 @@ int init_mlx_obj(t_player *play, t_game *game)
 		return (-1);
 	return (0);
 }
+
 int raycasting(t_game *game)
 {
 	int x;

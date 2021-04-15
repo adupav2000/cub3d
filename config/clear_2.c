@@ -40,11 +40,11 @@ void	clear_map_info(t_game *game)
 	if (map->te_we.img != NULL)
 		mlx_destroy_image(game->mlx.mlx_ptr, map->te_we.img);
 	if (map->te_ea.img != NULL)
-		mlx_destroy_image(game->mlx.mlx_ptr, map->te_so.img);
+		mlx_destroy_image(game->mlx.mlx_ptr, map->te_ea.img);
 	if (map->te_s.img != NULL)
 		mlx_destroy_image(game->mlx.mlx_ptr, map->te_s.img);
 	while (map->plan != NULL
-		&& (str = (map->plan->next)) != NULL)
+			&& (str = (map->plan->next)) != NULL)
 	{
 		if (map->plan->line != NULL)
 			free(map->plan->line);
