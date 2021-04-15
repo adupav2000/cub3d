@@ -17,20 +17,20 @@ int main(int argc, char **argv)
     t_game        game;
 
     if ((game.mlx.mlx_ptr = mlx_init()) == NULL)
-        return (EXIT_FAILURE);
+        return (exit_error(&game, " mlx init didn't worked."));
     if (parsing(&game, argc, argv))
-        return (-1);
+        return (exit_error(&game, " parsing failed"));
     if ((game.mlx.mlx_win = mlx_new_window(game.mlx.mlx_ptr, 
         game.map_info.window_width, game.map_info.window_height,
         argv[0])) == NULL)
         return (exit_error(&game, "Error loading new window"));
     mlx_hook(game.mlx.mlx_win, 2, (1L<<0), &key_press, &game);
     mlx_hook(game.mlx.mlx_win, 3, (1L<<1), &key_release, &game);
-    mlx_hook(game.mlx.mlx_win, 17, (1L<<17), &exit_success, &game);
+    mlx_hook(game.mlx.mlx_win, 5, (1L<<5), &exit_success, &game);
     mlx_loop_hook(game.mlx.mlx_ptr, raycasting, &game);
     if (game.config.screenshot && !raycasting(&game))
         if (write_and_save_screen(&game))
-            return (EXIT_FAILURE);
+            return (exit_error(&game, " Screen shot couldn't be saved"));
     if (game.config.screenshot)
 		return(exit_success(&game));
     mlx_loop(game.mlx.mlx_ptr);

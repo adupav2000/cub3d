@@ -81,7 +81,7 @@ void    sprites_scanner(t_game *game, char *str, int y)
     i = 0;
     while (str[i])
     {
-        if (str[i] == '3')
+        if (str[i] == '2')
         {
             save_sprite(i, y, game);
             str[i] = '0';

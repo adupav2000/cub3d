@@ -15,7 +15,7 @@
 int    load_color_from_tex(t_img *tex, int x, int y)
 {
     if (x >= 0 && x <= tex->width && y >= 0 && y <= tex->height)
-        return ((int)(tex->addr) +
+        return (*(int *)(tex->addr) +
             (y * tex->line_length + x * (tex->bpp / 8)));
     return (0x0);
 }
@@ -28,12 +28,6 @@ int             load_texture(char *tex_link, t_img *img, t_data *mlx)
             &img->width, &img->height)) == NULL)
             return (-1);
     }
-    // else if (ft_strncmp(&tex_link[ft_strlen(tex_link) - 3], "pmg", 3) == 0)
-    // {
-    //     if ((img->img = mlx_png_file_to_image(mlx->mlx_ptr, tex_link, 
-    //         &img->width, &img->height)) == NULL)
-    //         return (-1);
-    // }
     if ((img->addr = mlx_get_data_addr(img->img, &(img->bpp), 
         &(img->line_length), &(img->endian))) != NULL)
     {

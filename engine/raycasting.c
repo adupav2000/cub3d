@@ -137,16 +137,15 @@ void write_verical_stripes(t_game *game, double ZBuffer[10000])
             * sprit->texWidth / sprit->spriteWidth) / 256;
         if(sprit->transformY > 0 && stripe > 0
             && stripe < game->map_info.window_width 
-            && sprit->transformY < ZBuffer[0])
+            && sprit->transformY < ZBuffer[stripe])
         {
             y = sprit->drawStartY;
-            printf("y : %d, spriteDrawEnd : %d\n", y, sprit->drawEndX);
             while (y < sprit->drawEndY)
             {
                 d = (y) * 256 - game->map_info.window_height * 128 
                     + sprit->spriteHeight * 128;
                 sprit->texY = ((d * sprit->texHeight) / sprit->spriteHeight) / 256;
-                sprite_pixel_put(game, &game->map_info.te_s, stripe, y);
+                sprite_pixel_put(game, &game->map_info.te_s, sprit, stripe, y);
                 y++;
             }
         }
@@ -154,19 +153,11 @@ void write_verical_stripes(t_game *game, double ZBuffer[10000])
     }
 }
 
-void set_sprite(t_game *game, double ZBuffer[10000])
+void set_sprite_p_and_ht(t_player *play,
+	t_game *game,
+	t_sprite_print *sprit,
+	t_sprite *sprite)
 {
-    t_sprite *sprite;
-    t_player *play;
-    t_sprite_print *sprit;
-
-    if (set_sprite_distance(game))
-        exit_error(game, "failed at sorting the sprites");
-    sprite = game->map_info.sprites;
-    play = &(game->player);
-    sprit = &(game->sprites_p);
-    while (sprite != NULL)     
-    {
         sprit->spriteX = sprite->posX - play->posX;
         sprit->spriteY = sprite->posY - play->posY;
         sprit->invDet = 1.0 / (play->planeX * play->dirY - play->dirX * play->planeY);
@@ -192,46 +183,68 @@ void set_sprite(t_game *game, double ZBuffer[10000])
         sprit->drawEndX = sprit->spriteWidth / 2 + sprit->spriteScreenX;
         if(sprit->drawEndX >= game->map_info.window_width)
             sprit->drawEndX =  game->map_info.window_width - 1;
-        write_verical_stripes(game, ZBuffer);
+}
+
+void set_sprite(t_game *game, double ZBuffer[10000])
+{
+    t_sprite *sprite;
+    t_player *play;
+    t_sprite_print *sprit;
+
+    if (set_sprite_distance(game))
+        exit_error(game, "failed at sorting the sprites");
+    sprite = game->map_info.sprites;
+    play = &(game->player);
+    sprit = &(game->sprites_p);
+    while (sprite != NULL)     
+    {
+	set_sprite_p_and_ht(play, game, sprit, sprite);
+       write_verical_stripes(game, ZBuffer);
         sprite = sprite->next;
     }
 }
 
-
+int init_mlx_obj(t_player *play, t_game *game)
+{
+	play->current_image.img = mlx_new_image(game->mlx.mlx_ptr,
+            game->map_info.window_width, game->map_info.window_height);
+	if (play->current_image.img == NULL)
+		return (-1);
+	play->current_image.height = game->map_info.window_height;
+	play->current_image.width = game->map_info.window_width;
+	play->current_image.addr = mlx_get_data_addr(play->current_image.img,
+		&play->current_image.bpp, &play->current_image.line_length,
+		&play->current_image.endian);
+	if (play->current_image.addr == NULL)
+		return (-1);
+	return (0);
+}
 int raycasting(t_game *game)
 {
-    int x;
-    t_player *play;
-    double  ZBUFFER[10000];
+	int x;
+	t_player *play;
+	double  ZBUFFER[10000];
 
-    play = &(game->player);
-    play->current_image.img = mlx_new_image(game->mlx.mlx_ptr,
-            game->map_info.window_width, game->map_info.window_height);
-    play->current_image.height = game->map_info.window_height;
-    play->current_image.width = game->map_info.window_width;
-    play->current_image.addr = mlx_get_data_addr(play->current_image.img,
-            &play->current_image.bpp, &play->current_image.line_length,
-            &play->current_image.endian);
-    x = 0;
-    while (x < game->map_info.window_width)
-    {
-        play->cameraX = (2 * x / (double)game->map_info.window_width) - 1;
-        define_deltaDist(game);
-        define_side_dist(game);
-        search_wall(game);
-        get_line_length(game);
-        set_wall_color(game, x);
-        if (draw_floor_and_ceiling(play->current_image, x, play->drawStart, 
-                (play->drawEnd - play->drawStart), &(game->map_info)))
-            return (0);
-        ZBUFFER[x] = play->perpWallDist;
-        x++;
-    }
-    set_sprite(game, (double *)(ZBUFFER));
-    mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, play->current_image.img, 0, 0);
-    // mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, game->map_info.te_no.img, 0, 0);
-    // play->rot_left = 1;
-    update_pos_view(game);
-    update_rotation(game);
-    return (0);
+	play = &(game->player);
+	if (init_mlx_obj(play, game))
+		return (exit_error(game, "malloc error raycast"));
+        x = 0;
+	while (x < game->map_info.window_width)
+	{
+		play->cameraX = (2 * x / (double)game->map_info.window_width) - 1;
+		define_deltaDist(game);
+		define_side_dist(game);
+		search_wall(game);
+		get_line_length(game);
+		set_wall_color(game, x);
+		if (draw_floor_and_ceiling(play->current_image, x, play->drawStart, 
+			(play->drawEnd - play->drawStart), &(game->map_info)))
+			return (0);
+		ZBUFFER[x++] = play->perpWallDist;
+	}
+	set_sprite(game, (double *)(ZBUFFER));
+	mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, play->current_image.img, 0, 0);
+	update_pos_view(game);
+	update_rotation(game);
+	return (0);
 }

@@ -77,19 +77,19 @@ void move_right(t_game *game, t_player *play)
 {
   int map_ret_val;
   
-  map_ret_val = ft_map(game->map_info.plan, (int)(play->posX +
+  map_ret_val = ft_map(game->map_info.plan, (int)(play->posX -
     play->planeX * play->moveX), (int)play->posY);
   if (play->moveY < 0 && (map_ret_val != -1 || map_ret_val != '1' 
     || map_ret_val != '3'))
   {
-    play->posX += play->planeX * 0.06;
+    play->posY -= play->planeY * 0.06;
   }
   map_ret_val = ft_map(game->map_info.plan, (int)play->posX,
-    (int)(play->posY + play->planeX * play->moveX));
+    (int)(play->posY - play->planeX * play->moveX));
   if (play->moveY < 0 && (map_ret_val != -1 || map_ret_val != '1' 
     || map_ret_val != '3'))
   {
-    play->posY += play->planeY * 0.06;
+    play->posY -= play->planeY * 0.06;
   }
  
 }
@@ -103,6 +103,10 @@ void update_pos_view(t_game *game)
     move_forward(game, play);
   if (play->moveX < 0)
     move_backward(game, play);
+  if (play->moveY < 0)
+    move_right(game, play);
+  if (play->moveY > 0)
+    move_left(game, play);
 }
 
 void update_rotation(t_game *game)

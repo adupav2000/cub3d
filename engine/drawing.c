@@ -12,7 +12,10 @@
 
 #include "../cub3d.h"
 
-void sprite_pixel_put(t_game *game, t_img *tex, int x, int y)
+void sprite_pixel_put(t_game *game, 
+	t_img *tex, 
+	t_sprite_print *sprit, 
+	int x, int y)
 {
     t_img *curr_img;
     int r;
@@ -20,18 +23,26 @@ void sprite_pixel_put(t_game *game, t_img *tex, int x, int y)
     int b;
 
     curr_img = &(game->player.current_image);
-    r = tex->addr[game->player.texY * tex->line_length 
-        + game->player.texX * (tex->bpp / 8)];
-    g =  tex->addr[game->player.texY * tex->line_length 
-        + game->player.texX * (tex->bpp / 8) + 1];
-    b = tex->addr[game->player.texY * tex->line_length 
-        + game->player.texX * (tex->bpp / 8) + 2];
+printf("sprit->texY %d, sprit->texX %d \n", sprit->texY,sprit->texX );
+	printf("leak 1\n");
+    r = tex->addr[sprit->texY * tex->line_length 
+        + sprit->texX * (tex->bpp / 8)];
+	printf("leak 2\n");
+    g =  tex->addr[sprit->texY * tex->line_length 
+        + sprit->texX * (tex->bpp / 8) + 1];
+	printf("leak 3\n");
+    b = tex->addr[sprit->texY * tex->line_length 
+        + sprit->texX * (tex->bpp / 8) + 2];
+printf("leak 4\n");
     if(!((r & 0x00FFFFFF) == 0 && (g & 0x00FFFFFF) == 0 && (b & 0x00FFFFFF) == 0))
     {
+printf("leak 5\n");
         curr_img->addr[y * curr_img->line_length 
             + x * curr_img->bpp / 8] = r;
+printf("leak 6\n");
         curr_img->addr[y * curr_img->line_length 
             + x * curr_img->bpp / 8 + 1] = g;
+printf("leak 7\n");
         curr_img->addr[y * curr_img->line_length 
             + x * curr_img->bpp / 8 + 2] = b;
     } 

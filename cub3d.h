@@ -244,7 +244,8 @@ int     write_and_save_screen(t_game *game);
 
 int load_color_from_tex(t_img *tex, int x, int y);
 void texture_pixel_put(t_game *game, t_img *tex, int x, int y);
-void sprite_pixel_put(t_game *game, t_img *tex, int x, int y);
+void sprite_pixel_put(t_game *game, t_img *tex,
+	t_sprite_print *sprit, int x, int y);
 
 int sprite_bubble_sort(t_game *game);
 double get_ss_distance(double posX, double posY, int posSX, int posSY);
