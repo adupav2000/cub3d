@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/14 12:09:25 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/15 17:05:52 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,9 +232,9 @@ void    init_player(t_player *player);
 void    init_map(t_map *map_info);
 
 /*all exit and clearing functions*/
-void    clear_player(t_player *player);
+void    clear_player(t_game *game);
 void    clear_mlx(t_data *mlx);
-void    clear_map_info(t_map *map_info);
+void    clear_map_info(t_game *game);
 void    clear_config(t_config *config);
 void    clear_all_variables(t_game *game);
 int     exit_error(t_game *game, char *message);
