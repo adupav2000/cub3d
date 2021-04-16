@@ -5,6 +5,7 @@ PARSING_SRCS	= config/parsing.c\
 					config/colors.c\
 					config/map.c\
 					engine/raycasting.c\
+					engine/raycast_func.c\
 					engine/event_listener.c\
 					engine/camera.c\
 					config/check_function.c\
