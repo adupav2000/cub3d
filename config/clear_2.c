@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:42:27 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/15 17:52:50 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/16 15:13:46 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void	clear_config(t_config *config)
 		free(config->prog_name);
 	if (config->conf_file)
 		free(config->conf_file);
-	if (config->conf_check != NULL)
-		free(config->conf_check);
 }
 
 void	clear_all_variables(t_game *game)

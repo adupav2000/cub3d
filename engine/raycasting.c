@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/16 14:47:22 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/16 15:14:39 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,7 @@ int raycasting(t_game *game)
 	set_sprite(game, (double *)(ZBUFFER));
 	mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win, play->current_image.img, 0, 0);
 	mlx_destroy_image(game->mlx.mlx_ptr, play->current_image.img);
+	free(play->current_image.addr);
 	update_pos_view(game);
 	update_rotation(game);
 	return (0);

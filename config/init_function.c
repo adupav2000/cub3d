@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:07:33 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/15 20:33:52 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/16 15:12:47 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	init_config(t_config *config)
 {
 	config->conf_file = NULL;
 	config->prog_name = NULL;
-	config->conf_check = NULL;	
+	config->conf_check = 0;	
 }
 
 int		handle_resolution(char *line, t_map *map_info, t_game *game)

@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/16 14:43:01 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/16 15:04:13 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,20 +160,20 @@ typedef struct s_map
 
 typedef struct s_config
 {
-	int screenshot;
-	char *prog_name;
-	char *conf_file;
-	char **conf_check;
-} t_config;
+	int		screenshot;
+	char	*prog_name;
+	char	*conf_file;
+	int		conf_check;
+}				t_config;
 
 typedef struct s_game
 {
-	t_map map_info;
-	t_player player;
-	t_data mlx;
-	t_config config;
-	t_sprite_print sprites_p;
-} t_game;
+	t_map			map_info;
+	t_player		player;
+	t_data			mlx;
+	t_config		config;
+	t_sprite_print	sprites_p;
+}				t_game;
 
 void my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
