@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:42:27 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/16 15:13:46 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/16 15:58:49 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	clear_player(t_game *game)
 
 	play = &(game->player);
 	if (play->current_image.img != NULL)
-		mlx_destroy_image(game->mlx.mlx_ptr, play->current_image.img);
+		mlx_destroy_image(game->mlx.mlx_ptr, play->current_image.addr);
 }
 
 void	clear_mlx(t_data *mlx)

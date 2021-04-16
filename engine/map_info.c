@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:30:18 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/12 15:45:24 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/16 16:08:03 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ char   ft_map(t_str *map, int width, int height)
     while (map && (--height > 0))
 		map = map->next; 
     if (map && width <= (int)ft_strlen(map->line))
+	{
+		if (map->line[width] == ' ')
+			return ('1');
 		return (map->line[width]);
+	}
     //printf("returned a -1 SHIT! : width ; %d, height : %d\n", width, height);
     return (-1);
 }

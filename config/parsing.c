@@ -58,7 +58,7 @@ int file_check(char *file_name)
 	i = 0;
 	while (file_name[i] && file_name[i] != '.')
 		i++;
-	if (!file_name[i] || !file_name[i + 1] || !ft_strncmp(&file_name[i + 1], "cub", 2))
+	if (!file_name[i] || !file_name[i + 1] || ft_strncmp(&file_name[i + 1], "cub", 2))
 		return (-1);
 	return (0);
 }
