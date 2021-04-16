@@ -15,7 +15,7 @@
 int	exit_error(t_game *game, char *message)
 {
 	clear_all_variables(game);
-	if (message[0] == 0)
+	if (message == NULL || message[0] == 0)
 	{
 		perror("Error ");
 	}
@@ -25,6 +25,7 @@ int	exit_error(t_game *game, char *message)
 		ft_putstr_fd(message, 1);
 		ft_putstr_fd("\n", 1);
 	}
+	exit(EXIT_FAILURE);
 	return (-1);
 }
 

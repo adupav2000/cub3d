@@ -42,7 +42,7 @@ int	check_map_line(t_str *str)
 	int		i;
 	char	prev;
 
-	while (str != NULL && str->line[0] != '\0')
+	while (!(str == NULL && str->line[0] == '\0'))
 	{
 		i = 1;
 		while (str->line[i])
@@ -55,6 +55,7 @@ int	check_map_line(t_str *str)
 				return (-1);
 			i++;
 		}
+		str = str->next;
 	}
 	return (0);
 }

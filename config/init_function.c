@@ -59,6 +59,13 @@ void	init_map(t_map *map_info)
 	map_info->sprites = NULL;
 }
 
+void	init_config(t_config *config)
+{
+	config->conf_file = NULL;
+	config->prog_name = NULL;
+	config->conf_check = NULL;	
+}
+
 int		handle_resolution(char *line, t_map *map_info, t_game *game)
 {
 	int i;

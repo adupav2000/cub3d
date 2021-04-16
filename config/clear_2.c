@@ -55,10 +55,15 @@ void	clear_map_info(t_game *game)
 
 void	clear_config(t_config *config)
 {
-	if (config->prog_name != NULL)
+	int 	i;
+
+	i = 0;
+ 	if (config->prog_name != NULL)
 		free(config->prog_name);
 	if (config->conf_file)
 		free(config->conf_file);
+	if (config->conf_check != NULL)
+		free(config->conf_check);
 }
 
 void	clear_all_variables(t_game *game)

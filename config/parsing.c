@@ -58,12 +58,16 @@ int parsing(t_game *game, int argc, char **argv)
 			&game->map_info.window_max_height);
 	init_map(&game->map_info);
 	init_player(&game->player);
+	init_config(&game->config);
 	game->mlx.mlx_win = NULL;
 	error_check = args_check(argc, argv, game);
 	line = NULL;
-	if (ft_strncmp(ft_split(game->config.conf_file, '.')[1], "cub", 2))
-		return (exit_error(game, "uncorrect file."));
 	file_desc = open(game->config.conf_file, O_RDONLY);
+	game->config.conf_check = (char **)ft_split(game->config.conf_file, '.');
+	if (game->config.conf_check[1] == NULL
+		|| ft_strncmp(game->config.conf_check[1], "cub", 2)
+		|| ((file_desc == -1)))
+		return (exit_error(game, "uncorrect file."));
 	while (!error_check && get_next_line(file_desc, &line))
 		error_check = parse_line(line, &game->mlx, &game->map_info, game);
 	error_check = everything_was_set(&game->map_info, game);

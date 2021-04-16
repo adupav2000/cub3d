@@ -184,6 +184,7 @@ typedef struct s_config{
     int     screenshot;
     char    *prog_name;
     char    *conf_file;
+	char	**conf_check;
 } t_config;
 
 typedef struct s_game{
@@ -230,6 +231,7 @@ int     everything_was_set(t_map *map_info, t_game *game);
 
 void    init_player(t_player *player);
 void    init_map(t_map *map_info);
+void	init_config(t_config *config);
 
 /*all exit and clearing functions*/
 void    clear_player(t_game *game);

@@ -24,7 +24,7 @@ int sprite_bubble_sort(t_game *game)
     {
         unsorted = 0; 
         sprite_origin = game->map_info.sprites;
-        if (sprite_origin->distance > sprite_origin->next->distance)
+        if (sprite_origin->distance < sprite_origin->next->distance)
         {
             game->map_info.sprites = game->map_info.sprites->next;
             sprite_origin->next = game->map_info.sprites->next;
@@ -39,7 +39,7 @@ int sprite_bubble_sort(t_game *game)
         while (sprite_origin != NULL && sprite_origin->next != NULL)
         {
             // print_all_sprite(game);
-            if (sprite_origin->distance <= sprite_origin->next->distance)
+            if (sprite_origin->distance >= sprite_origin->next->distance)
             {
                 sprite_prev = sprite_origin;
                 sprite_origin = sprite_origin->next;
@@ -79,14 +79,3 @@ int set_sprite_distance(t_game *game)
     return (sprite_bubble_sort(game));
 }
 
-void print_all_sprite(t_game *game)
-{
-	t_sprite *sprite;
-    sprite = game->map_info.sprites;
-    while (sprite != NULL)    
-    {
-		printf("posX : %f, posY : %f; distance : %f\n", sprite->posX , sprite->posY, sprite->distance);
-        sprite = sprite->next;
-    }
-    printf("\n\n");
-}

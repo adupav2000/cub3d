@@ -115,6 +115,5 @@ int parse_map_line(t_game *game, t_map *map, char *line)
     map_list->next = NULL;
     ft_strlcpy(map_list->line, line, (ft_strlen(line) + 1));
     sprites_scanner(game, map_list->line, i);
-    printf("whats ?\n");
     return (0);
 }
