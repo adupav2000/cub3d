@@ -18,7 +18,7 @@ void	clear_player(t_game *game)
 
 	play = &(game->player);
 	if (play->current_image.img != NULL)
-		mlx_destroy_image(game->mlx.mlx_ptr, play->current_image.addr);
+		mlx_destroy_image(game->mlx.mlx_ptr, play->current_image.img);
 }
 
 void	clear_mlx(t_data *mlx)
@@ -60,8 +60,6 @@ void	clear_config(t_config *config)
 	i = 0;
  	if (config->prog_name != NULL)
 		free(config->prog_name);
-	if (config->conf_file)
-		free(config->conf_file);
 }
 
 void	clear_all_variables(t_game *game)
