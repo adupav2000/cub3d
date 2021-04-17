@@ -87,8 +87,8 @@ int parsing(t_game *game, int argc, char **argv)
 		error_check = parse_line(line, &game->mlx, &game->map_info, game);
 		free(line);
 	}
-	free(line);
 	error_check = everything_was_set(&game->map_info, game);
+	free(line);
 	close(file_desc);
 	return (error_check);
 }
