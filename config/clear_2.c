@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:42:27 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/17 18:49:13 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/17 18:59:04 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ void	clear_mlx(t_data *mlx)
 void clear_map_info_sprites(t_game *game)
 {
 	t_map	*map;
+	t_sprite *sprite;
 
 	map = &(game->map_info);
 	while (map->sprites != NULL)
 	{
-		if (map->sprites->tex->img != NULL)
-			mlx_destroy_image(game->mlx.mlx_ptr, map->sprites->tex->img);
-		map->sprites->tex->img = NULL;
-		map->sprites->tex->addr = NULL;
-		map->sprites = map->sprites->next;
+		sprite = map->sprites->next;
+		if (map->sprites != NULL)
+			free(map->sprites);
+		map->sprites = sprite;
 	}
 
 }
