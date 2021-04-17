@@ -134,7 +134,9 @@ int raycasting(t_game *game)
 		set_wall_color(game, x);
 		if (draw_floor_and_ceiling(play->current_image, x, play->drawStart, 
 			(play->drawEnd - play->drawStart), &(game->map_info)))
-			return (0);
+			break;
+
+
 		ZBUFFER[x++] = play->perpWallDist;
 	}
 	set_sprite(game, (double *)(ZBUFFER));
