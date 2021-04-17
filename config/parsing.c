@@ -83,7 +83,11 @@ int parsing(t_game *game, int argc, char **argv)
 	if ((game->config.conf_check == -1) || ((file_desc == -1)))
 		return (exit_error(game, "uncorrect file."));
 	while (!error_check && get_next_line(file_desc, &line))
+	{
 		error_check = parse_line(line, &game->mlx, &game->map_info, game);
+		free(line);
+	}
+	free(line);
 	error_check = everything_was_set(&game->map_info, game);
 	close(file_desc);
 	return (error_check);

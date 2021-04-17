@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/16 19:29:20 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/17 17:27:04 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int raycasting(t_game *game)
 		set_wall_color(game, x);
 		if (draw_floor_and_ceiling(play->current_image, x, play->drawStart, 
 			(play->drawEnd - play->drawStart), &(game->map_info)))
-			return (0);
+			break;
 		ZBUFFER[x++] = play->perpWallDist;
 	}
 	set_sprite(game, (double *)(ZBUFFER));
