@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:42:27 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/17 17:34:24 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/17 17:42:21 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,28 @@ void	clear_mlx(t_data *mlx)
 		mlx_destroy_window(mlx->mlx_ptr, mlx->mlx_win);
 }
 
+void clear_map_info_sprites(t_game *game)
+{
+	t_sprite	*sprite;
+	t_map	*map;
+
+	map = &(game->map_info);
+	while (map->sprites != NULL
+			&& (sprite = (map->sprites->next)) != NULL)
+	{
+		if (map->sprites->tex->img != NULL)
+			mlx_destroy_image(game->mlx.mlx_ptr, map->sprites->tex->img);
+		map->sprites->tex->img = NULL;
+		map->sprites->tex->addr = NULL;
+		map->plan = sprite;
+	}
+
+}
+
 void	clear_map_info(t_game *game)
 {
 	t_map	*map;
 	t_str	*str;
-	t_sprite	*sprite;
 
 	map = &(game->map_info);
 	if (map->te_no.img != NULL)
@@ -52,15 +69,7 @@ void	clear_map_info(t_game *game)
 		free(map->plan);
 		map->plan = str;
 	}
-	while (map->sprites != NULL
-			&& (sprite = (map->sprites->next)) != NULL)
-	{
-		if (map->sprites->tex->img != NULL)
-			mlx_destroy_image(game->mlx.mlx_ptr, map->sprites->tex->img);
-		map->sprites->tex->img = NULL;
-		map->sprites->tex->addr = NULL;
-		map->plan = str;
-	}
+	clear_map_info_sprites(game);
 }
 
 void	clear_config(t_config *config)
