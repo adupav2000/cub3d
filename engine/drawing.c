@@ -12,10 +12,11 @@
 
 #include "../cub3d.h"
 
-void sprite_pixel_put(t_game *game, 
+void	sprite_pixel_put(t_game *game, 
 		t_img *tex, 
 		t_sprite_print *sprit, 
-		int x, int y)
+		int x,
+		int y)
 {
 	t_img *curr_img;
 	int r;
@@ -23,12 +24,12 @@ void sprite_pixel_put(t_game *game,
 	int b;
 
 	curr_img = &(game->player.current_image);
-	r = tex->addr[sprit->texY * tex->line_length 
-		+ sprit->texX * (tex->bpp / 8)];
-	g =  tex->addr[sprit->texY * tex->line_length 
-		+ sprit->texX * (tex->bpp / 8) + 1];
-	b = tex->addr[sprit->texY * tex->line_length 
-		+ sprit->texX * (tex->bpp / 8) + 2];
+	r = tex->addr[sprit->texy * tex->line_length 
+		+ sprit->texx * (tex->bpp / 8)];
+	g =  tex->addr[sprit->texy * tex->line_length 
+		+ sprit->texx * (tex->bpp / 8) + 1];
+	b = tex->addr[sprit->texy * tex->line_length 
+		+ sprit->texx * (tex->bpp / 8) + 2];
 	if(!((r & 0x00FFFFFF) == 0 && (g & 0x00FFFFFF) == 0 && (b & 0x00FFFFFF) == 0))
 	{
 		curr_img->addr[y * curr_img->line_length 
@@ -40,23 +41,23 @@ void sprite_pixel_put(t_game *game,
 	} 
 }
 
-void texture_pixel_put(t_game *game, t_img *tex, int x, int y)
+void	texture_pixel_put(t_game *game, t_img *tex, int x, int y)
 {
 	t_img *curr_img;
 
 	curr_img = &(game->player.current_image);
 	curr_img->addr[y * curr_img->line_length + x * curr_img->bpp / 8] = 
-		tex->addr[game->player.texY * tex->line_length 
-		+ game->player.texX * (tex->bpp / 8)];
+		tex->addr[game->player.texy * tex->line_length 
+		+ game->player.texx * (tex->bpp / 8)];
 	curr_img->addr[y * curr_img->line_length + x * curr_img->bpp / 8 + 1] = 
-		tex->addr[game->player.texY * tex->line_length 
-		+ game->player.texX * (tex->bpp / 8) + 1];
+		tex->addr[game->player.texy * tex->line_length 
+		+ game->player.texx * (tex->bpp / 8) + 1];
 	curr_img->addr[y * curr_img->line_length + x * curr_img->bpp / 8 + 2] = 
-		tex->addr[game->player.texY * tex->line_length 
-		+ game->player.texX * (tex->bpp / 8) + 2];
+		tex->addr[game->player.texy * tex->line_length 
+		+ game->player.texx * (tex->bpp / 8) + 2];
 }
 
-void            my_mlx_pixel_put(t_img *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char    *dst;
 
@@ -64,14 +65,14 @@ void            my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int draw_floor_and_ceiling(t_img img_to_change, int x, int y_begin, int len,
-		t_map *map_info)
+int		draw_floor_and_ceiling(t_img img_to_change, int x, int y_begin, int len,
+	t_map *map_info)
 {
 	int i;
 
 	i = 0;
 	if ((x > img_to_change.width) || (x < 0) ||(y_begin < 0)
-			||(len < 0) ||((len + y_begin) > img_to_change.height))
+		||(len < 0) ||((len + y_begin) > img_to_change.height))
 		return (-1);
 	while (i < y_begin)
 		my_mlx_pixel_put(&img_to_change, x, i++, map_info->color_ceiling);
@@ -81,14 +82,14 @@ int draw_floor_and_ceiling(t_img img_to_change, int x, int y_begin, int len,
 	return (0); 
 }
 
-int drawVertLineFromColor(t_img img_to_change, int x, int y_begin,
-		int len, int color)
+int		drawVertLineFromColor(t_img img_to_change, int x, int y_begin,
+	int len, int color)
 {
 	int i;
 
 	i = 0;
 	if ((x > img_to_change.width) || (x < 0) ||(y_begin < 0) 
-			||(len < 0) ||((len + y_begin) > img_to_change.height))
+		||(len < 0) ||((len + y_begin) > img_to_change.height))
 		return (-1);
 	while (len)
 		my_mlx_pixel_put(&img_to_change, x, (y_begin + len--), color);

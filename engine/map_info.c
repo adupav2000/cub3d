@@ -58,23 +58,23 @@ void set_wall_color(t_game *game, int x)
     tex = get_current_tex(game);
     play = &(game->player);
     if (play->side == 0 || play->side == 1)
-        play->wallX = play->posY + play->perpWallDist * play->rayDirY;
+        play->wallx = play->posy + play->perpwalldist * play->raydiry;
     else
-        play->wallX = play->posX + play->perpWallDist * play->rayDirX;
-    play->wallX -= floor(play->wallX);
-    play->texX = (int)(play->wallX * (double)tex->width);
-    if(play->side == 0 && play->rayDirX > 0)
-        play->texX = tex->width - play->texX - 1;
-    if(play->side == 1 && play->rayDirY < 0)
-        play->texX = tex->width - play->texX - 1;
-    play->step = 1.0 * tex->height / play->lineHeight;
-    play->texPos = (play->drawStart - game->map_info.window_height 
-        / 2 + play->lineHeight / 2) * play->step;
-    y = play->drawStart;
-    while (y < play->drawEnd)
+        play->wallx = play->posx + play->perpwalldist * play->raydirx;
+    play->wallx -= floor(play->wallx);
+    play->texx = (int)(play->wallx * (double)tex->width);
+    if(play->side == 0 && play->raydirx > 0)
+        play->texx = tex->width - play->texx - 1;
+    if(play->side == 1 && play->raydiry < 0)
+        play->texx = tex->width - play->texx - 1;
+    play->step = 1.0 * tex->height / play->lineheight;
+    play->texpos = (play->drawstart - game->map_info.window_height 
+        / 2 + play->lineheight / 2) * play->step;
+    y = play->drawstart;
+    while (y < play->drawend)
     {
-        play->texY = (int)play->texPos & (tex->height - 1);
-        play->texPos += play->step;
+        play->texy = (int)play->texpos & (tex->height - 1);
+        play->texpos += play->step;
         texture_pixel_put(game, tex, x, y);
         y++;
     }

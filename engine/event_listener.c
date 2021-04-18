@@ -15,15 +15,15 @@
 int	key_press(int key_code, t_game *game)
 {
 	if (key_code == KEY_W || key_code == KEY_UP)
-		game->player.moveX = 1;
+		game->player.movex = 1;
 	else if (key_code == KEY_S || key_code == KEY_DOWN)
-		game->player.moveX = -1;
+		game->player.movex = -1;
 	else if (key_code == KEY_A)
-		game->player.moveY = -1;
+		game->player.movey = -1;
 	else if (key_code == KEY_LEFT)
 		game->player.rot_right = 1;
 	else if (key_code == KEY_D)
-		game->player.moveY = 1;
+		game->player.movey = 1;
 	else if (key_code == KEY_RIGHT)
 		game->player.rot_left = 1;
 	return (0);
@@ -32,15 +32,15 @@ int	key_press(int key_code, t_game *game)
 int	key_release(int key_code, t_game *game)
 {
 	if (key_code == KEY_W || key_code == KEY_UP)
-		game->player.moveX = 0;
+		game->player.movex = 0;
 	else if (key_code == KEY_S || key_code == KEY_DOWN)
-		game->player.moveX = 0;
+		game->player.movex = 0;
 	else if (key_code == KEY_LEFT)
 		game->player.rot_right = 0;
 	else if (key_code == KEY_RIGHT)
 		game->player.rot_left = 0;
 	else if (key_code == KEY_A || key_code == KEY_D)
-		game->player.moveY = 0;
+		game->player.movey = 0;
 	else if (key_code == KEY_ESC)
 		return(exit_success(game));
 	return (0);

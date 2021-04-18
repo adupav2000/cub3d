@@ -14,19 +14,19 @@
 
 void    set_init_pos(t_game *game, int x, int y, char c)
 {
-	game->player.posX = x;
-	game->player.posY = y;
+	game->player.posx = x;
+	game->player.posy = y;
 	if (game->player.position_initialised != 0)
 		exit_error(game, "Position initialised two times.");
 	game->player.position_initialised = 1;
 	if (c == 'N')
-		game->player.dirY = 1;
+		game->player.diry = 1;
 	if (c == 'S')
-		game->player.dirY = -1;
+		game->player.diry = -1;
 	if (c == 'W')
-		game->player.dirX = -1;
+		game->player.dirx = -1;
 	if (c == 'E')
-		game->player.dirX = 1;
+		game->player.dirx = 1;
 }
 
 void    check_user_position(t_game *game, char *str, int y)
@@ -62,8 +62,8 @@ int save_sprite(int x, int y, t_game *game)
         sprite = sprite->next;
     }
     sprite->next = NULL; 
-    sprite->posX = x;
-    sprite->posY = y;
+    sprite->posx = x;
+    sprite->posy = y;
     sprite->distance = 0;
     sprite->tex = &(game->map_info.te_s);
     return (0);

@@ -14,25 +14,25 @@
 
 void	init_player(t_player *player)
 {
-	player->posX = 0;
-	player->posY = 0;
-	player->dirX = 1;
-	player->dirY = 1;
+	player->posx = 0;
+	player->posy = 0;
+	player->dirx = 1;
+	player->diry = 1;
 	player->position_initialised = 0;
-	player->planeX = 0;
-	player->planeY = 0.66;
+	player->planex = 0;
+	player->planey = 0.66;
 	player->time = 0;
 	player->old_time = 0;
 	player->hit = 0;
-	player->mapX = 0;
-	player->mapY = 0;
-	player->moveX = 0;
-	player->moveY = 0;
+	player->mapx = 0;
+	player->mapy = 0;
+	player->movex = 0;
+	player->movey = 0;
 	player->rot_left = 0;
 	player->rot_right = 0;
-	player->texNum = 0;
-	player->texX = 0;
-	player->wallX = 0;
+	player->texnum = 0;
+	player->texx = 0;
+	player->wallx = 0;
 	player->current_image.img = NULL;
 }
 

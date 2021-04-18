@@ -76,8 +76,8 @@ int		set_sprite_distance(t_game *game)
 	sprite = game->map_info.sprites;
 	while (sprite != NULL)
 	{
-		sprite->distance = get_ss_distance(game->player.posX,
-			game->player.posY, sprite->posX, sprite->posY);
+		sprite->distance = get_ss_distance(game->player.posx,
+			game->player.posy, sprite->posx, sprite->posy);
 		sprite = sprite->next;
 	}
 	return (sprite_bubble_sort(game));
