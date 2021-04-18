@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:07:33 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/16 15:12:47 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/18 18:47:49 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,8 @@ void	init_map(t_map *map_info)
 {
 	map_info->window_height = 0;
 	map_info->window_width = 0;
-	map_info->color_floor = 0x33C6E3;
-	map_info->color_ceiling = 0xA0764C;
-	map_info->te_no_color = 0xFFFFFF;
-	map_info->te_so_color = 0xCCCCCC;
-	map_info->te_we_color = 0xFF44FF;
-	map_info->te_ea_color = 0x44FF44;
+	map_info->color_floor = 0;
+	map_info->color_ceiling = 0;
 	map_info->te_s_color = 0;
 	map_info->te_no.img = NULL;
 	map_info->te_so.img = NULL;

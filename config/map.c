@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 10:06:56 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/14 10:53:41 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/18 19:29:42 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 void    set_init_pos(t_game *game, int x, int y, char c)
 {
 	game->player.posX = x;
-        game->player.posY = y;
-        game->player.position_initialised = 1;
-        if (c == 'N')
-            game->player.dirY = 1;
-        if (c == 's')
-            game->player.dirY = -1;
-        if (c == 'W')
-            game->player.dirX = -1;
-        if (c == 'E')
-            game->player.dirX = 1;
+	game->player.posY = y;
+	if (game->player.position_initialised != 0)
+		exit_error(game, "Position initialised two times.");
+	game->player.position_initialised = 1;
+	if (c == 'N')
+		game->player.dirY = 1;
+	if (c == 'S')
+		game->player.dirY = -1;
+	if (c == 'W')
+		game->player.dirX = -1;
+	if (c == 'E')
+		game->player.dirX = 1;
 }
 
 void    check_user_position(t_game *game, char *str, int y)

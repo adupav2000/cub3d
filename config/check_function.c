@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:09:06 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/15 20:06:01 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/18 19:52:18 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ int	check_map_column(t_str *str, int max_len)
 	while (i < max_len)
 	{
 		str = origine;
+		prev = 0;
 		while (str->next != NULL)
 		{
-			prev = str->line[i];
-			str = str->next;
 			if ((prev == ' ' && str->line[i] == '0')
 				|| (prev == '0' && str->line[i] == ' ')
 				|| (prev == '3' && str->line[i] == ' ')
 				|| (prev == ' ' && str->line[i] == '3'))
 				return (-1);
+			prev = str->line[i];
+			str = str->next;
 		}
 		i++;
 	}
@@ -42,17 +43,18 @@ int	check_map_line(t_str *str)
 	int		i;
 	char	prev;
 
+	prev = 0;
 	while (!(str == NULL && str->line[0] == '\0'))
 	{
 		i = 1;
 		while (str->line[i])
 		{
-			prev = str->line[i - 1];
-			if ((prev == ' ' && str->line[i] == '0')
-				|| (prev == '0' && str->line[i] == ' ')
-				|| (prev == '3' && str->line[i] == ' ')
-				|| (prev == ' ' && str->line[i] == '3'))
+			if ((prev == 0 && str->line[i] == '0')
+				|| (prev == '0' && str->line[i] == '\0')
+				|| (prev == '3' && str->line[i] == '\0')
+				|| (prev == 0 && str->line[i] == '3'))
 				return (-1);
+			prev = str->line[i];
 			i++;
 		}
 		str = str->next;
@@ -88,6 +90,8 @@ int	everything_was_set(t_map *map_info, t_game *game)
 	if (map_info->te_ea.img == NULL)
 		return (-1);
 	if (map_info->te_s.img == NULL)
+		return (-1);
+	if (game->player.position_initialised == 0)
 		return (-1);
 	if (check_map(map_info))
 		return (-1);
