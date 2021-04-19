@@ -6,13 +6,13 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:30:18 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/16 16:08:03 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/19 19:22:14 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char ft_map(t_str *map, int width, int height)
+char	ft_map(t_str *map, int width, int height)
 {
 	while (map && (--height > 0))
 		map = map->next;
@@ -25,10 +25,10 @@ char ft_map(t_str *map, int width, int height)
 	return (-1);
 }
 
-static t_img *get_current_tex(t_game *game)
+static t_img	*get_current_tex(t_game *game)
 {
-	t_player *play;
-	t_img *tex;
+	t_player	*play;
+	t_img		*tex;
 
 	play = &(game->player);
 	tex = &(game->map_info.te_we);
@@ -41,10 +41,10 @@ static t_img *get_current_tex(t_game *game)
 	return (tex);
 }
 
-void set_wall_color_precalculation(t_game *game,
-	int x,
-	t_player *play,
-	t_img *tex)
+void	set_wall_color_precalculation(t_game *game,
+		int x,
+		t_player *play,
+		t_img *tex)
 {
 	if (play->side == 0 || play->side == 1)
 		play->wallx = play->posy + play->perpwalldist * play->raydiry;
@@ -57,17 +57,16 @@ void set_wall_color_precalculation(t_game *game,
 	if (play->side == 1 && play->raydiry < 0)
 		play->texx = tex->width - play->texx - 1;
 	play->step = 1.0 * tex->height / play->lineheight;
-	play->texpos = (play->drawstart - game->map_info.window_height
-		/ 2 + play->lineheight / 2) * play->step;
-
+	play->texpos = (play->drawstart - game->map_info.window_height / 2
+			+ play->lineheight / 2) * play->step;
 }
 
-void set_wall_color(t_game *game, int x)
+void	set_wall_color(t_game *game, int x)
 {
-	t_player *play;
-	int y;
-	unsigned int color;
-	t_img *tex;
+	t_player		*play;
+	int				y;
+	unsigned int	color;
+	t_img			*tex;
 
 	play = &(game->player);
 	tex = get_current_tex(game);

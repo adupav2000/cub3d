@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 19:13:36 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/16 19:14:32 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/19 19:29:55 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,18 @@ void define_deltaDist(t_game *game)
 	play->mapy = (int)play->posy;
 	play->sidedistx = 0;
 	play->sidedisty = 0;
-	play->deltadistx = (play->raydiry == 0) ? 0 : ((play->raydirx == 0) ? 1 : fabs(1. / play->raydirx));
-	play->deltadisty = (play->raydirx == 0) ? 0 : ((play->raydiry == 0) ? 1 : fabs(1. / play->raydiry));
+	if (play->raydiry == 0)
+		play->deltadistx = 0;
+	else if (play->raydirx == 0)
+		play->deltadistx = 1;
+	else
+		fabs(1. / play->raydirx);
+	if (play->raydirx == 0)
+		play->deltadisty = 0;
+	else if (play->raydiry == 0)
+		play->deltadisty = 1;
+	else
+		fabs(1. / play->raydiry);
 }
 
 void define_side_dist(t_game *game)
@@ -32,9 +42,7 @@ void define_side_dist(t_game *game)
 	t_player *play;
 
 	play = &(game->player);
-	/*Making shure a wall was indeed hit*/
 	play->hit = 0;
-	/* making sure the side is not the one previously set*/
 	play->side = -1;
 	play = (&game->player);
 	if (play->raydirx < 0)
@@ -59,11 +67,6 @@ void define_side_dist(t_game *game)
 	}
 }
 
-/*
- * for the moment it performs dda, this is all what we know
- * calculate the distance to the next wall 
- * searches a wall and where it will be hit (x or y side)
- * */
 void search_wall(t_game *game)
 {
 	t_player *play;

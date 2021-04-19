@@ -9,6 +9,7 @@ PARSING_SRCS	= config/parsing.c\
 					engine/raycast_func.c\
 					engine/event_listener.c\
 					engine/camera.c\
+					engine/camera_2.c\
 					config/check_function.c\
 					config/init_function.c\
 					engine/map_info.c\
