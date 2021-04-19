@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 10:06:56 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/19 13:46:52 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:45:38 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	save_sprite(int x, int y, t_game *game)
 int	parse_map_line_2(t_game *game, t_map *map, char *line, int i)
 {
 	t_str	*map_list;
-	int		i;
 
 	map_list = map->plan;
 	while (map_list->next != NULL)
