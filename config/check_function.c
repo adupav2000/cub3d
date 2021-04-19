@@ -12,25 +12,40 @@
 
 #include "../cub3d.h"
 
+int	get_max_line_length(t_str *str)
+{
+	int	max;
+
+	max = 0;
+	while (str)
+	{
+		if (ft_strlen(str->line) > max)
+			max = ft_strlen(str->line);
+		str = str->next;
+	}
+	return (max);
+}
+
 int	check_map_column(t_str *str, int max_len)
 {
 	int		i;
 	char	prev;
+	char	current;
 	t_str	*origine;
 
 	i = 0;
 	while (i < max_len)
 	{
 		str = origine;
-		prev = 0;
+		prev = -1;
 		while (str->next != NULL)
 		{
-			if ((prev == ' ' && str->line[i] == '0')
-				|| (prev == '0' && str->line[i] == ' ')
-				|| (prev == '3' && str->line[i] == ' ')
-				|| (prev == ' ' && str->line[i] == '3'))
+			current = ft_strlen(str->line) < i ? -1 : str->line[i];
+			if ((prev == -1 && current == '0') || (prev == '0' && current == -1)
+				|| (prev == '2' && current == -1)
+				|| (prev == -1 && current == '2'))
 				return (-1);
-			prev = str->line[i];
+			prev = current;
 			str = str->next;
 		}
 		i++;
@@ -44,15 +59,16 @@ int	check_map_line(t_str *str)
 	char	prev;
 
 	prev = 0;
-	while (!(str == NULL && str->line[0] == '\0'))
+	while (str != NULL)
 	{
 		i = 1;
-		while (str->line[i])
+		prev = str->line[0];
+		while (str->line[i - 1])
 		{
-			if ((prev == 0 && str->line[i] == '0')
+			if ((prev == '\0' && str->line[i] == '0')
 				|| (prev == '0' && str->line[i] == '\0')
-				|| (prev == '3' && str->line[i] == '\0')
-				|| (prev == 0 && str->line[i] == '3'))
+				|| (prev == '2' && str->line[i] == '\0')
+				|| (prev == '\0' && str->line[i] == '2'))
 				return (-1);
 			prev = str->line[i];
 			i++;
@@ -67,7 +83,7 @@ int	check_map(t_map *map_info)
 	t_str *line;
 
 	line = map_info->plan;
-	return (check_map_column(line, map_info->plan_width)
+	return (check_map_column(line, get_max_line_length(line))
 		&& check_map_line(line));
 }
 
