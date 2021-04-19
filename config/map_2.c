@@ -1,17 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   map_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AlainduPavillon <marvin@42.fr>             +#+  +:+       +#+        */
+/*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/17 21:32:07 by AlainduPa         #+#    #+#             */
-/*   Updated: 2020/12/18 09:55:03 by AlainduPa        ###   ########.fr       */
+/*   Created: 2021/04/19 13:42:10 by adu-pavi          #+#    #+#             */
+/*   Updated: 2021/04/19 13:47:09 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
 #include "../cub3d.h"
 
-#endif
+void	sprites_scanner(t_game *game, char *str, int y)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '2')
+		{
+			save_sprite(i, y, game);
+			str[i] = '0';
+		}
+		i++;
+	}
+	check_user_position(game, str, y);
+}

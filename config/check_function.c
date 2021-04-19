@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:09:06 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/18 19:52:18 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/19 13:47:55 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int	check_map_column(t_str *str, int max_len)
 		prev = -1;
 		while (str->next != NULL)
 		{
-			current = ft_strlen(str->line) < i ? -1 : str->line[i];
+			current = -1;
+			if (ft_strlen(str->line) > i)
+				current = str->line[i];
 			if ((prev == -1 && current == '0') || (prev == '0' && current == -1)
 				|| (prev == '2' && current == -1)
 				|| (prev == -1 && current == '2'))
@@ -80,7 +82,7 @@ int	check_map_line(t_str *str)
 
 int	check_map(t_map *map_info)
 {
-	t_str *line;
+	t_str	*line;
 
 	line = map_info->plan;
 	return (check_map_column(line, get_max_line_length(line))

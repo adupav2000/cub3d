@@ -35,3 +35,11 @@ int	exit_success(t_game *game)
 	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
+
+void	clear_all_variables(t_game *game)
+{
+	clear_player(game);
+	clear_map_info(game);
+	clear_config(&(game->config));
+	clear_mlx(&(game->mlx));
+}

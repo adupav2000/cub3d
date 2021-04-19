@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/16 19:28:12 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:44:03 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 # define X_EVENT_EXIT 17
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void	*img;
 	char	*addr;
@@ -38,7 +38,7 @@ typedef struct	s_img
 	int		endian;
 }				t_img;
 
-typedef struct	s_sprite
+typedef struct s_sprite
 {
 	double			posx;
 	double			posy;
@@ -68,23 +68,23 @@ typedef struct s_sprite_print
 	int		texheight;
 }				t_sprite_print;
 
-typedef struct data_s
+typedef struct s_data
 {
-	void *mlx_ptr;
-	void *mlx_win;
+	void	*mlx_ptr;
+	void	*mlx_win;
 }				t_data;
 
 typedef struct s_str
 {
 	char			*line;
 	struct s_str	*next;
-} t_str;
+}				t_str;
 
 typedef struct s_pos
 {
-	double x;
-	double y;
-} t_pos;
+	double	x;
+	double	y;
+}			t_pos;
 
 typedef struct s_player
 {
@@ -195,9 +195,9 @@ char	ft_map(t_str *map, int width, int height);
 void	set_wall_color(t_game *game, int x);
 
 int		draw_floor_and_ceiling(t_img img_to_change, int x, int y_begin, int len,
-						   t_map *map_info);
+			t_map *map_info);
 int		drawvertlinefromcolor(t_img img_to_change, int x, int y_begin, int len,
-						  int color);
+			int color);
 int		raycasting(t_game *game);
 
 int		key_press(int key_code, t_game *game);
@@ -216,6 +216,13 @@ int		everything_was_set(t_map *map_info, t_game *game);
 void	init_player(t_player *player);
 void	init_map(t_map *map_info);
 void	init_config(t_config *config);
+
+void	set_init_pos(t_game *game, int x, int y, char c);
+void	check_user_position(t_game *game, char *str, int y);
+
+int		save_sprite(int x, int y, t_game *game);
+void	sprites_scanner(t_game *game, char *str, int y);
+int		parse_map_line(t_game *game, t_map *map, char *line);
 
 void	clear_player(t_game *game);
 void	clear_mlx(t_data *mlx);

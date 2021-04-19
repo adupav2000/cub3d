@@ -14,7 +14,7 @@
 
 void	clear_player(t_game *game)
 {
-	t_player *play;
+	t_player	*play;
 
 	play = &(game->player);
 	if (play->current_image.img != NULL)
@@ -27,10 +27,10 @@ void	clear_mlx(t_data *mlx)
 		mlx_destroy_window(mlx->mlx_ptr, mlx->mlx_win);
 }
 
-void clear_map_info_sprites(t_game *game)
+void	clear_map_info_sprites(t_game *game)
 {
-	t_map	*map;
-	t_sprite *sprite;
+	t_map		*map;
+	t_sprite	*sprite;
 
 	map = &(game->map_info);
 	while (map->sprites != NULL)
@@ -40,7 +40,6 @@ void clear_map_info_sprites(t_game *game)
 			free(map->sprites);
 		map->sprites = sprite;
 	}
-
 }
 
 void	clear_map_info(t_game *game)
@@ -60,7 +59,7 @@ void	clear_map_info(t_game *game)
 	if (map->te_s.img != NULL)
 		mlx_destroy_image(game->mlx.mlx_ptr, map->te_s.img);
 	while (map->plan != NULL
-			&& (str = (map->plan->next)) != NULL)
+		&& (str = (map->plan->next)) != NULL)
 	{
 		if (map->plan->line != NULL)
 			free(map->plan->line);
@@ -72,17 +71,9 @@ void	clear_map_info(t_game *game)
 
 void	clear_config(t_config *config)
 {
-	int 	i;
+	int	i;
 
 	i = 0;
- 	if (config->prog_name != NULL)
+	if (config->prog_name != NULL)
 		free(config->prog_name);
-}
-
-void	clear_all_variables(t_game *game)
-{
-	clear_player(game);
-	clear_map_info(game);
-	clear_config(&(game->config));
-	clear_mlx(&(game->mlx));
 }

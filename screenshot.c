@@ -20,7 +20,7 @@ static void	put_int_in_char(unsigned char *dest, int value)
 	dest[3] = (unsigned char)(value >> 24);
 }
 
-int write_file_header(int fd, int file_size, t_map *map)
+int	write_file_header(int fd, int file_size, t_map *map)
 {
 	int				i;
 	unsigned char	bmpfileheader[54];
@@ -28,8 +28,8 @@ int write_file_header(int fd, int file_size, t_map *map)
 	i = 0;
 	while (i < 54)
 		bmpfileheader[i++] = 0;
-	bmpfileheader[0] = (unsigned char)'B';
-	bmpfileheader[1] = (unsigned char)'M';
+	bmpfileheader[0] = (unsigned char) 'B';
+	bmpfileheader[1] = (unsigned char) 'M';
 	put_int_in_char(bmpfileheader + 2, file_size);
 	bmpfileheader[10] = (unsigned char)54;
 	bmpfileheader[14] = (unsigned char)40;
@@ -42,21 +42,19 @@ int write_file_header(int fd, int file_size, t_map *map)
 	return (EXIT_SUCCESS);
 }
 
-static int get_color(t_img *img, int x, int y)
+static int	get_color(t_img *img, int x, int y)
 {
 	int	rgb;
 	int	color;
-	
-	/*takes the oposit pixel in the image (bmp is written in reverse)*/
-	color = *(int*)(img->addr
+
+	color = *(int *)(img->addr
 			+ (4 * (int)img->width * ((int)img->height - 1 - y))
 			+ (4 * x));
 	rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
 	return (rgb);
 }
 
-/*w being the image of the file*/
-static int write_screen_data(int file, t_img *w, int pad)
+static int	write_screen_data(int file, t_img *w, int pad)
 {
 	const unsigned char	zero[3] = {0, 0, 0};
 	int					i;
@@ -81,16 +79,17 @@ static int write_screen_data(int file, t_img *w, int pad)
 	return (EXIT_SUCCESS);
 }
 
-int write_and_save_screen(t_game *game)
+int	write_and_save_screen(t_game *game)
 {
-	int filesize;
-	int fd;
-	int pad;
+	int	filesize;
+	int	fd;
+	int	pad;
 
 	pad = (4 - ((int)game->map_info.window_width * 3) % 4) % 4;
-	filesize = 54  + (3 * ((int)game->map_info.window_width + pad)
-		* (int)game->map_info.window_height);
-	if ((fd = open("screenshot.bmp",  (O_WRONLY | O_CREAT), 0666)) < 0)
+	filesize = 54 + (3 * ((int)game->map_info.window_width + pad)
+			* (int)game->map_info.window_height);
+	fd = open("screenshot.bmp", (O_WRONLY | O_CREAT), 0666);
+	if (fd < 0)
 		return (EXIT_FAILURE);
 	if (write_file_header(fd, filesize, &(game->map_info)))
 		return (EXIT_FAILURE);
