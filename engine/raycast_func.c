@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 19:13:36 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 15:35:56 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:12:46 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 void	define_deltaDist(t_player *play)
 {
-	play->rayDirX = play->dirX + play->planeX * play->cameraX;
-	play->rayDirY = play->dirY + play->planeY * play->cameraX;
-	play->mapX = (int)play->posX;
-	play->mapY = (int)play->posY;
-	play->sideDistX = 0;
-	play->sideDistY = 0;
-	if (play->rayDirY == 0)
-		play->deltaDistX = 0;
-	else if (play->rayDirX == 0)
-		play->deltaDistX = 1;
+	play->raydirx = play->dirx + play->planex * play->camerax;
+	play->raydiry = play->diry + play->planey * play->camerax;
+	play->mapx = (int)play->posx;
+	play->mapy = (int)play->posy;
+	play->sidedistx = 0;
+	play->sidedisty = 0;
+	if (play->raydiry == 0)
+		play->deltadistx = 0;
+	else if (play->raydirx == 0)
+		play->deltadistx = 1;
 	else
-		play->deltaDistX = fabs(1. / play->rayDirX);
-	if (play->rayDirX == 0)
-		play->deltaDistY = 0;
-	else if (play->rayDirY == 0)
-		play->deltaDistY = 1;
+		play->deltadistx = fabs(1. / play->raydirx);
+	if (play->raydirx == 0)
+		play->deltadisty = 0;
+	else if (play->raydiry == 0)
+		play->deltadisty = 1;
 	else
-		play->deltaDistY = fabs(1. / play->rayDirY);
+		play->deltadisty = fabs(1. / play->raydiry);
 }
 
 void	define_side_dist(t_game *game)
@@ -42,25 +42,25 @@ void	define_side_dist(t_game *game)
 	play->hit = 0;
 	play->side = -1;
 	play = (&game->player);
-	if (play->rayDirX < 0)
+	if (play->raydirx < 0)
 	{
-		play->stepX = -1;
-		play->sideDistX = (play->posX - play->mapX) * play->deltaDistX;
+		play->stepx = -1;
+		play->sidedistx = (play->posx - play->mapx) * play->deltadistx;
 	}
 	else
 	{
-		play->stepX = 1;
-		play->sideDistX = (play->mapX + 1.0 - play->posX) * play->deltaDistX;
+		play->stepx = 1;
+		play->sidedistx = (play->mapx + 1.0 - play->posx) * play->deltadistx;
 	}
-	if (play->rayDirY < 0)
+	if (play->raydiry < 0)
 	{
-		play->stepY = -1;
-		play->sideDistY = (play->posY - play->mapY) * play->deltaDistY;
+		play->stepy = -1;
+		play->sidedisty = (play->posy - play->mapy) * play->deltadisty;
 	}
 	else
 	{
-		play->stepY = 1;
-		play->sideDistY = (play->mapY + 1.0 - play->posY) * play->deltaDistY;
+		play->stepy = 1;
+		play->sidedisty = (play->mapy + 1.0 - play->posy) * play->deltadisty;
 	}
 }
 
@@ -70,22 +70,22 @@ void	search_wall(t_game *game)
 
 	play = &(game->player);
 	while (play->hit == 0 &&
-			ft_map(game->map_info.plan, play->mapX, play->mapY) != -1
-			&& play->mapX > 0 && play->mapY > 0)
+			ft_map(game->map_info.plan, play->mapx, play->mapy) != -1
+			&& play->mapx > 0 && play->mapy > 0)
 	{
-		if (play->sideDistX < play->sideDistY)
+		if (play->sidedistx < play->sidedisty)
 		{
-			play->sideDistX += play->deltaDistX;
-			play->mapX += play->stepX;
-			play->side = (play->stepX == -1) ? 0 : 1;
+			play->sidedistx += play->deltadistx;
+			play->mapx += play->stepx;
+			play->side = (play->stepx == -1) ? 0 : 1;
 		}
 		else
 		{
-			play->sideDistY += play->deltaDistY;
-			play->mapY += play->stepY;
-			play->side = (play->stepY == -1) ? 2 : 3;
+			play->sidedisty += play->deltadisty;
+			play->mapy += play->stepy;
+			play->side = (play->stepy == -1) ? 2 : 3;
 		}
-		if (ft_map(game->map_info.plan, play->mapX, play->mapY) == '1'
+		if (ft_map(game->map_info.plan, play->mapx, play->mapy) == '1'
 			&& play->side != -1)
 			play->hit = 1;
 	}
@@ -98,22 +98,22 @@ void	get_line_length(t_game *game)
 	play = &(game->player);
 	if (play->side == 0 || play->side == 1)
 	{
-		play->perpWallDist = (play->mapX - play->posX
-			+ (1 - play->stepX) / 2) / play->rayDirX;
+		play->perpwalldist = (play->mapx - play->posx
+			+ (1 - play->stepx) / 2) / play->raydirx;
 	}
 	else
 	{
-		play->perpWallDist = (play->mapY - play->posY
-			+ (1 - play->stepY) / 2) / play->rayDirY;
+		play->perpwalldist = (play->mapy - play->posy
+			+ (1 - play->stepy) / 2) / play->raydiry;
 	}
-	play->lineHeight = (int)(game->map_info.window_height / play->perpWallDist);
-	play->drawStart = -play->lineHeight / 2 + game->map_info.window_height / 2;
-	if (play->drawStart < 0)
-		play->drawStart = 0;
-	play->drawEnd = play->lineHeight / 2 + game->map_info.window_height / 2;
-	if (play->drawEnd >= game->map_info.window_height)
-		play->drawEnd = game->map_info.window_height - 1;
-	play->wallColor = game->map_info.color_floor;
+	play->lineheight = (int)(game->map_info.window_height / play->perpwalldist);
+	play->drawstart = -play->lineheight / 2 + game->map_info.window_height / 2;
+	if (play->drawstart < 0)
+		play->drawstart = 0;
+	play->drawend = play->lineheight / 2 + game->map_info.window_height / 2;
+	if (play->drawend >= game->map_info.window_height)
+		play->drawend = game->map_info.window_height - 1;
+	play->wallcolor = game->map_info.color_floor;
 	if (play->side == 2 || play->side == 3)
-		play->wallColor = (play->wallColor / 2);
+		play->wallcolor = (play->wallcolor / 2);
 }

@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:15:34 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/17 04:42:15 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:20:48 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void sprite_pixel_put(t_game *game,
 	int b;
 
 	curr_img = &(game->player.current_image);
-	r = tex->addr[sprit->texY * tex->line_length 
-		+ sprit->texX * (tex->bpp / 8)];
-	g =  tex->addr[sprit->texY * tex->line_length 
-		+ sprit->texX * (tex->bpp / 8) + 1];
-	b = tex->addr[sprit->texY * tex->line_length 
-		+ sprit->texX * (tex->bpp / 8) + 2];
+	r = tex->addr[sprit->texy * tex->line_length 
+		+ sprit->texx * (tex->bpp / 8)];
+	g =  tex->addr[sprit->texy * tex->line_length 
+		+ sprit->texx * (tex->bpp / 8) + 1];
+	b = tex->addr[sprit->texy * tex->line_length 
+		+ sprit->texx * (tex->bpp / 8) + 2];
 	if(!((r & 0x00FFFFFF) == 0 && (g & 0x00FFFFFF) == 0 && (b & 0x00FFFFFF) == 0))
 	{
 		curr_img->addr[y * curr_img->line_length 
@@ -46,14 +46,14 @@ void texture_pixel_put(t_game *game, t_img *tex, int x, int y)
 
 	curr_img = &(game->player.current_image);
 	curr_img->addr[y * curr_img->line_length + x * curr_img->bpp / 8] = 
-		tex->addr[game->player.texY * tex->line_length 
-		+ game->player.texX * (tex->bpp / 8)];
+		tex->addr[game->player.texy * tex->line_length 
+		+ game->player.texx * (tex->bpp / 8)];
 	curr_img->addr[y * curr_img->line_length + x * curr_img->bpp / 8 + 1] = 
-		tex->addr[game->player.texY * tex->line_length 
-		+ game->player.texX * (tex->bpp / 8) + 1];
+		tex->addr[game->player.texy * tex->line_length 
+		+ game->player.texx * (tex->bpp / 8) + 1];
 	curr_img->addr[y * curr_img->line_length + x * curr_img->bpp / 8 + 2] = 
-		tex->addr[game->player.texY * tex->line_length 
-		+ game->player.texX * (tex->bpp / 8) + 2];
+		tex->addr[game->player.texy * tex->line_length 
+		+ game->player.texx * (tex->bpp / 8) + 2];
 }
 
 void            my_mlx_pixel_put(t_img *data, int x, int y, int color)

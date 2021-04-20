@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 22:32:13 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/16 14:31:30 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:21:21 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int		set_sprite_distance(t_game *game)
 	sprite = game->map_info.sprites;
 	while (sprite != NULL)
 	{
-		sprite->distance = get_ss_distance(game->player.posX,
-			game->player.posY, sprite->posX, sprite->posY);
+		sprite->distance = get_ss_distance(game->player.posx,
+			game->player.posy, sprite->posx, sprite->posy);
 		sprite = sprite->next;
 	}
 	return (sprite_bubble_sort(game));
