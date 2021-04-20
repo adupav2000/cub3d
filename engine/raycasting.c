@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/20 17:58:46 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 18:22:58 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	write_verical_stripes(t_game *game, double zbuffer[10000],
 					* 128 + sprit->spriteheight * 128;
 				sprit->texy = ((d * sprit->texheight)
 						/ sprit->spriteheight) / 256;
-				sprite_pixel_put(game, &game->map_info.te_s, sprit, stripe, y);
+				sprite_pixel_put(game, &game->map_info.te_s, stripe, y);
 				y++;
 			}
 		}
@@ -136,8 +136,8 @@ int	raycasting(t_game *game)
 		search_wall(game);
 		get_line_length(game);
 		set_wall_color(game, x);
-		if (draw_floor_and_ceiling(play->current_image, x, play->drawstart,
-				(play->drawend - play->drawstart), &(game->map_info)))
+		if (draw_floor_and_ceiling(game, x, play->drawstart,
+			(play->drawend - play->drawstart)))
 			break ;
 		zbuffer[x++] = play->perpwalldist;
 	}

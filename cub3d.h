@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/20 17:08:47 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 18:24:25 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,8 +189,7 @@ int		parse_map_line(t_game *game, t_map *map, char *line);
 char	ft_map(t_str *map, int width, int height);
 void	set_wall_color(t_game *game, int x);
 
-int		draw_floor_and_ceiling(t_img img_to_change, int x, int y_begin, int len,
-						   t_map *map_info);
+int		draw_floor_and_ceiling(t_game *game, int x, int y_begin, int len);
 int		drawvertlinefromcolor(t_img img_to_change, int x, int y_begin, int len,
 						  int color);
 int		raycasting(t_game *game);
@@ -230,8 +229,7 @@ int		write_and_save_screen(t_game *game);
 
 int		load_color_from_tex(t_img *tex, int x, int y);
 void	texture_pixel_put(t_game *game, t_img *tex, int x, int y);
-void	sprite_pixel_put(t_game *game, t_img *tex,
-					  t_sprite_print *sprit, int x, int y);
+void	sprite_pixel_put(t_game *game, t_img *tex, int x, int y);
 
 int		sprite_bubble_sort(t_game *game);
 double	get_ss_distance(double posx, double posy, int possx, int possy);
