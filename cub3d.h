@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/16 19:28:12 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 14:10:34 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ void define_side_dist(t_game *game);
 void search_wall(t_game *game);
 void get_line_length(t_game *game);
 
-int everything_was_set(t_map *map_info, t_game *game);
+int everything_was_set(t_map *map_info, t_game *game, int with_map);
 
 void init_player(t_player *player);
 void init_map(t_map *map_info);

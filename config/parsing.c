@@ -38,7 +38,7 @@ int parse_line(char *line, t_data *data, t_map *map_info, t_game *game)
 	if (!line[0])
 		return (0);
 	if ((!ft_strncmp(line, "  ", 2) || !ft_strncmp(line, "1", 1)) 
-		&& !everything_was_set(map_info, game))
+		&& !everything_was_set(map_info, game, 0))
 		return (parse_map_line(game, map_info, line));
 	else if (!ft_strncmp(line, "R ", 2))
 		return (handle_resolution(line, map_info, game));
@@ -88,7 +88,7 @@ int parsing(t_game *game, int argc, char **argv)
 		free(line);
 		line = NULL;
 	}
-	error_check = everything_was_set(&game->map_info, game);
+	error_check = everything_was_set(&game->map_info, game, 1);
 	if (line != NULL)
 		free(line);
 	close(file_desc);

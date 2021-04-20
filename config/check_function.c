@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:09:06 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/18 19:52:18 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 13:13:36 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	check_map(t_map *map_info)
 		&& check_map_line(line));
 }
 
-int	everything_was_set(t_map *map_info, t_game *game)
+int	everything_was_set(t_map *map_info, t_game *game, int with_map)
 {
 	if (map_info->window_height == 0)
 		return (-1);
@@ -91,9 +91,9 @@ int	everything_was_set(t_map *map_info, t_game *game)
 		return (-1);
 	if (map_info->te_s.img == NULL)
 		return (-1);
-	if (game->player.position_initialised == 0)
+	if (with_map == 1 && game->player.position_initialised == 0)
 		return (-1);
-	if (check_map(map_info))
+	if (with_map == 1 && check_map(map_info))
 		return (-1);
 	return (0);
 }
