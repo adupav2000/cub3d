@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-int args_check(int argc, char **argv, t_game *game)
+int	args_check(int argc, char **argv, t_game *game)
 {
 	if (argc < 2)
 		return (exit_error(game, "too few arguments."));
@@ -22,22 +22,23 @@ int args_check(int argc, char **argv, t_game *game)
 		game->config.screenshot = 1;
 	else if (argc > 2 && !(ft_strncmp(argv[2], "--save", 7) == 0))
 		return (exit_error(game, "wrong arguments"));
-	if (!(game->config.prog_name = (char *)malloc(ft_strlen(argv[0]) + 1)) 
-		|| !(game->config.conf_file = (char *)malloc(ft_strlen(argv[1]) + 1)))
+	game->config.prog_name = (char *)malloc(ft_strlen(argv[0]) + 1);
+	game->config.conf_file = (char *)malloc(ft_strlen(argv[1]) + 1);
+	if (!(game->config.prog_name) || !(game->config.conf_file))
 	{
 		return (exit_error(game,
-			"Malloc of the prog_name and conf_file name did not work."));
+				"Malloc of the prog_name and conf_file name did not work."));
 	}
 	ft_strlcpy(game->config.prog_name, argv[0], (ft_strlen(argv[0]) + 1));
 	ft_strlcpy(game->config.conf_file, argv[1], (ft_strlen(argv[1]) + 1));
 	return (0);
 }
 
-int parse_line(char *line, t_data *data, t_map *map_info, t_game *game)
+int	parse_line(char *line, t_data *data, t_map *map_info, t_game *game)
 {
 	if (!line[0])
 		return (0);
-	if ((!ft_strncmp(line, "  ", 2) || !ft_strncmp(line, "1", 1)) 
+	if ((!ft_strncmp(line, "  ", 2) || !ft_strncmp(line, "1", 1))
 		&& !everything_was_set(map_info, game, 0))
 		return (parse_map_line(game, map_info, line));
 	else if (!ft_strncmp(line, "R ", 2))
@@ -51,27 +52,42 @@ int parse_line(char *line, t_data *data, t_map *map_info, t_game *game)
 	return (-1);
 }
 
-int file_check(char *file_name)
+int	file_check(char *file_name)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (file_name[i] && file_name[i] != '.')
 		i++;
-	if (!file_name[i] || !file_name[i + 1] || ft_strncmp(&file_name[i + 1], "cub", 2))
+	if (!file_name[i] || !file_name[i + 1]
+		|| ft_strncmp(&file_name[i + 1], "cub", 2))
 		return (-1);
 	return (0);
 }
 
-int parsing(t_game *game, int argc, char **argv)
+void	parsing_2(t_game *game, char *line, int *error_check, int fd)
 {
-	int file_desc;
-	char *line;
-	int error_check;
+	while (!error_check && get_next_line(fd, &line))
+	{
+		*error_check = parse_line(line, &game->mlx, &game->map_info, game);
+		free(line);
+		line = NULL;
+	}
+	*error_check = everything_was_set(&game->map_info, game, 1);
+	if (line != NULL)
+		free(line);
+	close(fd);
+}
+
+int	parsing(t_game *game, int argc, char **argv)
+{
+	int		file_desc;
+	char	*line;
+	int		error_check;
 
 	game->config.screenshot = 0;
 	mlx_get_screen_size(game->mlx.mlx_ptr, &game->map_info.window_max_width,
-						&game->map_info.window_max_height);
+		&game->map_info.window_max_height);
 	init_map(&game->map_info);
 	init_player(&game->player);
 	init_config(&game->config);
@@ -82,15 +98,6 @@ int parsing(t_game *game, int argc, char **argv)
 	game->config.conf_check = file_check(game->config.conf_file);
 	if ((game->config.conf_check == -1) || ((file_desc == -1)))
 		return (exit_error(game, "uncorrect file."));
-	while (!error_check && get_next_line(file_desc, &line))
-	{
-		error_check = parse_line(line, &game->mlx, &game->map_info, game);
-		free(line);
-		line = NULL;
-	}
-	error_check = everything_was_set(&game->map_info, game, 1);
-	if (line != NULL)
-		free(line);
-	close(file_desc);
+	parsing_2(game, line, &error_check, file_desc);
 	return (error_check);
 }
