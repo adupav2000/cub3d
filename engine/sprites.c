@@ -6,14 +6,14 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 22:32:13 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 16:21:21 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 17:14:19 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
 void	sprite_bubble_sort_1(t_sprite *sprite_tmp, t_sprite *sprite_prev,
-						t_sprite *sprite_origin, int unsorted)
+		t_sprite *sprite_origin, int unsorted)
 {
 	while (sprite_origin != NULL && sprite_origin->next != NULL)
 	{
@@ -34,7 +34,7 @@ void	sprite_bubble_sort_1(t_sprite *sprite_tmp, t_sprite *sprite_prev,
 	}
 }
 
-int		sprite_bubble_sort(t_game *game)
+int	sprite_bubble_sort(t_game *game)
 {
 	int			unsorted;
 	t_sprite	*sprite_tmp;
@@ -69,15 +69,15 @@ double	get_ss_distance(double pos_x, double pos_y, int pos_sx, int pos_sy)
 		+ (pos_y - pos_sy) * (pos_y - pos_sy));
 }
 
-int		set_sprite_distance(t_game *game)
+int	set_sprite_distance(t_game *game)
 {
-	t_sprite *sprite;
+	t_sprite	*sprite;
 
 	sprite = game->map_info.sprites;
 	while (sprite != NULL)
 	{
 		sprite->distance = get_ss_distance(game->player.posx,
-			game->player.posy, sprite->posx, sprite->posy);
+				game->player.posy, sprite->posx, sprite->posy);
 		sprite = sprite->next;
 	}
 	return (sprite_bubble_sort(game));
