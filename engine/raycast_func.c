@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 19:13:36 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 16:23:43 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 19:02:01 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,23 @@ void	define_deltadist(t_player *play)
 
 void	define_side_dist(t_game *game)
 {
-	t_player *play;
+	t_player	*play;
 
 	play = &(game->player);
 	play->hit = 0;
 	play->side = -1;
 	play = (&game->player);
+	play->stepx = -1;
 	if (play->raydirx < 0)
-	{
-		play->stepx = -1;
 		play->sidedistx = (play->posx - play->mapx) * play->deltadistx;
-	}
 	else
 	{
 		play->stepx = 1;
 		play->sidedistx = (play->mapx + 1.0 - play->posx) * play->deltadistx;
 	}
+	play->stepy = -1;
 	if (play->raydiry < 0)
-	{
-		play->stepy = -1;
 		play->sidedisty = (play->posy - play->mapy) * play->deltadisty;
-	}
 	else
 	{
 		play->stepy = 1;
@@ -64,26 +60,27 @@ void	define_side_dist(t_game *game)
 	}
 }
 
-void	search_wall(t_game *game)
+void	search_wall(t_game *game, t_player *play)
 {
-	t_player *play;
-
-	play = &(game->player);
-	while (play->hit == 0 &&
-			ft_map(game->map_info.plan, play->mapx, play->mapy) != -1
-			&& play->mapx > 0 && play->mapy > 0)
+	while (play->hit == 0
+		&& ft_map(game->map_info.plan, play->mapx, play->mapy) != -1
+		&& play->mapx > 0 && play->mapy > 0)
 	{
 		if (play->sidedistx < play->sidedisty)
 		{
 			play->sidedistx += play->deltadistx;
 			play->mapx += play->stepx;
-			play->side = (play->stepx == -1) ? 0 : 1;
+			play->side = 1;
+			if (play->stepx == -1)
+				play->side = 0;
 		}
 		else
 		{
 			play->sidedisty += play->deltadisty;
 			play->mapy += play->stepy;
-			play->side = (play->stepy == -1) ? 2 : 3;
+			play->side = 3;
+			if (play->stepy == -1)
+				play->side = 2;
 		}
 		if (ft_map(game->map_info.plan, play->mapx, play->mapy) == '1'
 			&& play->side != -1)
@@ -93,18 +90,18 @@ void	search_wall(t_game *game)
 
 void	get_line_length(t_game *game)
 {
-	t_player *play;
+	t_player	*play;
 
 	play = &(game->player);
 	if (play->side == 0 || play->side == 1)
 	{
 		play->perpwalldist = (play->mapx - play->posx
-			+ (1 - play->stepx) / 2) / play->raydirx;
+				+ (1 - play->stepx) / 2) / play->raydirx;
 	}
 	else
 	{
 		play->perpwalldist = (play->mapy - play->posy
-			+ (1 - play->stepy) / 2) / play->raydiry;
+				+ (1 - play->stepy) / 2) / play->raydiry;
 	}
 	play->lineheight = (int)(game->map_info.window_height / play->perpwalldist);
 	play->drawstart = -play->lineheight / 2 + game->map_info.window_height / 2;

@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/20 18:24:25 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 19:00:38 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,11 +187,10 @@ int		handle_colors(char **line, t_map *map_info);
 int		parse_map_line(t_game *game, t_map *map, char *line);
 
 char	ft_map(t_str *map, int width, int height);
-void	set_wall_color(t_game *game, int x);
+void	set_wall_color(t_game *game, int x, t_player *play, t_img *tex);
+t_img	*get_current_tex(t_game *game);
 
 int		draw_floor_and_ceiling(t_game *game, int x, int y_begin, int len);
-int		drawvertlinefromcolor(t_img img_to_change, int x, int y_begin, int len,
-						  int color);
 int		raycasting(t_game *game);
 
 int		key_press(int key_code, t_game *game);
@@ -208,7 +207,7 @@ void	update_pos_view(t_game *game);
 void	update_rotation(t_game *game);
 void	define_deltadist(t_player *play);
 void	define_side_dist(t_game *game);
-void	search_wall(t_game *game);
+void	search_wall(t_game *game, t_player *play);
 void	get_line_length(t_game *game);
 
 int		everything_was_set(t_map *map_info, t_game *game, int with_map);
