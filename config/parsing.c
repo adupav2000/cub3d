@@ -95,7 +95,8 @@ int	parsing(t_game *game, int argc, char **argv)
 	error_check = args_check(argc, argv, game);
 	line = NULL;
 	file_desc = open(game->config.conf_file, O_RDONLY);
-	game->config.conf_check = file_check(game->config.conf_file);
+	if (file_desc != -1)
+		game->config.conf_check = file_check(game->config.conf_file);
 	if ((game->config.conf_check == -1) || ((file_desc == -1)))
 		return (exit_error(game, "uncorrect file."));
 	parsing_2(game, line, &error_check, file_desc);

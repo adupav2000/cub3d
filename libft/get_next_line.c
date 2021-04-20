@@ -1,84 +1,99 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/20 20:28:57 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 21:22:04 by adu-pavi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-static size_t	ft_bufflen(const char *s)
+void	ft_substr_1(char buffer[])
 {
-	int i;
+	long	i;
+	long	j;
+	char	cpy[BUFFER_SIZE + 1];
 
 	i = 0;
-	while (s[i] != '\0' && s[i] != '\n')
+	while (i < BUFFER_SIZE + 1)
+		cpy[i++] = '\0';
+	i = 0;
+	while (buffer[i] != '\n' && i < BUFFER_SIZE && buffer[i] != '\0')
 		i++;
-	return (i);
+	if (buffer[i] == '\n')
+		i++;
+	j = 0;
+	while (i < BUFFER_SIZE)
+		cpy[j++] = buffer[i++];
+	i = -1;
+	while (++i < BUFFER_SIZE)
+		buffer[i] = cpy[i];
+	buffer[i] = '\0';
 }
 
-char			*ft_alloc(size_t size)
+int		check_file(int fd, char files[][BUFFER_SIZE + 1])
 {
-	char	*s;
-	char	*ptr;
+	long	len;
+	long	nb_read;
 
-	s = (char *)malloc(sizeof(char) * (size + 1));
-	if (s == NULL)
-		return (NULL);
-	size = size + 1;
-	ptr = s;
-	while (size-- > 0)
-		*ptr++ = '\0';
-	return (s);
-}
-
-static char		*ft_save(char *lines, size_t *a)
-{
-	if (ft_strchr(lines, '\n'))
-	{
-		ft_strcpy(lines, ft_strchr(lines, '\n') + 1);
-		return (lines);
-	}
-	if (ft_bufflen(lines) > 0)
-	{
-		ft_strcpy(lines, ft_strchr(lines, '\0'));
-		*a = 0;
-		return (lines);
-	}
-	return (NULL);
-}
-
-int				get_next_line(int fd, char **line)
-{
-	static char		buf[BUFFER_SIZE + 1];
-	char			*line_tmp;
-	static char		*lines = NULL;
-	int				end_buff;
-	size_t			a;
-
-	a = 1;
-	lines = ft_alloc(0);
-	if (fd < 0 || BUFFER_SIZE < 1 || line == NULL || read(fd, buf, 0) < 0
-		|| (lines == NULL && (lines) == NULL))
+	if (fd < 0 || fd > 10240)
 		return (-1);
-	end_buff = read(fd, buf, BUFFER_SIZE);
-	while (ft_strchr(lines, '\n') == NULL && (end_buff) > 0)
+	len = 0;
+	while (files[fd][len] && files[fd][len] != '\n' && len < BUFFER_SIZE)
+		len++;
+	if (len > 0 || files[fd][len] == '\n')
+		return (len);
+	if ((nb_read = read(fd, files[fd], BUFFER_SIZE)) < 0)
+		return (nb_read);
+	len = 0;
+	while (files[fd][len] != '\n' && len < nb_read)
+		len++;
+	return (len);
+}
+
+int		copy_and_cut_buffer(int size, int length, char **line, char buffer[])
+{
+	long			i;
+	char			cpy[size];
+
+	i = -1;
+	while (++i < size - length)
+		cpy[i] = (*line)[i];
+	i = -1;
+	while (++i + (size - length) < size)
+		cpy[i + (size - length)] = buffer[i];
+	free((*line));
+	if (!((*line) = malloc(sizeof(char) *
+					(size + ((buffer[length] == '\n' || !length) ? 1 : 0)))))
+		return (-1);
+	i = -1;
+	while (++i < size)
+		(*line)[i] = cpy[i];
+	if (!(i *= 0) && (buffer[length] == '\n' || !length))
 	{
-		buf[end_buff] = '\0';
-		line_tmp = lines;
-		lines = ft_strjoin(line_tmp, buf);
-		free(line_tmp);
-		end_buff = read(fd, buf, BUFFER_SIZE);
-	}
-	*line = ft_substr(lines, 0, ft_bufflen(lines));
-	if ((ft_save(lines, &a) != NULL) && a == 1)
+		(*line)[size] = '\0';
+		ft_substr_1(buffer);
 		return (1);
-	free(lines);
-	lines = NULL;
+	}
+	while ((buffer[length] != '\n' || length) && i < BUFFER_SIZE)
+		buffer[i++] = '\0';
 	return (0);
 }
+
+int		get_next_line(int fd, char **line)
+{
+	int				length;
+	int				size;
+	static char		files[10242][BUFFER_SIZE + 1];
+
+	if (!line || BUFFER_SIZE <= 0 || !((*line) = malloc(sizeof(char)))
+			|| (length = check_file(fd, files)) < 0)
+		return (-1);
+	if (!length && files[fd][length] != '\n')
+		(*line)[0] = '\0';
+	size = 0;
+	while ((size += length) > -1 && (length || files[fd][length] == '\n'))
+	{
+		if ((length = copy_and_cut_buffer(size, length, line, files[fd])) != 0)
+			return (length);
+		if ((length = check_file(fd, files)) < 0)
+			return (length);
+	}
+	if (size > 0)
+		if (copy_and_cut_buffer(size, length, line, files[fd]) < 0)
+			return (-1);
+	return (0);
+}
+
