@@ -6,17 +6,17 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 22:42:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/20 11:54:43 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 19:45:32 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h" 
+#include "../cub3d.h"
 
 int	is_valid_int(char *str)
 {
-	long long int safety_ret_val;
-	long long int i;
-	long long int pos;
+	long long int	safety_ret_val;
+	long long int	i;
+	long long int	pos;
 
 	pos = 1;
 	i = 0;
@@ -36,32 +36,30 @@ int	is_valid_int(char *str)
 	return (i);
 }
 
-int handle_colors(char **line, t_map *map_info)
+int	handle_colors(char **line, t_map *map_info)
 {
-    int r;
-    int g;
-    int b;
-    int i;
+	int	col[4];
 
-    i = 0;
-    while (!ft_isdigit(line[0][i]))
-        i++;
-    while (ft_isdigit(line[0][i]) && line[0][i + 1] != '\n')
-        i++;
-    r = is_valid_int(&line[0][++i]);
-    while (ft_isdigit(line[0][i]) && line[0][i + 1] != '\n')
-        i++;
-    g = is_valid_int(&line[0][++i]);
-    while (ft_isdigit(line[0][i]) && line[0][i + 1] != '\n')
-        i++;
-    b = is_valid_int(&line[0][++i]);
+	col[3] = 0;
+	while (!ft_isdigit(line[0][col[3]]))
+		col[3]++;
+	while (ft_isdigit(line[0][col[3]]) && line[0][col[3] + 1] != '\0')
+		col[3]++;
+	col[0] = is_valid_int(&line[0][++col[3]]);
+	while (ft_isdigit(line[0][col[3]]) && line[0][col[3] + 1] != '\0')
+		col[3]++;
+	col[1] = is_valid_int(&line[0][++col[3]]);
+	while (ft_isdigit(line[0][col[3]]) && line[0][col[3] + 1] != '\0')
+		col[3]++;
+	col[2] = is_valid_int(&line[0][++col[3]]);
 	if ((!ft_strncmp(&line[0][0], "F ", 2) && map_info->color_floor != 0)
 		|| (!ft_strncmp(&line[0][0], "C ", 2) && map_info->color_ceiling != 0)
-		|| (r > 255) || (g > 255) || (b > 255) || (r < 0) || g < 0 || b < 0)
+		|| (col[0] > 255) || (col[1] > 255) || (col[2] > 255)
+		|| (col[0] < 0) || col[1] < 0 || col[2] < 0)
 		return (-1);
-    if (!ft_strncmp(&line[0][0], "F ", 2))
-        map_info->color_floor = 0 << 24 | r << 16 | g << 8 | b;
-    if (!ft_strncmp(&line[0][0], "C ", 2))
-        map_info->color_ceiling = 0 << 24 | r << 16 | g << 8 | b;
-    return (0);
+	if (!ft_strncmp(&line[0][0], "F ", 2))
+		map_info->color_floor = 0 << 24 | col[0] << 16 | col[1] << 8 | col[2];
+	if (!ft_strncmp(&line[0][0], "C ", 2))
+		map_info->color_ceiling = 0 << 24 | col[0] << 16 | col[1] << 8 | col[2];
+	return (0);
 }
