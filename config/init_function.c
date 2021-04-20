@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:07:33 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 16:17:01 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 19:42:25 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ void	init_config(t_config *config)
 {
 	config->conf_file = NULL;
 	config->prog_name = NULL;
-	config->conf_check = 0;	
+	config->conf_check = 0;
 }
 
-int		handle_resolution(char *line, t_map *map_info, t_game *game)
+int	handle_resolution(char *line, t_map *map_info, t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (!ft_isdigit(line[i]) && line[i] != '-' && line[i])

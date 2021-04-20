@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:09:06 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 13:13:36 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 19:43:42 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	check_map_line(t_str *str)
 
 int	check_map(t_map *map_info)
 {
-	t_str *line;
+	t_str	*line;
 
 	line = map_info->plan;
 	return (check_map_column(line, map_info->plan_width)
