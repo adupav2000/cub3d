@@ -67,7 +67,7 @@ int	file_check(char *file_name)
 
 void	parsing_2(t_game *game, char *line, int *error_check, int fd)
 {
-	while (!error_check && get_next_line(fd, &line))
+	while (!*error_check && get_next_line(fd, &line))
 	{
 		*error_check = parse_line(line, &game->mlx, &game->map_info, game);
 		free(line);
