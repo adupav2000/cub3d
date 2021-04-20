@@ -6,7 +6,7 @@
 #    By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 17:38:21 by adu-pavi          #+#    #+#              #
-#    Updated: 2020/11/18 23:38:55 by AlainduPa        ###   ########.fr        #
+#    Updated: 2021/04/20 21:27:26 by adu-pavi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_get_int_char_length.c\
 	ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c ft_isspace.c\
 	ft_strlenstropt.c ft_strnew.c ft_lstnew.c ft_lstadd_front.c\
 	ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c\
-	ft_lstclear.c ft_lstiter.c ft_lstmap.c get_next_line.c
+	ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_strcpy.c get_next_line.c
 
 
 
