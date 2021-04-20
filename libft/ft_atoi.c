@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:03:33 by adu-pavi          #+#    #+#             */
-/*   Updated: 2019/11/28 17:54:45 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 20:59:44 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_atoi(const char *str)
 {
-	int safety_ret_val;
-	int i;
-	int pos;
+	int	safety_ret_val;
+	int	i;
+	int	pos;
 
 	pos = 1;
 	i = 0;

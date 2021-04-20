@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:10:02 by adu-pavi          #+#    #+#             */
-/*   Updated: 2019/12/07 13:10:33 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 21:05:37 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
-	int ret_val;
-	int prog;
+	int	ret_val;
+	int	prog;
 
 	prog = 0;
 	ret_val = 0;

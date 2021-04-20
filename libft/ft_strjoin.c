@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:13:12 by adu-pavi          #+#    #+#             */
-/*   Updated: 2019/12/18 12:13:24 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 20:23:16 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	dest = (char*)malloc(sizeof(*dest) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	dest = (char *)malloc(sizeof(*dest) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (dest == NULL)
 		return (NULL);
 	while (*s1 != '\0')

@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 11:53:22 by adu-pavi          #+#    #+#             */
-/*   Updated: 2019/11/28 19:07:23 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 20:18:46 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strnlen(const char *s, size_t maxlen)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (*(s + i) && maxlen--)

@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 20:24:08 by adu-pavi          #+#    #+#             */
-/*   Updated: 2019/11/28 19:16:10 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 20:57:33 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	ft_strlenstropt(const char *str, const char *set)
 {
 	size_t			ret_val;
-	unsigned	int	i;
+	unsigned int	i;
 
 	i = 1;
 	ret_val = ft_strlenopt(str, *set);

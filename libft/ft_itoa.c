@@ -6,35 +6,55 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:57:25 by AlainduPavi       #+#    #+#             */
-/*   Updated: 2019/11/28 18:21:08 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 21:04:26 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa(int n)
+int	len(long nb)
 {
-	long	nbr;
-	size_t	len;
-	char	*str;
+	int	len;
 
-	nbr = n;
-	len = (nbr > 0) ? 0 : 1;
-	nbr = (nbr > 0) ? nbr : -nbr;
-	while (n)
-		n = len++ ? n / 10 : n / 10;
-	str = (char *)malloc(sizeof(str) * len + 1);
-	if (!str)
-		return (NULL);
-	*(str + len--) = '\0';
-	while (nbr > 0)
+	len = 0;
+	if (nb < 0)
 	{
-		*(str + len--) = nbr % 10 + '0';
-		nbr /= 10;
+		nb = nb * -1;
+		len++;
 	}
-	if (len == 0 && str[1] == '\0')
-		*(str + len) = '0';
-	if (len == 0 && str[1] != '\0')
-		*(str + len) = '-';
+	while (nb > 0)
+	{
+		nb = nb / 10;
+		len++;
+	}
+	return (len);
+}
+
+char	*ft_itoa(int nb)
+{
+	char	*str;
+	long	n;
+	int		i;
+
+	n = nb;
+	i = len(n);
+	str = (char *)malloc(sizeof(char) * (i + 1));
+	if (!(str))
+		return (NULL);
+	str[i--] = '\0';
+	if (n == 0)
+		str[0] = 48;
+	if (n == 0)
+		return (str);
+	if (n < 0)
+		str[0] = '-';
+	if (n < 0)
+		n = n * -1;
+	while (n > 0)
+	{
+		str[i] = 48 + (n % 10);
+		n = n / 10;
+		i--;
+	}
 	return (str);
 }

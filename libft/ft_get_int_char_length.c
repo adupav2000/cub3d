@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 11:10:09 by adu-pavi          #+#    #+#             */
-/*   Updated: 2019/11/07 15:38:30 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 20:55:57 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 unsigned	int	ft_get_int_char_length(int i)
 {
-	long	int			s;
+	long int			s;
 	int					ret_val;
 	int					denum;
-	unsigned	int		diviseur;
+	unsigned int		diviseur;
 
 	denum = 10;
 	ret_val = 0;

@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:12:34 by adu-pavi          #+#    #+#             */
-/*   Updated: 2019/11/28 19:15:15 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 20:12:32 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strncat(char *s1, const char *s2, size_t n)
 {
-	int i;
-	int i2;
+	int	i;
+	int	i2;
 
 	i = 0;
 	i2 = 0;

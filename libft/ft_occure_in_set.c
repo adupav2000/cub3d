@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:25:11 by adu-pavi          #+#    #+#             */
-/*   Updated: 2019/12/07 13:21:08 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 20:17:05 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_occures_in_set(char c, char const *set)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (*(set + i) && *(set + i) != c)

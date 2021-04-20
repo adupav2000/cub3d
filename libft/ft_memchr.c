@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 19:31:22 by AlainduPavi       #+#    #+#             */
-/*   Updated: 2019/11/28 17:22:09 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 20:53:25 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned	char	to_find;
-	unsigned	char	*to_search;
-	int					i;
+	unsigned char	to_find;
+	unsigned char	*to_search;
+	int				i;
 
 	i = 0;
 	to_find = (unsigned char)c;

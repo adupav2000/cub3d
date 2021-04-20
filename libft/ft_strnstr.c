@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 11:53:22 by adu-pavi          #+#    #+#             */
-/*   Updated: 2019/11/28 17:53:32 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 20:12:07 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	int i_haystack;
-	int i_needle;
+	int	i_haystack;
+	int	i_needle;
 
 	i_haystack = 0;
 	i_needle = 0;

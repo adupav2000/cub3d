@@ -1,99 +1,131 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/20 20:28:57 by adu-pavi          #+#    #+#             */
+/*   Updated: 2021/04/20 20:43:52 by adu-pavi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-void	ft_substr_1(char buffer[])
+char	*join_str(char const *s1, char const *s2)
 {
-	long	i;
-	long	j;
-	char	cpy[BUFFER_SIZE + 1];
+	size_t	s1_len;
+	size_t	s2_len;
+	size_t	stot_len;
+	char	*rtn;
+
+	if (!s1 && !s2)
+		return (0);
+	s1_len = ft_strlen((char *)s1);
+	s2_len = ft_strlen((char *)s2);
+	stot_len = s1_len + s2_len + 1;
+	rtn = malloc(sizeof(char) * stot_len);
+	if (!rtn)
+		return (0);
+	ft_memmove(rtn, s1, s1_len);
+	ft_memmove(rtn + s1_len, s2, s2_len);
+	rtn[stot_len - 1] = '\0';
+	free((char *)s1);
+	return (rtn);
+}
+
+int	has_return(char *str)
+{
+	int	i;
 
 	i = 0;
-	while (i < BUFFER_SIZE + 1)
-		cpy[i++] = '\0';
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char	*get_save(char *save)
+{
+	char	*rtn;
+	int		i;
+	int		j;
+
 	i = 0;
-	while (buffer[i] != '\n' && i < BUFFER_SIZE && buffer[i] != '\0')
-		i++;
-	if (buffer[i] == '\n')
-		i++;
 	j = 0;
-	while (i < BUFFER_SIZE)
-		cpy[j++] = buffer[i++];
-	i = -1;
-	while (++i < BUFFER_SIZE)
-		buffer[i] = cpy[i];
-	buffer[i] = '\0';
-}
-
-int		check_file(int fd, char files[][BUFFER_SIZE + 1])
-{
-	long	len;
-	long	nb_read;
-
-	if (fd < 0 || fd > 10240)
-		return (-1);
-	len = 0;
-	while (files[fd][len] && files[fd][len] != '\n' && len < BUFFER_SIZE)
-		len++;
-	if (len > 0 || files[fd][len] == '\n')
-		return (len);
-	if ((nb_read = read(fd, files[fd], BUFFER_SIZE)) < 0)
-		return (nb_read);
-	len = 0;
-	while (files[fd][len] != '\n' && len < nb_read)
-		len++;
-	return (len);
-}
-
-int		copy_and_cut_buffer(int size, int length, char **line, char buffer[])
-{
-	long			i;
-	char			cpy[size];
-
-	i = -1;
-	while (++i < size - length)
-		cpy[i] = (*line)[i];
-	i = -1;
-	while (++i + (size - length) < size)
-		cpy[i + (size - length)] = buffer[i];
-	free((*line));
-	if (!((*line) = malloc(sizeof(char) *
-					(size + ((buffer[length] == '\n' || !length) ? 1 : 0)))))
-		return (-1);
-	i = -1;
-	while (++i < size)
-		(*line)[i] = cpy[i];
-	if (!(i *= 0) && (buffer[length] == '\n' || !length))
+	if (!save)
+		return (0);
+	while (save[i] && save[i] != '\n')
+		i++;
+	if (!save[i])
 	{
-		(*line)[size] = '\0';
-		ft_substr_1(buffer);
-		return (1);
+		free(save);
+		return (0);
 	}
-	while ((buffer[length] != '\n' || length) && i < BUFFER_SIZE)
-		buffer[i++] = '\0';
-	return (0);
+	rtn = malloc(sizeof(char) * ((ft_strlen(save) - i) + 1));
+	if (!(rtn))
+		return (0);
+	i++;
+	while (save[i])
+		rtn[j++] = save[i++];
+	rtn[j] = '\0';
+	free(save);
+	return (rtn);
 }
 
-int		get_next_line(int fd, char **line)
+char	*get_line(char *str)
 {
-	int				length;
-	int				size;
-	static char		files[10242][BUFFER_SIZE + 1];
+	int		i;
+	char	*rtn;
 
-	if (!line || BUFFER_SIZE <= 0 || !((*line) = malloc(sizeof(char)))
-			|| (length = check_file(fd, files)) < 0)
-		return (-1);
-	if (!length && files[fd][length] != '\n')
-		(*line)[0] = '\0';
-	size = 0;
-	while ((size += length) > -1 && (length || files[fd][length] == '\n'))
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i] && str[i] != '\n')
+		i++;
+	rtn = malloc(sizeof(char) * (i + 1));
+	if (!(rtn))
+		return (0);
+	i = 0;
+	while (str[i] && str[i] != '\n')
 	{
-		if ((length = copy_and_cut_buffer(size, length, line, files[fd])) != 0)
-			return (length);
-		if ((length = check_file(fd, files)) < 0)
-			return (length);
+		rtn[i] = str[i];
+		i++;
 	}
-	if (size > 0)
-		if (copy_and_cut_buffer(size, length, line, files[fd]) < 0)
+	rtn[i] = '\0';
+	return (rtn);
+}
+
+int	get_next_line(int fd, char **line)
+{
+	char			*buff;
+	static char		*save;
+	int				reader;
+
+	reader = 1;
+	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (fd < 0 || !line || BUFFER_SIZE <= 0 || buff)
+		return (-1);
+	while (!has_return(save) && reader != 0)
+	{
+		reader = read(fd, buff, BUFFER_SIZE);
+		if ((reader) == -1)
+		{
+			free(buff);
 			return (-1);
-	return (0);
+		}
+		buff[reader] = '\0';
+		save = join_str(save, buff);
+	}
+	free(buff);
+	*line = get_line(save);
+	save = get_save(save);
+	if (reader == 0)
+		return (0);
+	return (1);
 }
-
