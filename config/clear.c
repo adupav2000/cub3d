@@ -6,11 +6,19 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 13:37:58 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/15 17:50:20 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 19:20:59 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	clear_all_variables(t_game *game)
+{
+	clear_player(game);
+	clear_map_info(game);
+	clear_config(&(game->config));
+	clear_mlx(&(game->mlx));
+}
 
 int	exit_error(t_game *game, char *message)
 {
