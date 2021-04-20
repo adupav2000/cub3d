@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/20 19:00:38 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 19:35:35 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,9 @@ int		write_and_save_screen(t_game *game);
 int		load_color_from_tex(t_img *tex, int x, int y);
 void	texture_pixel_put(t_game *game, t_img *tex, int x, int y);
 void	sprite_pixel_put(t_game *game, t_img *tex, int x, int y);
+void	sprites_scanner(t_game *game, char *str, int y);
+int		save_sprite(int x, int y, t_game *game);
+void	check_user_position(t_game *game, char *str, int y);
 
 int		sprite_bubble_sort(t_game *game);
 double	get_ss_distance(double posx, double posy, int possx, int possy);
