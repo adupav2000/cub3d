@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/20 14:10:34 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 15:32:26 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ int key_release(int key_code, t_game *game);
 void perform_dda(t_game *game);
 void update_pos_view(t_game *game);
 void update_rotation(t_game *game);
-void define_deltaDist(t_game *game);
+void define_deltaDist(t_player *play);
 void define_side_dist(t_game *game);
 void search_wall(t_game *game);
 void get_line_length(t_game *game);

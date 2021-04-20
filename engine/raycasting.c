@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/17 17:35:31 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 15:31:47 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int raycasting(t_game *game)
 	while (x < game->map_info.window_width)
 	{
 		play->cameraX = (2 * x / (double)game->map_info.window_width) - 1;
-		define_deltaDist(game);
+		define_deltaDist(&(game->player));
 		define_side_dist(game);
 		search_wall(game);
 		get_line_length(game);
