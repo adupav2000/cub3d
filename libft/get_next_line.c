@@ -6,126 +6,79 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 20:28:57 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 20:43:52 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 21:22:04 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*join_str(char const *s1, char const *s2)
+static size_t	ft_bufflen(const char *s)
 {
-	size_t	s1_len;
-	size_t	s2_len;
-	size_t	stot_len;
-	char	*rtn;
-
-	if (!s1 && !s2)
-		return (0);
-	s1_len = ft_strlen((char *)s1);
-	s2_len = ft_strlen((char *)s2);
-	stot_len = s1_len + s2_len + 1;
-	rtn = malloc(sizeof(char) * stot_len);
-	if (!rtn)
-		return (0);
-	ft_memmove(rtn, s1, s1_len);
-	ft_memmove(rtn + s1_len, s2, s2_len);
-	rtn[stot_len - 1] = '\0';
-	free((char *)s1);
-	return (rtn);
-}
-
-int	has_return(char *str)
-{
-	int	i;
+	int i;
 
 	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
+	while (s[i] != '\0' && s[i] != '\n')
+		i++;
+	return (i);
+}
+
+char			*ft_alloc(size_t size)
+{
+	char	*s;
+	char	*ptr;
+
+	s = (char *)malloc(sizeof(char) * (size + 1));
+	if (s == NULL)
+		return (NULL);
+	size = size + 1;
+	ptr = s;
+	while (size-- > 0)
+		*ptr++ = '\0';
+	return (s);
+}
+
+static char		*ft_save(char *lines, size_t *a)
+{
+	if (ft_strchr(lines, '\n'))
 	{
-		if (str[i] == '\n')
-			return (1);
-		i++;
+		ft_strcpy(lines, ft_strchr(lines, '\n') + 1);
+		return (lines);
 	}
-	return (0);
-}
-
-char	*get_save(char *save)
-{
-	char	*rtn;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	if (!save)
-		return (0);
-	while (save[i] && save[i] != '\n')
-		i++;
-	if (!save[i])
+	if (ft_bufflen(lines) > 0)
 	{
-		free(save);
-		return (0);
+		ft_strcpy(lines, ft_strchr(lines, '\0'));
+		*a = 0;
+		return (lines);
 	}
-	rtn = malloc(sizeof(char) * ((ft_strlen(save) - i) + 1));
-	if (!(rtn))
-		return (0);
-	i++;
-	while (save[i])
-		rtn[j++] = save[i++];
-	rtn[j] = '\0';
-	free(save);
-	return (rtn);
+	return (NULL);
 }
 
-char	*get_line(char *str)
+int				get_next_line(int fd, char **line)
 {
-	int		i;
-	char	*rtn;
+	static char		buf[BUFFER_SIZE + 1];
+	char			*line_tmp;
+	static char		*lines = NULL;
+	int				end_buff;
+	size_t			a;
 
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] && str[i] != '\n')
-		i++;
-	rtn = malloc(sizeof(char) * (i + 1));
-	if (!(rtn))
-		return (0);
-	i = 0;
-	while (str[i] && str[i] != '\n')
-	{
-		rtn[i] = str[i];
-		i++;
-	}
-	rtn[i] = '\0';
-	return (rtn);
-}
-
-int	get_next_line(int fd, char **line)
-{
-	char			*buff;
-	static char		*save;
-	int				reader;
-
-	reader = 1;
-	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (fd < 0 || !line || BUFFER_SIZE <= 0 || buff)
+	a = 1;
+	lines = ft_alloc(0);
+	if (fd < 0 || BUFFER_SIZE < 1 || line == NULL || read(fd, buf, 0) < 0
+		|| (lines == NULL && (lines) == NULL))
 		return (-1);
-	while (!has_return(save) && reader != 0)
+	end_buff = read(fd, buf, BUFFER_SIZE);
+	while (ft_strchr(lines, '\n') == NULL && (end_buff) > 0)
 	{
-		reader = read(fd, buff, BUFFER_SIZE);
-		if ((reader) == -1)
-		{
-			free(buff);
-			return (-1);
-		}
-		buff[reader] = '\0';
-		save = join_str(save, buff);
+		buf[end_buff] = '\0';
+		line_tmp = lines;
+		lines = ft_strjoin(line_tmp, buf);
+		free(line_tmp);
+		end_buff = read(fd, buf, BUFFER_SIZE);
 	}
-	free(buff);
-	*line = get_line(save);
-	save = get_save(save);
-	if (reader == 0)
-		return (0);
-	return (1);
+	*line = ft_substr(lines, 0, ft_bufflen(lines));
+	if ((ft_save(lines, &a) != NULL) && a == 1)
+		return (1);
+	free(lines);
+	lines = NULL;
+	return (0);
 }
