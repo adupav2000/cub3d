@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/20 17:56:37 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 17:58:46 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	set_sprite(t_game *game, double ZBuffer[10000], t_sprite *sprite)
 				- play->dirx * play->planey);
 		set_sprite_p_and_ht(play, game, sprit, sprite);
 		write_verical_stripes(game, ZBuffer,
-			&(game->sprites_p.drawstartx), &(game->sprites_p));
+			(game->sprites_p.drawstartx), &(game->sprites_p));
 		sprite = sprite->next;
 	}
 	mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win,
@@ -141,7 +141,7 @@ int	raycasting(t_game *game)
 			break ;
 		zbuffer[x++] = play->perpwalldist;
 	}
-	set_sprite(game, (double *)(zbuffer), &(game->map_info.sprites));
+	set_sprite(game, (double *)(zbuffer), (game->map_info.sprites));
 	update_pos_view(game);
 	update_rotation(game);
 	return (0);
