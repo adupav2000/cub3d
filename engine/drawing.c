@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:15:34 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 18:25:20 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 18:27:14 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ int	draw_floor_and_ceiling(t_game *game, int x, int y_begin, int len)
 		|| (len < 0) || ((len + y_begin) > img_to_change->height))
 		return (-1);
 	while (i < y_begin)
-		my_mlx_pixel_put(&img_to_change, x, i++, map_info->color_ceiling);
+		my_mlx_pixel_put(img_to_change, x, i++, map_info->color_ceiling);
 	i += len;
 	while (i < map_info->window_height)
-		my_mlx_pixel_put(&img_to_change, x, i++, map_info->color_floor);
+		my_mlx_pixel_put(img_to_change, x, i++, map_info->color_floor);
 	return (0);
 }
