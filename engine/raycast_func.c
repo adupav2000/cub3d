@@ -6,13 +6,13 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 19:13:36 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 16:12:46 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:23:43 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	define_deltaDist(t_player *play)
+void	define_deltadist(t_player *play)
 {
 	play->raydirx = play->dirx + play->planex * play->camerax;
 	play->raydiry = play->diry + play->planey * play->camerax;
