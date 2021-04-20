@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 09:05:22 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/20 16:08:41 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/20 17:08:47 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,12 @@ int		drawvertlinefromcolor(t_img img_to_change, int x, int y_begin, int len,
 int		raycasting(t_game *game);
 
 int		key_press(int key_code, t_game *game);
+
+void	move_forward(t_game *game, t_player *play);
+void	move_backward(t_game *game, t_player *play);
+void	move_left(t_game *game, t_player *play);
+void	move_right(t_game *game, t_player *play);
+
 int		key_release(int key_code, t_game *game);
 
 void	perform_dda(t_game *game);
