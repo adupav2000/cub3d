@@ -73,7 +73,7 @@ void	set_sprite_p_and_ht(t_player *play,
 		sprit->drawendx = game->map_info.window_width - 1;
 }
 
-void	set_sprite(t_game *game, double ZBuffer[10000], t_sprite *sprite)
+void	set_sprite(t_game *game, double zbuffer[10000], t_sprite *sprite)
 {
 	t_player		*play;
 	t_sprite_print	*sprit;
@@ -91,7 +91,7 @@ void	set_sprite(t_game *game, double ZBuffer[10000], t_sprite *sprite)
 		sprit->invdet = 1.0 / (play->planex * play->diry
 				- play->dirx * play->planey);
 		set_sprite_p_and_ht(play, game, sprit, sprite);
-		write_verical_stripes(game, ZBuffer,
+		write_verical_stripes(game, zbuffer,
 			(game->sprites_p.drawstartx), &(game->sprites_p));
 		sprite = sprite->next;
 	}

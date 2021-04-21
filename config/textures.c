@@ -15,8 +15,10 @@
 int	load_color_from_tex(t_img *tex, int x, int y)
 {
 	if (x >= 0 && x <= tex->width && y >= 0 && y <= tex->height)
+	{
 		return (*(int *)
 			(tex->addr) + (y * tex->line_length + x * (tex->bpp / 8)));
+	}
 	return (0x0);
 }
 
@@ -28,9 +30,9 @@ int	load_texture(char *tex_link, t_img *img, t_data *mlx)
 				&img->width, &img->height);
 		if (img->img == NULL)
 			return (-1);
-	}
-	img->addr = mlx_get_data_addr(img->img, &(img->bpp),
+		img->addr = mlx_get_data_addr(img->img, &(img->bpp),
 			&(img->line_length), &(img->endian));
+	}
 	if (img->addr != NULL)
 		return (0);
 	return (-1);

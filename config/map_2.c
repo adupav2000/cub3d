@@ -12,6 +12,18 @@
 
 #include "../cub3d.h"
 
+void	set_position(t_game *game, double x, double y)
+{
+	game->player.dirx = x;
+	game->player.diry = y;
+}
+
+void	set_plane(t_game *game, double planex, double planey)
+{
+	game->player.planex = planex;
+	game->player.planey = planey;
+}
+
 void	sprites_scanner(t_game *game, char *str, int y)
 {
 	int	i;

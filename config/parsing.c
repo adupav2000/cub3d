@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/17 21:32:03 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/16 14:55:54by adu-pavi         ###   ########.fr       */
+/*   Created: 2020/12/17 21:32:03 by adu-pavi          #+#    #+#             */
+/*   Updated: 2021/04/16 14:55:54by adu-pavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	args_check(int argc, char **argv, t_game *game)
 		return (exit_error(game, "too few arguments."));
 	if (argc >= 4)
 		return (exit_error(game, "too many arguments"));
-	if (argc > 2 && ft_strncmp(argv[2], "--save", 7) == 0)
+	if (argc > 2 && ft_strncmp(argv[2], "--save", 6) == 0)
 		game->config.screenshot = 1;
-	else if (argc > 2 && !(ft_strncmp(argv[2], "--save", 7) == 0))
+	else if (argc > 2 && !(ft_strncmp(argv[2], "--save", 6) == 0))
 		return (exit_error(game, "wrong arguments"));
 	game->config.prog_name = (char *)malloc(ft_strlen(argv[0]) + 1);
 	game->config.conf_file = (char *)malloc(ft_strlen(argv[1]) + 1);
@@ -36,7 +36,7 @@ int	args_check(int argc, char **argv, t_game *game)
 
 int	parse_line(char *line, t_data *data, t_map *map_info, t_game *game)
 {
-	if (!line[0])
+	if (!line[0] && map_info->plan == NULL)
 		return (0);
 	if ((!ft_strncmp(line, "  ", 2) || !ft_strncmp(line, "1", 1))
 		&& !everything_was_set(map_info, game, 0))

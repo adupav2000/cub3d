@@ -14,19 +14,31 @@
 
 void	set_init_pos(t_game *game, int x, int y, char c)
 {
-	game->player.posx = x;
-	game->player.posy = y;
+	game->player.posx = x + 0.5;
+	game->player.posy = y + 0.5;
 	if (game->player.position_initialised != 0)
 		exit_error(game, "Position initialised two times.");
 	game->player.position_initialised = 1;
 	if (c == 'N')
-		game->player.diry = 1;
+	{
+		set_position(game, -1, 0);
+		set_plane(game, 0, 0.66);
+	}
 	if (c == 'S')
-		game->player.diry = -1;
+	{
+		set_position(game, 0, 1);
+		set_plane(game, -0.66, 0);
+	}
 	if (c == 'W')
-		game->player.dirx = -1;
+	{
+		set_position(game, -1, 0);
+		set_plane(game, 0, -0.66);
+	}
 	if (c == 'E')
-		game->player.dirx = 1;
+	{
+		set_position(game, 1, 0);
+		set_plane(game, 0, 0.66);
+	}
 }
 
 void	check_user_position(t_game *game, char *str, int y)

@@ -59,7 +59,7 @@ void	clear_map_info(t_game *game)
 	if (map->te_s.img != NULL)
 		mlx_destroy_image(game->mlx.mlx_ptr, map->te_s.img);
 	while (map->plan != NULL
-		&& (str = (map->plan->next) != NULL))
+		&& ((str = map->plan->next) != NULL))
 	{
 		if (map->plan->line != NULL)
 			free(map->plan->line);

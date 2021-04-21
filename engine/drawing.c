@@ -45,16 +45,14 @@ void	texture_pixel_put(t_game *game, t_img *tex, int x, int y)
 	t_img	*curr_img;
 
 	curr_img = &(game->player.current_image);
-	curr_img->addr[y * curr_img->line_length + x * curr_img->bpp / 8]
-		= tex->addr[game->player.texy * tex->line_length
+	curr_img->addr[y * curr_img->line_length + x * curr_img->bpp
+		/ 8] = tex->addr[game->player.texy * tex->line_length
 		+ game->player.texx * (tex->bpp / 8)];
-	curr_img->addr[y * curr_img->line_length
-		+ x * curr_img->bpp / 8 + 1]
-		= tex->addr[game->player.texy * tex->line_length
+	curr_img->addr[y * curr_img->line_length + x * curr_img->bpp
+		/ 8 + 1] = tex->addr[game->player.texy * tex->line_length
 		+ game->player.texx * (tex->bpp / 8) + 1];
-	curr_img->addr[y * curr_img->line_length
-		+ x * curr_img->bpp / 8 + 2]
-		= tex->addr[game->player.texy * tex->line_length
+	curr_img->addr[y * curr_img->line_length + x * curr_img->bpp
+		/ 8 + 2] = tex->addr[game->player.texy * tex->line_length
 		+ game->player.texx * (tex->bpp / 8) + 2];
 }
 

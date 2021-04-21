@@ -44,13 +44,16 @@ int write_file_header(int fd, int file_size, t_map *map)
 
 static int get_color(t_img *img, int x, int y)
 {
-	int	rgb;
-	int	color;
+	int		rgb;
+	unsigned int	color;
 	
 	/*takes the oposit pixel in the image (bmp is written in reverse)*/
-	color = *(int*)(img->addr
+	printf("get_color  : width : %d, height : %d\n", img->width,  (int)img->height);
+	printf("get_color  : width : %d, height : %d\n", x,  y);
+	color = *(unsigned int *)(img->addr
 			+ (4 * (int)img->width * ((int)img->height - 1 - y))
 			+ (4 * x));
+	printf("FUCK\n");
 	rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
 	return (rgb);
 }

@@ -21,7 +21,7 @@ int	is_valid_int(char *str)
 	pos = 1;
 	i = 0;
 	safety_ret_val = 0;
-	while (ft_isspace(str[i]))
+	while (str[i] == ' ')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 		if (str[i++] == '-')
@@ -40,12 +40,8 @@ int	handle_colors(char **line, t_map *map_info)
 {
 	int	col[4];
 
-	col[3] = 0;
-	while (!ft_isdigit(line[0][col[3]]))
-		col[3]++;
-	while (ft_isdigit(line[0][col[3]]) && line[0][col[3] + 1] != '\0')
-		col[3]++;
-	col[0] = is_valid_int(&line[0][++col[3]]);
+	col[3] = 2;
+	col[0] = is_valid_int(&line[0][col[3]]);
 	while (ft_isdigit(line[0][col[3]]) && line[0][col[3] + 1] != '\0')
 		col[3]++;
 	col[1] = is_valid_int(&line[0][++col[3]]);
