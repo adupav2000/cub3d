@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 19:15:41 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/11 15:43:22 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/21 11:42:07 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,9 @@ static int get_color(t_img *img, int x, int y)
 	unsigned int	color;
 	
 	/*takes the oposit pixel in the image (bmp is written in reverse)*/
-	printf("get_color  : width : %d, height : %d\n", img->width,  (int)img->height);
-	printf("get_color  : width : %d, height : %d\n", x,  y);
 	color = *(unsigned int *)(img->addr
 			+ (4 * (int)img->width * ((int)img->height - 1 - y))
 			+ (4 * x));
-	printf("FUCK\n");
 	rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
 	return (rgb);
 }
@@ -99,6 +96,9 @@ int write_and_save_screen(t_game *game)
 		return (EXIT_FAILURE);
 	if (write_screen_data(fd, &(game->player.current_image), pad))
 		return (EXIT_FAILURE);
+	mlx_destroy_image(game->mlx.mlx_ptr, game->player.current_image.img);
+	game->player.current_image.img = NULL;
+	game->player.current_image.addr = NULL;
 	close(fd);
 	return (EXIT_SUCCESS);
 }

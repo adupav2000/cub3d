@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/20 19:00:49 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/21 11:29:47 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,10 @@ void	set_sprite_p_and_ht(t_player *play,
 		sprit->drawendx = game->map_info.window_width - 1;
 }
 
-void	set_sprite(t_game *game, double zbuffer[10000], t_sprite *sprite)
+void	set_sprite(t_game *game, double zbuffer[10000], t_sprite *sprite, t_player *play)
 {
-	t_player		*play;
 	t_sprite_print	*sprit;
 
-	if (set_sprite_distance(game))
-		exit_error(game, "failed at sorting the sprites");
-	play = &(game->player);
 	sprit = &(game->sprites_p);
 	while (sprite != NULL)
 	{
@@ -97,9 +93,12 @@ void	set_sprite(t_game *game, double zbuffer[10000], t_sprite *sprite)
 	}
 	mlx_put_image_to_window(game->mlx.mlx_ptr, game->mlx.mlx_win,
 		play->current_image.img, 0, 0);
-	mlx_destroy_image(game->mlx.mlx_ptr, play->current_image.img);
-	play->current_image.img = NULL;
-	play->current_image.addr = NULL;
+	if (game->config.screenshot != 1)
+	{
+		mlx_destroy_image(game->mlx.mlx_ptr, play->current_image.img);
+		play->current_image.img = NULL;
+		play->current_image.addr = NULL;
+	}
 }
 
 int	init_mlx_obj(t_player *play, t_game *game)
@@ -121,27 +120,27 @@ int	init_mlx_obj(t_player *play, t_game *game)
 int	raycasting(t_game *game)
 {
 	int			x;
-	t_player	*play;
 	double		zbuffer[10000];
 
-	play = &(game->player);
-	if (init_mlx_obj(play, game))
+	if (init_mlx_obj(&(game->player), game))
 		return (exit_error(game, "malloc error raycast"));
 	x = 0;
 	while (x < game->map_info.window_width)
 	{
-		play->camerax = (2 * x / (double)game->map_info.window_width) - 1;
+		game->player.camerax = (2 * x / (double)game->map_info.window_width) - 1;
 		define_deltadist(&(game->player));
 		define_side_dist(game);
-		search_wall(game, play);
+		search_wall(game, &(game->player));
 		get_line_length(game);
 		set_wall_color(game, x, &(game->player), get_current_tex(game));
-		if (draw_floor_and_ceiling(game, x, play->drawstart,
-				(play->drawend - play->drawstart)))
+		if (draw_floor_and_ceiling(game, x, game->player.drawstart,
+				(game->player.drawend - game->player.drawstart)))
 			break ;
-		zbuffer[x++] = play->perpwalldist;
+		zbuffer[x++] = game->player.perpwalldist;
 	}
-	set_sprite(game, (double *)(zbuffer), (game->map_info.sprites));
+	if (set_sprite_distance(game))
+		exit_error(game, "failed at sorting the sprites");
+	set_sprite(game, (zbuffer), (game->map_info.sprites), &(game->player));
 	update_pos_view(game);
 	update_rotation(game);
 	return (0);
