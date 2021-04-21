@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:15:34 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 18:27:14 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/21 12:46:44 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	draw_floor_and_ceiling(t_game *game, int x, int y_begin, int len)
+int		draw_floor_and_ceiling(t_game *game, int x, int y_begin, int len)
 {
 	int		i;
 	t_map	*map_info;

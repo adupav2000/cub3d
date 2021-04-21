@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 13:37:58 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 19:20:59 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/21 12:44:53 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	clear_all_variables(t_game *game)
 	clear_mlx(&(game->mlx));
 }
 
-int	exit_error(t_game *game, char *message)
+int		exit_error(t_game *game, char *message)
 {
 	clear_all_variables(game);
 	if (message == NULL || message[0] == 0)
@@ -37,7 +37,7 @@ int	exit_error(t_game *game, char *message)
 	return (-1);
 }
 
-int	exit_success(t_game *game)
+int		exit_success(t_game *game)
 {
 	clear_all_variables(game);
 	exit(EXIT_SUCCESS);

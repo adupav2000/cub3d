@@ -6,13 +6,13 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 21:32:03 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/16 14:55:54by adu-pavi          ###   ########.fr       */
+/*   Updated: 2021/04/21 12:44:17 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	args_check(int argc, char **argv, t_game *game)
+int		args_check(int argc, char **argv, t_game *game)
 {
 	if (argc < 2)
 		return (exit_error(game, "too few arguments."));
@@ -34,7 +34,7 @@ int	args_check(int argc, char **argv, t_game *game)
 	return (0);
 }
 
-int	parse_line(char *line, t_data *data, t_map *map_info, t_game *game)
+int		parse_line(char *line, t_data *data, t_map *map_info, t_game *game)
 {
 	if (!line[0] && map_info->plan == NULL)
 		return (0);
@@ -52,7 +52,7 @@ int	parse_line(char *line, t_data *data, t_map *map_info, t_game *game)
 	return (-1);
 }
 
-int	file_check(char *file_name)
+int		file_check(char *file_name)
 {
 	int	i;
 
@@ -79,7 +79,7 @@ void	parsing_2(t_game *game, char *line, int *error_check, int fd)
 	close(fd);
 }
 
-int	parsing(t_game *game, int argc, char **argv)
+int		parsing(t_game *game, int argc, char **argv)
 {
 	int		file_desc;
 	char	*line;

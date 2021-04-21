@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 10:06:56 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/20 19:34:10 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/21 12:45:19 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	check_user_position(t_game *game, char *str, int y)
 	}
 }
 
-int	save_sprite(int x, int y, t_game *game)
+int		save_sprite(int x, int y, t_game *game)
 {
 	t_sprite	*sprite;
 
@@ -83,7 +83,7 @@ int	save_sprite(int x, int y, t_game *game)
 	return (0);
 }
 
-int	parse_map_line_2(t_game *game, t_map *map, char *line, int i)
+int		parse_map_line_2(t_game *game, t_map *map, char *line, int i)
 {
 	t_str	*map_list;
 
@@ -104,7 +104,7 @@ int	parse_map_line_2(t_game *game, t_map *map, char *line, int i)
 	return (0);
 }
 
-int	parse_map_line(t_game *game, t_map *map, char *line)
+int		parse_map_line(t_game *game, t_map *map, char *line)
 {
 	t_str	*map_list;
 	int		i;

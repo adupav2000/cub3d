@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 19:15:41 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/21 11:42:07 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/21 12:33:42 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	put_int_in_char(unsigned char *dest, int value)
 	dest[3] = (unsigned char)(value >> 24);
 }
 
-int write_file_header(int fd, int file_size, t_map *map)
+int			write_file_header(int fd, int file_size, t_map *map)
 {
 	int				i;
 	unsigned char	bmpfileheader[54];
@@ -42,12 +42,11 @@ int write_file_header(int fd, int file_size, t_map *map)
 	return (EXIT_SUCCESS);
 }
 
-static int get_color(t_img *img, int x, int y)
+static	int	get_color(t_img *img, int x, int y)
 {
-	int		rgb;
+	int				rgb;
 	unsigned int	color;
-	
-	/*takes the oposit pixel in the image (bmp is written in reverse)*/
+
 	color = *(unsigned int *)(img->addr
 			+ (4 * (int)img->width * ((int)img->height - 1 - y))
 			+ (4 * x));
@@ -55,13 +54,12 @@ static int get_color(t_img *img, int x, int y)
 	return (rgb);
 }
 
-/*w being the image of the file*/
-static int write_screen_data(int file, t_img *w, int pad)
+static int	write_screen_data(int file, t_img *w, int pad)
 {
-	const unsigned char	zero[3] = {0, 0, 0};
-	int					i;
-	int					j;
-	int					color;
+	const	unsigned	char	zero[3] = {0, 0, 0};
+	int							i;
+	int							j;
+	int							color;
 
 	i = 0;
 	while (i < (int)w->height)
@@ -81,16 +79,16 @@ static int write_screen_data(int file, t_img *w, int pad)
 	return (EXIT_SUCCESS);
 }
 
-int write_and_save_screen(t_game *game)
+int			write_and_save_screen(t_game *game)
 {
 	int filesize;
 	int fd;
 	int pad;
 
 	pad = (4 - ((int)game->map_info.window_width * 3) % 4) % 4;
-	filesize = 54  + (3 * ((int)game->map_info.window_width + pad)
+	filesize = 54 + (3 * ((int)game->map_info.window_width + pad)
 		* (int)game->map_info.window_height);
-	if ((fd = open("screenshot.bmp",  (O_WRONLY | O_CREAT), 0666)) < 0)
+	if ((fd = open("screenshot.bmp", (O_WRONLY | O_CREAT), 0666)) < 0)
 		return (EXIT_FAILURE);
 	if (write_file_header(fd, filesize, &(game->map_info)))
 		return (EXIT_FAILURE);

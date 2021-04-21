@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:09:47 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 20:52:21 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/21 13:07:34 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	ft_get_segement(char const *s, char c, int *i)
 	return (segement);
 }
 
-char	**ft_split(char const *s, char c)
+char		**ft_split(char const *s, char c)
 {
 	int		i;
 	int		line;

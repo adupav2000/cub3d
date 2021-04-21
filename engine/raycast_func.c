@@ -6,14 +6,15 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 19:13:36 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 19:04:26 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/21 13:05:12 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	define_deltadist(t_player *play)
+void	define_deltadist(t_player *play, int x, t_game *game)
 {
+	game->player.camerax = (2 * x / (double)game->map_info.window_width) - 1;
 	play->raydirx = play->dirx + play->planex * play->camerax;
 	play->raydiry = play->diry + play->planey * play->camerax;
 	play->mapx = (int)play->posx;

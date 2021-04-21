@@ -6,13 +6,13 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:02:45 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/20 19:56:04 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/21 12:26:20 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int cross_quit(t_game *game)
+int	cross_quit(t_game *game)
 {
 	exit_success(game);
 	return (0);

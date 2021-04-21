@@ -6,13 +6,13 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:57:25 by AlainduPavi       #+#    #+#             */
-/*   Updated: 2021/04/20 21:04:26 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/21 13:08:16 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	len(long nb)
+int		len(long nb)
 {
 	int	len;
 

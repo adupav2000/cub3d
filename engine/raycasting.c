@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 20:32:11 by AlainduPa         #+#    #+#             */
-/*   Updated: 2021/04/21 11:29:47 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/21 13:05:44 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	set_sprite_p_and_ht(t_player *play,
 		sprit->drawendx = game->map_info.window_width - 1;
 }
 
-void	set_sprite(t_game *game, double zbuffer[10000], t_sprite *sprite, t_player *play)
+void	set_sprite(t_game *game, double zbuffer[10000],
+	t_sprite *sprite, t_player *play)
 {
 	t_sprite_print	*sprit;
 
@@ -101,7 +102,7 @@ void	set_sprite(t_game *game, double zbuffer[10000], t_sprite *sprite, t_player 
 	}
 }
 
-int	init_mlx_obj(t_player *play, t_game *game)
+int		init_mlx_obj(t_player *play, t_game *game)
 {
 	play->current_image.img = mlx_new_image(game->mlx.mlx_ptr,
 			game->map_info.window_width, game->map_info.window_height);
@@ -117,7 +118,7 @@ int	init_mlx_obj(t_player *play, t_game *game)
 	return (0);
 }
 
-int	raycasting(t_game *game)
+int		raycasting(t_game *game)
 {
 	int			x;
 	double		zbuffer[10000];
@@ -127,8 +128,7 @@ int	raycasting(t_game *game)
 	x = 0;
 	while (x < game->map_info.window_width)
 	{
-		game->player.camerax = (2 * x / (double)game->map_info.window_width) - 1;
-		define_deltadist(&(game->player));
+		define_deltadist(&(game->player), x, game);
 		define_side_dist(game);
 		search_wall(game, &(game->player));
 		get_line_length(game);
@@ -140,7 +140,7 @@ int	raycasting(t_game *game)
 	}
 	if (set_sprite_distance(game))
 		exit_error(game, "failed at sorting the sprites");
-	set_sprite(game, (zbuffer), (game->map_info.sprites), &(game->player));
+	set_sprite(game, zbuffer, game->map_info.sprites, &(game->player));
 	update_pos_view(game);
 	update_rotation(game);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 22:32:13 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/04/20 17:14:19 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/04/21 12:46:12 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	sprite_bubble_sort_1(t_sprite *sprite_tmp, t_sprite *sprite_prev,
 	}
 }
 
-int	sprite_bubble_sort(t_game *game)
+int		sprite_bubble_sort(t_game *game)
 {
 	int			unsorted;
 	t_sprite	*sprite_tmp;
@@ -69,7 +69,7 @@ double	get_ss_distance(double pos_x, double pos_y, int pos_sx, int pos_sy)
 		+ (pos_y - pos_sy) * (pos_y - pos_sy));
 }
 
-int	set_sprite_distance(t_game *game)
+int		set_sprite_distance(t_game *game)
 {
 	t_sprite	*sprite;
 
