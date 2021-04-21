@@ -236,6 +236,7 @@ void	check_user_position(t_game *game, char *str, int y);
 int		sprite_bubble_sort(t_game *game);
 double	get_ss_distance(double posx, double posy, int possx, int possy);
 int		set_sprite_distance(t_game *game);
+int		cross_quit(t_game *game);
 
 void		set_position(t_game *game, double x, double y);
 void		set_plane(t_game *game, double planex, double planey);
