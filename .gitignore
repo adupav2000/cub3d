@@ -1,0 +1,11 @@
+.vscode/
+cub3D
+*.a
+*.o
+*.bmp
+*.dylib
+*.swiftdoc
+*.swiftmodule
+built.zip
+built
+.DS_Store
